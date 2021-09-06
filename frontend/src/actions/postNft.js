@@ -1,6 +1,6 @@
 import axios from "axios";
 import {POST_NTF} from "./constants";
-
+//comit
 export const postNFT = (nft) => {
   console.log("ëntreeee")
   return async function (dispatch) {
