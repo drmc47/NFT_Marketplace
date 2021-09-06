@@ -35,7 +35,7 @@ export default function Login() {
   }
 
 
-  // //para login con google
+
   // const connect = async function () {
   //   if (window.ethereum) {
   //     await window.ethereum.request({ method: 'eth_requestAccounts' })
