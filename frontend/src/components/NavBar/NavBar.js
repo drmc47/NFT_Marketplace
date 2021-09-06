@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux' //ADD
 import logout from '../../actions/logout' //ADD
 import { Link } from 'react-router-dom'
@@ -91,7 +92,8 @@ export default function NavBar(props) {
 
   //ADD
   const handleLogout = () => {
-    dispatch(logout());
+    console.log('LOGGING OUT...')
+    dispatch(logout())
     setValue(0)
   }
 
@@ -107,6 +109,7 @@ export default function NavBar(props) {
     } else if (window.location.pathname === '/create' && value !== 4) {
       setValue(4)
     } else if (window.location.pathname === '/profile' && value !== 5) {
+
       setValue(5)
     }
   }, [value])

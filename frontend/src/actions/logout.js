@@ -1,5 +1,6 @@
-export default function logout(){
-    return {
-        type: 'LOGOUT'
-    }
+export default function logout() {
+  return {
+    type: 'LOGOUT',
+  }
 }
+
