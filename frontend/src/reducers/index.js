@@ -1,31 +1,36 @@
-import { GET_NTFs, SET_LOADING, IS_AUTORIZATED } from "../actions/constants";
+import { GET_NTFs, SET_LOADING, IS_AUTORIZATED } from '../actions/constants'
 
 const initialState = {
   allNFTs: [], // state of all NFTS from API openSea
   filtered: [], // contains array for make the filters
   loading: true, //  boolean for show a image when is loading. Set first : true
   userIsAuthenticated: [],
+  userLogged: null,
   page: 1,
   nftDetail: [],
   Nfts: [],
-  userLogged: null,
   filters: [],
-};
+}
 
 function getFilters(nfts) {
-  let f = [];
+  let f = []
 
   nfts.map((g) => {
     if (!f.includes(g.dappSlug)) {
-      f.push(g.dappSlug);
+      f.push(g.dappSlug)
     }
-  });
+  })
 
-  return f;
+  return f
 }
 
 function rootReducer(state = initialState, action) {
   switch (action.type) {
+    case 'LOGOUT':
+      return {
+        ...state,
+        userLogged: null,
+      }
     case GET_NTFs:
       return {
         ...state,
@@ -35,35 +40,35 @@ function rootReducer(state = initialState, action) {
         loading: false,
         Nfts: action.payload,
         filters: getFilters(action.payload),
-      };
+      }
     case IS_AUTORIZATED:
       return {
         ...state,
         userIsAuthenticated: action.payload,
-      };
+      }
     case SET_LOADING:
       return {
         ...state,
         loading: action.payload,
-      };
-    case "PAGE":
+      }
+    case 'PAGE':
       return {
         ...state,
         page: action.payload,
-      };
-    case "GET_NFT_BY_NAME":
+      }
+    case 'GET_NFT_BY_NAME':
       return {
         ...state,
         allNFTs: action.payload,
-      };
-    case "GET_NFT_BY_ID":
+      }
+    case 'GET_NFT_BY_ID':
       return {
         ...state,
         nftDetail: action.payload,
-      };
-    case "FILTER_BY_DES_ASC":
+      }
+    case 'FILTER_BY_DES_ASC':
       const ascDescFilter =
-        action.payload === "za"
+        action.payload === 'za'
           ? state.allNFTs.sort((a, b) => {
               // cat.name.charAt(0).toUpperCase()
               if (a.name !== null && a.name > b.name !== null) {
@@ -71,9 +76,9 @@ function rootReducer(state = initialState, action) {
                   a.name?.charAt(0).toLowerCase() <
                   b.name?.charAt(0).toLowerCase()
                 ) {
-                  return 1;
+                  return 1
                 } else {
-                  return -1;
+                  return -1
                 }
               }
             })
@@ -83,46 +88,69 @@ function rootReducer(state = initialState, action) {
                   a.name?.charAt(0).toLowerCase() >
                   b.name?.charAt(0).toLowerCase()
                 ) {
-                  return 1;
+                  return 1
                 } else {
-                  return -1;
+                  return -1
                 }
               }
-            });
+            })
 
-      console.log(ascDescFilter, "asi queda");
+      console.log(ascDescFilter, 'asi queda')
       return {
         ...state,
         allNFTs: [...ascDescFilter],
-      };
-    case "SORT_PRICE":
+      }
+    case 'SORT_PRICE':
       const priceFilter =
-        action.payload === "max"
+        action.payload === 'max'
           ? [...state.Nfts].sort(
               (b, a) => parseInt(a.price) - parseInt(b.price)
             )
           : [...state.Nfts].sort(
               (b, a) => parseInt(b.price) - parseInt(a.price)
-            );
-      console.log(priceFilter, priceFilter.length);
+            )
+      console.log(priceFilter, priceFilter.length)
       return {
         ...state,
         allNFTs: priceFilter,
-      };
-    case "FILTER_CATEGORIE":
-      const Nfts = state.Nfts;
+      }
+    case 'FILTER_CATEGORIE':
+      const Nfts = state.Nfts
       const filterCat =
-        action.payload === "All"
+        action.payload === 'All'
           ? Nfts
-          : Nfts.filter((i) => i.dappSlug === action.payload);
+          : Nfts.filter((i) => i.dappSlug === action.payload)
       return {
         ...state,
         allNFTs: filterCat,
-      };
-
+      }
+    case 'LOGIN_SUCCESS':
+      console.log('login payload =>', action.payload)
+      return {
+        ...state,
+        userLogged: action.payload,
+      }
+    case 'LOGOUT':
+      return {
+        ...state,
+        userLogged: null,
+      }
+    case 'SIGNUP_SUCCESS':
+      return {
+        ...state,
+        userLogged: {
+          email: action.payload.email,
+          firstName: action.payload.firstName,
+        },
+      }
+    case 'SIGNUP_ERROR':
+      return {
+        ...state,
+        userLogged: null,
+      }
     default:
-      return state;
+      return state
   }
 }
 
-export default rootReducer;
+export default rootReducer
