@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux' //ADD
 import logout from '../../actions/logout' //ADD
@@ -93,6 +94,7 @@ export default function NavBar(props) {
   const handleLogout = () => {
     console.log('LOGGING OUT...')
     dispatch(logout())
+    setValue(0)
   }
 
   useEffect(() => {
@@ -100,13 +102,14 @@ export default function NavBar(props) {
       setValue(0)
     } else if (window.location.pathname === '/categories' && value !== 1) {
       setValue(1)
-    } else if (window.location.pathname === '/create' && value !== 2) {
+    } else if (window.location.pathname === '/contact' && value !== 2) {
       setValue(2)
-    } else if (window.location.pathname === '/profile' && value !== 3) {
+    } else if (window.location.pathname === '/about' && value !== 3) {
       setValue(3)
-    } else if (window.location.pathname === '/contact' && value !== 4) {
+    } else if (window.location.pathname === '/create' && value !== 4) {
       setValue(4)
-    } else if (window.location.pathname === '/about' && value !== 5) {
+    } else if (window.location.pathname === '/profile' && value !== 5) {
+
       setValue(5)
     }
   }, [value])
@@ -138,6 +141,19 @@ export default function NavBar(props) {
                 to='/categories/all'
                 label='Categories'
               />
+              
+              <Tab
+                className={classes.tab}
+                component={Link}
+                to='/contact'
+                label='Contact'
+              />
+              <Tab
+                className={classes.tab}
+                component={Link}
+                to='/about'
+                label='About Us'
+              />
               {/* ADD */}
               {userLogged && (
                 <Tab
@@ -156,18 +172,6 @@ export default function NavBar(props) {
                   label='My Profile'
                 />
               )}
-              <Tab
-                className={classes.tab}
-                component={Link}
-                to='/contact'
-                label='Contact'
-              />
-              <Tab
-                className={classes.tab}
-                component={Link}
-                to='/about'
-                label='About Us'
-              />
             </Tabs>
             {/* ADD */}
             {userLogged ? (
