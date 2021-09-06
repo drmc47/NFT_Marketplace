@@ -1,4 +1,4 @@
-import { GET_NTFs, SET_LOADING, IS_AUTORIZATED } from "../actions/constants";
+import { GET_NTFs, SET_LOADING, IS_AUTORIZATED, TRANSACTION_METAMASK } from "../actions/constants";
 
 const initialState = {
   allNFTs: [], // state of all NFTS from API openSea
@@ -10,6 +10,7 @@ const initialState = {
   Nfts: [],
   userLogged: null,
   filters: [],
+  transactions: [],
 };
 
 function getFilters(nfts) {
@@ -119,7 +120,11 @@ function rootReducer(state = initialState, action) {
         ...state,
         allNFTs: filterCat,
       };
-
+    case TRANSACTION_METAMASK:
+        console.log("transactions:", state.transactions)
+      return {
+        ...state, transactions: action.payload,
+      };
     default:
       return state;
   }
