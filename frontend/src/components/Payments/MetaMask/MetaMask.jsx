@@ -4,8 +4,6 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import './MetaMask.css'
 import { TransactionMetaMask } from "../../../actions/MetaMaskTransaction";
-import MercadoPago from '../MercadoPago/MercadoPago';
-import Stripe from '../Stripe/Stripe';
 const Web3 = require('web3');
 const web3 = new Web3(window.ethereum);
 
@@ -131,42 +129,6 @@ const [metaMaskOption, setMetaMaskOption] = useState(true);
 </header> 
         </div>
       )}
-
-
-
-
-
-
-
-
-
-
-       {/* <NavBar /> */}
-{/* //       <header className="App-header">
-
-//         <div id="content">
-//           <span id="account">
-//           </span>
-//           <form onChange={(e) => handleInputChange(e)} onSubmit={(e) => handleSubmit(e)}>
-//             <br/> 
-//             <button id="verWallet"  name="myAddress" onClick={(e) => handleClick(e)}>Ver tu Address </button> <strong>{myAddress}</strong>
-//             <br/>
-//             <label>Address Recipient</label>
-//             <input type="text" name="transactionTo" placeholder="Quien recibe" value={transactionTo}/>
-
-//             <label>Cantidad</label>
-//             <input  type="number" name="moneyAmount" placeholder="Monto" value={moneyAmount} />
-           
-//             <button id="send" >
-//               Continuar
-//             </button>
-//           </form>
-//           <button onClick={() => dispatch(pay)}>
-//             Enviar
-//           </button>
-//         </div>
-
-//       </header> */}
     </div>
   );
 }

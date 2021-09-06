@@ -61,8 +61,6 @@ function Payments ()  {
         <div >
         </div>
       ) : (
-        
-          
         <div className="paymentOption">
             <Stripe/>
             <MercadoPago/>  
