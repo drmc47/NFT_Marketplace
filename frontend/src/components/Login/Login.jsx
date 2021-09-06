@@ -117,7 +117,7 @@ export default function Login() {
         <div className='LoginDiv'>
           <a href="http://localhost:8001/auth/google">go google</a>
             {signup ? 'Sign up' : 'Log in'} with Google
-          </a>
+       
           <div>
             <button
               onClick={handleSignup}
