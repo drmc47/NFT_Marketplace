@@ -5,7 +5,6 @@ import React, { useState } from 'react'
 import IsAutorize from '../../actions/IsAutorize'
 import { TextField, Button } from '@material-ui/core'
 import localLogin from "../../actions/login";
-const Web3 = require('web3');
 
 export default function Login() {
   const dispatch = useDispatch()
@@ -34,21 +33,6 @@ export default function Login() {
     // redirigir a donde el usuario estaba antes
   }
 
-
-
-  // const connect = async function () {
-  //   if (window.ethereum) {
-  //     await window.ethereum.request({ method: 'eth_requestAccounts' })
-  //     const web3 = new Web3(window.ethereum)
-  //   } else {
-  //     alert(' Please Install Metamask')
-  //     window.open(
-  //       'https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn',
-  //       '_blank'
-  //     )
-  //     /* window.location.href = "https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn"; */
-  //   }
-  // }
 
   return (
     <div className='App'>
@@ -93,10 +77,6 @@ export default function Login() {
         </form>
 
         <div className='LoginDiv'>
-          {/* <h3>Login with google or MetaMask acount</h3> */}
-          {/* <button id='connect' onClick={connect}>
-            MetaMask
-          </button> */}
           <button
             onClick={() => {
               dispatch(IsAutorize())

@@ -1,0 +1,163 @@
+.payments {
+
+        margin: 10px;
+        padding: 7px;
+        width: 130px;
+        background: rgba(19, 160, 89, 0.966);
+        border-radius: 7px;
+        font-size: 15px;
+        font-weight: bold; 
+    
+}
+
+.payments:hover {
+    cursor: pointer;
+    margin: 10px;
+    padding: 7px;
+    width: 130px;
+    background: rgba(15, 128, 71, 0.884);
+    border-radius: 7px;
+    font-size: 15px;
+    font-weight: bold; 
+}
+
+.paymentOption {
+    top: 50%;
+    left: 25%;
+    position: absolute;
+    z-index: 1000;
+    width: 500px;
+    height: 100px;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 5px 5px 60px rgba(0, 0, 0, 0.521);
+    border-radius: 7px;
+    transition: .3s ease all;
+    background: rgb(255, 255, 255);
+}
+
+/* .paymentOption .button {
+    margin-left: 5px;
+    margin-right: 5px;
+    padding: 7px;
+    width: 130px;
+} 
+
+ .paymentOption .button button {
+
+    background: rgba(19, 160, 89, 0.966);
+} */
+
+
+.card {
+	display: flex;
+	position: absolute;
+	top: 0%;
+	background: #fff;
+	border-radius: 10px;
+	box-shadow: 5px 5px 50px rgba(0,0,0,.20);
+	width: 80%;
+	z-index: 1000;
+	opacity: 0;
+	transition: .3s ease all;
+	transform: translateY(10px);
+}
+
+.card.active {
+	opacity: 1;
+	transform: translateY(0px);
+}
+
+.card .box {
+    width: 65%;
+}
+
+.card .box img {
+    width: 99%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px 0 0 10px;
+    vertical-align: top;
+}
+
+
+.card .info {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card .info .titulo {
+    color: #000000;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.card .info .intro {
+    color: #333333d3;
+    font-weight: bold;
+    font-size: 16px;
+    font-family: 'Roboto-Sans', sans-serif;
+    margin-bottom: 20px;
+}
+
+.card .info .resumen {
+    font-family: 'Roboto-Sans', sans-serif;
+    margin-bottom: 20px;
+    font-size: 17px;
+}
+
+
+.card .info button {
+    border: none;
+    background: rgba(65, 79, 209, 0.726);
+    font-weight: bold;
+    padding: 10px 20px;
+    width: 30%;
+    color: #fff;
+    border-radius: 50px;
+    font-family: 'Roboto-Sans', sans-serif;
+    cursor: pointer
+}
+
+.card .info button:hover {
+    background: #6284ce;
+}
+
+
+@media screen and (max-width: 768px) {
+	figcaption .tooltip {
+		font-size: 12px;
+	}
+
+	.tooltip .info button {
+		width: 100%;
+	}
+}
+
+@media screen and (max-width: 576px) {
+	figure .data {
+		margin-bottom: 40px;
+	}
+
+	figcaption .icon {
+		top: 32px;
+	}
+
+	.card {
+		position: static;
+		opacity: 1;
+		width: 100%;
+		transform: translate(0);
+	}
+
+	.card::after {
+		content: "";
+		display: none;
+	}
+}
