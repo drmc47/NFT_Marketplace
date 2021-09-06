@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux' //ADD
 import logout from '../../actions/logout' //ADD
 import { Link } from 'react-router-dom'
@@ -91,7 +91,8 @@ export default function NavBar(props) {
 
   //ADD
   const handleLogout = () => {
-    dispatch(logout)
+    console.log('LOGGING OUT...')
+    dispatch(logout())
   }
 
   useEffect(() => {

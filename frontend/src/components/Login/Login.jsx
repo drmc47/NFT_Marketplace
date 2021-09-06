@@ -1,7 +1,8 @@
 import NavBar from '../NavBar/NavBar'
 import './Login.module.css'
 import { useDispatch } from 'react-redux'
-import React, { useState, useHistory } from 'react'
+import { useHistory } from 'react-router'
+import React, { useState } from 'react'
 import { TextField, Button } from '@material-ui/core'
 import localLogin from '../../actions/login'
 import localSignup from '../../actions/signup'
@@ -9,7 +10,7 @@ const Web3 = require('web3')
 
 export default function Login() {
   const dispatch = useDispatch()
-  // const history = useHistory()
+  const history = useHistory()
   const [inputs, setInputs] = useState({ email: '', password: '' })
   const [fullName, setFullName] = useState({ firstName: '', lastName: '' })
   const [error, setError] = useState({ emailError: false, passError: false })
@@ -31,15 +32,16 @@ export default function Login() {
     })
   }
   function handleSubmit(e) {
+    console.log('Estos son los inputs al momento del login =>', inputs)
     e.preventDefault()
+    dispatch(localLogin(inputs))
     if (signup) {
       dispatch(localSignup({ ...inputs, ...fullName }))
-    } else {
-      dispatch(localLogin(inputs))
+      return
     }
     setInputs({ email: '', password: '' })
     setFullName({ firstName: '', lastName: '' })
-    // history.push('/')
+    history.push('/')
   }
 
   function handleSignup() {
@@ -138,7 +140,10 @@ export default function Login() {
           </a>
 
           <div>
-            <button onClick={handleSignup}>
+            <button
+              onClick={handleSignup}
+              disabled={!error.emailError && !error.passError ? false : true}
+            >
               {signup
                 ? 'Already have an account? Login'
                 : 'Are you new here? Create an account'}

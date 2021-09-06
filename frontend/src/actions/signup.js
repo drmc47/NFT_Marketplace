@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export default async function signup(payload) {
+export default async function localSignup(payload) {
     const response = await axios.post('localhost:8001/register', payload)
     if (response.error) {
         return {

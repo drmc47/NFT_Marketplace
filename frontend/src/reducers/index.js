@@ -120,6 +120,7 @@ function rootReducer(state = initialState, action) {
         allNFTs: filterCat,
       }
     case 'LOGIN_SUCCESS':
+      console.log('login payload =>', action.payload)
       return {
         ...state,
         userLogged: action.payload,
