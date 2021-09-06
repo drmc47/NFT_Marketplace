@@ -48,21 +48,6 @@ export default function Login() {
     setSignup(!signup)
   }
 
-  // //para login con google
-  // const connect = async function () {
-  //   if (window.ethereum) {
-  //     await window.ethereum.request({ method: 'eth_requestAccounts' })
-  //     const web3 = new Web3(window.ethereum)
-  //   } else {
-  //     alert(' Please Install Metamask')
-  //     window.open(
-  //       'https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn',
-  //       '_blank'
-  //     )
-  //     /* window.location.href = "https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn"; */
-  //   }
-  // }
-
   return (
     <div className='App'>
       <NavBar />
@@ -130,15 +115,9 @@ export default function Login() {
         </form>
 
         <div className='LoginDiv'>
-          {/* <h3>Login with google or MetaMask acount</h3> */}
-          {/* <button id='connect' onClick={connect}>
-            MetaMask
-          </button> */}
-
-          <a href='http://localhost:8001/auth/google'>
+          <a href="http://localhost:8001/auth/google">go google</a>
             {signup ? 'Sign up' : 'Log in'} with Google
-          </a>
-
+       
           <div>
             <button
               onClick={handleSignup}

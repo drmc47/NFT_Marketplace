@@ -6,9 +6,8 @@ const passport = require("passport");
 const { isLoggedIn } = require("../controllers/user/isLoggedIn");
 const { protected } = require("../controllers/apiGoogle/protected");
 
-const {
-  transactionMetaMask,
-} = require("../controllers/payments/crypto/transactionMetaMask");
+const { transactionMetaMask } = require("../controllers/payments/crypto/transactionMetaMask");
+
 const {
   searchProduct,
   createProduct,
