@@ -5,10 +5,10 @@ const initialState = {
   filtered: [], // contains array for make the filters
   loading: true, //  boolean for show a image when is loading. Set first : true
   userIsAuthenticated: [],
+  userLogged: null,
   page: 1,
   nftDetail: [],
   Nfts: [],
-  userLogged: null,
   filters: [],
   transactions: [],
 };
@@ -27,6 +27,11 @@ function getFilters(nfts) {
 
 function rootReducer(state = initialState, action) {
   switch (action.type) {
+    case 'LOGOUT':
+      return {
+        ...state,
+        userLogged: null,
+      }
     case GET_NTFs:
       return {
         ...state,
