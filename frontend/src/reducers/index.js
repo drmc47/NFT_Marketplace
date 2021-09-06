@@ -1,4 +1,4 @@
-import { GET_NTFs, SET_LOADING, IS_AUTORIZATED, TRANSACTION_METAMASK } from "../actions/constants";
+import { POST_NTF,GET_NTFs, SET_LOADING, IS_AUTORIZATED, TRANSACTION_METAMASK } from "../actions/constants";
 
 const initialState = {
   allNFTs: [], // state of all NFTS from API openSea
@@ -11,6 +11,7 @@ const initialState = {
   userLogged: null,
   filters: [],
   transactions: [],
+  categories:['superrare','art-blocks','decentraland','makersplace','rarible','godsunchained','autoglyphs','cryptokitties']
 };
 
 function getFilters(nfts) {
@@ -62,12 +63,16 @@ function rootReducer(state = initialState, action) {
         ...state,
         nftDetail: action.payload,
       };
+    case POST_NTF:
+      return {
+      ...state,
+      allNFTs:[state.allNFTs,action.payload],
+      };
     case "FILTER_BY_DES_ASC":
       const ascDescFilter =
         action.payload === "za"
           ? state.allNFTs.sort((a, b) => {
-              // cat.name.charAt(0).toUpperCase()
-              if (a.name !== null && a.name > b.name !== null) {
+             if (a.name !== null && a.name > b.name !== null) {
                 if (
                   a.name?.charAt(0).toLowerCase() <
                   b.name?.charAt(0).toLowerCase()
