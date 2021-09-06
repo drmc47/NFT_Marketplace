@@ -1,9 +1,9 @@
 import React from 'react';
-import NavBar from '../NavBar/NavBar';
+import NavBar from '../../NavBar/NavBar';
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import './payment.css'
-import { TransactionMetaMask } from "../../actions/MetaMaskTransaction";
+import './MetaMask.css'
+import { TransactionMetaMask } from "../../../actions/MetaMaskTransaction";
 const Web3 = require('web3');
 const web3 = new Web3(window.ethereum);
 
@@ -64,7 +64,6 @@ function PaymentMetaMask() {
     }
   }
 
-  
   const handleSubmit = async function(e) { 
     e.preventDefault();
     const dataTransaction = {
@@ -87,39 +86,49 @@ const pay = async function() {
     value: stateTransaction.moneyAmount,
   })
 }
-
+const [metaMaskOption, setMetaMaskOption] = useState(true);
   return (
     <div className="App">
-    <button> 
-    Pagar con Metamask
-    </button>
 
-      <NavBar />
-      <header className="App-header">
+<button className="button" type="button" onClick={() => setMetaMaskOption(!metaMaskOption)} >
+        {metaMaskOption ? 'Metamask' : 'Metamask'}
+      </button>
 
-        <div id="content">
-          <span id="account">
-          </span>
-          <form onChange={(e) => handleInputChange(e)} onSubmit={(e) => handleSubmit(e)}>
-            <br/> 
-            <button id="verWallet"  name="myAddress" onClick={(e) => handleClick(e)}>Ver tu Address </button> <strong>{myAddress}</strong>
-            <br/>
-            <label>Address Recipient</label>
-            <input type="text" name="transactionTo" placeholder="Quien recibe" value={transactionTo}/>
-
-            <label>Cantidad</label>
-            <input  type="number" name="moneyAmount" placeholder="Monto" value={moneyAmount} />
-           
-            <button id="send" >
-              Continuar
-            </button>
-          </form>
-          <button onClick={() => dispatch(pay)}>
-            Enviar
-          </button>
+      {metaMaskOption ? (
+        <div >
+        
         </div>
+      ) : (
+        
+        <div className="paymentOption">
 
-      </header>
+  <header className="App-header">
+
+<div id="content">
+  <span id="account">
+  </span>
+  <form onChange={(e) => handleInputChange(e)} onSubmit={(e) => handleSubmit(e)}>
+   <br/> 
+    <button id="verWallet"  name="myAddress" onClick={(e) => handleClick(e)}>Ver tu Address </button> <strong>{myAddress}</strong>
+    <br/>
+    <label>Address Recipient</label>
+    <input type="text" name="transactionTo" placeholder="Quien recibe" value={transactionTo}/>
+
+    <label>Cantidad</label>
+    <input  type="number" name="moneyAmount" placeholder="Monto" value={moneyAmount} />
+  
+    <button id="send" >
+      Continuar
+    </button>
+  </form>
+  <button onClick={() => dispatch(pay)}>
+    Enviar
+  </button>
+</div>
+
+</header> 
+        </div>
+      )}
     </div>
   );
 }
