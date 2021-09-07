@@ -21,7 +21,15 @@ function App() {
       <Switch>
         <Route exact path='/' component={Home}></Route>
         <Route path="/nft/:id" component={NftDetail}/>
+        <Route exact path='/categories' component={Categories}></Route>
         <Route exact path='/categories/all' component={Categories}></Route>
+        <Route exact path='/categories/superrare' component={Categories}></Route>
+        <Route exact path='/categories/makerplace' component={Categories}></Route>
+        <Route exact path='/categories/rarible' component={Categories}></Route>
+        <Route exact path='/categories/godsunchained' component={Categories}></Route>
+        <Route exact path='/categories/autoglyphs' component={Categories}></Route>
+        <Route exact path='/categories/cryptokitties' component={Categories}></Route>
+        <Route exact path='/categories/artblocks' component={Categories}></Route>
         <Route exact path='/create' component={Create}></Route>
         <Route exact path='/profile' component={Profile}></Route>
         <Route exact path='/contact' component={Contact}></Route>
