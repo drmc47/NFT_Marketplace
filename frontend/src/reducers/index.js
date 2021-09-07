@@ -1,113 +1,100 @@
-import { POST_NTF,GET_NTFs, SET_LOADING, IS_AUTORIZATED, TRANSACTION_METAMASK } from "../actions/constants";
-
+import {
+  GET_NFTs,
+  GET_NFT_BY_NAME,
+  GET_NFT_BY_ID,
+  FILTER_BY_NAME,
+  FILTER_BY_CATEGORY,
+  SORT_BY_PRICE,
+  POST_NFT,
+  IS_AUTHENTICATED,
+  TRANSACTION_METAMASK,
+  LOGIN_SUCCESS,
+  LOGOUT,
+  SIGNUP_SUCCESS,
+  SIGNUP_ERROR,
+} from '../actions/constants'
 
 const initialState = {
-  allNFTs: [], // state of all NFTS from API openSea
-  filtered: [], // contains array for make the filters
-  loading: true, //  boolean for show a image when is loading. Set first : true
+  allNFTs: [], // all NFTS from API openSea
+  filtered: [],
   userIsAuthenticated: [],
   userLogged: null,
-  page: 1,
   nftDetail: [],
   Nfts: [],
   filters: [],
   transactions: [],
-  categories:['superrare','art-blocks','decentraland','makersplace','rarible','godsunchained','autoglyphs','cryptokitties']
-};
+  categories: [
+    'superrare',
+    'art-blocks',
+    'decentraland',
+    'makersplace',
+    'rarible',
+    'godsunchained',
+    'autoglyphs',
+    'cryptokitties',
+  ],
+}
 
 function getFilters(nfts) {
   let f = []
 
-  nfts.map((g) => {
+  nfts.forEach((g) => {
     if (!f.includes(g.dappSlug)) {
       f.push(g.dappSlug)
     }
   })
-
   return f
 }
 
 function rootReducer(state = initialState, action) {
   switch (action.type) {
-    case 'LOGOUT':
+    case GET_NFTs:
       return {
         ...state,
-        userLogged: null,
-      }
-    case GET_NTFs:
-      return {
-        ...state,
-        page: 1,
         allNFTs: action.payload,
         filtered: action.payload,
-        loading: false,
         Nfts: action.payload,
         filters: getFilters(action.payload),
       }
-    case IS_AUTORIZATED:
-      return {
-        ...state,
-        userIsAuthenticated: action.payload,
-      }
-    case SET_LOADING:
-      return {
-        ...state,
-        loading: action.payload,
-      }
-    case 'PAGE':
-      return {
-        ...state,
-        page: action.payload,
-      }
-    case 'GET_NFT_BY_NAME':
+    case GET_NFT_BY_NAME:
       return {
         ...state,
         allNFTs: action.payload,
       }
-    case 'GET_NFT_BY_ID':
+    case GET_NFT_BY_ID:
       return {
         ...state,
         nftDetail: action.payload,
-      };
-    case POST_NTF:
-      return {
-      ...state,
-      allNFTs:[state.allNFTs,action.payload],
-      };
-    case "FILTER_BY_DES_ASC":
+      }
+    case FILTER_BY_NAME:
       const ascDescFilter =
         action.payload === 'za'
           ? state.allNFTs.sort((a, b) => {
-             if (a.name !== null && a.name > b.name !== null) {
-                if (
-                  a.name?.charAt(0).toLowerCase() <
-                  b.name?.charAt(0).toLowerCase()
-                ) {
-                  return 1
-                } else {
-                  return -1
-                }
-              }
+              if (
+                a.name?.charAt(0).toLowerCase() <
+                b.name?.charAt(0).toLowerCase()
+              )
+                return 1
+              return -1
             })
           : state.allNFTs.sort((a, b) => {
-              if (a.name !== null && b.name !== null) {
-                if (
-                  a.name?.charAt(0).toLowerCase() >
-                  b.name?.charAt(0).toLowerCase()
-                ) {
-                  return 1
-                } else {
-                  return -1
-                }
-              }
+              if (
+                a.name?.charAt(0).toLowerCase() >
+                b.name?.charAt(0).toLowerCase()
+              )
+                return 1
+              return -1
             })
-
-      console.log(ascDescFilter, 'asi queda')
       return {
         ...state,
         allNFTs: [...ascDescFilter],
       }
-    case 'SORT_PRICE':
+    case FILTER_BY_CATEGORY:
+      return {
+        ...state,
+        allNFTs: action.payload,
+      }
+    case SORT_BY_PRICE:
       const priceFilter =
         action.payload === 'max'
           ? [...state.Nfts].sort(
@@ -121,29 +108,32 @@ function rootReducer(state = initialState, action) {
         ...state,
         allNFTs: priceFilter,
       }
-    case 'FILTER_CATEGORIE':
+    case POST_NFT:
       return {
         ...state,
-        allNFTs: action.payload,
-      };
-    case TRANSACTION_METAMASK:
-        console.log("transactions:", state.transactions)
+        allNFTs: [state.allNFTs, action.payload],
+      }
+    case IS_AUTHENTICATED:
       return {
-        ...state, transactions: action.payload,
-      };
-      
-    case 'LOGIN_SUCCESS':
-      console.log('login payload =>', action.payload)
+        ...state,
+        userIsAuthenticated: action.payload,
+      }
+    case TRANSACTION_METAMASK:
+      return {
+        ...state,
+        transactions: action.payload,
+      }
+    case LOGIN_SUCCESS:
       return {
         ...state,
         userLogged: action.payload,
       }
-    case 'LOGOUT':
+    case LOGOUT:
       return {
         ...state,
         userLogged: null,
       }
-    case 'SIGNUP_SUCCESS':
+    case SIGNUP_SUCCESS:
       return {
         ...state,
         userLogged: {
@@ -151,12 +141,11 @@ function rootReducer(state = initialState, action) {
           firstName: action.payload.firstName,
         },
       }
-    case 'SIGNUP_ERROR':
+    case SIGNUP_ERROR:
       return {
         ...state,
         userLogged: null,
       }
-
     default:
       return state
   }
