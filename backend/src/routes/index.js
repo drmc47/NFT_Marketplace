@@ -6,13 +6,13 @@ const passport = require("passport");
 const { isLoggedIn } = require("../controllers/user/isLoggedIn");
 const { protected } = require("../controllers/apiGoogle/protected");
 const cors = require('cors');
-const corsOptions ={
-  origin:"http://localhost:3000", 
-  credentials:true,            //access-control-allow-credentials:true
-  optionSuccessStatus:200,
-}
 const { transactionMetaMask } = require("../controllers/payments/crypto/transactionMetaMask");
 const { StripePayment } = require("../controllers/payments/fiat/Stripe");
+const corsOptions = {
+  origin:"http://localhost:3000", 
+  credentials:true,
+  optionSuccessStatus:200
+}
 
 
 const {
@@ -33,10 +33,11 @@ router.get("/search", searchProduct);
 router.get("/nfts", getNFTs);
 router.get("/nft/:id", getProductById);
 router.post("/nft", createProduct);
-router.post("/transaction", transactionMetaMask);
+router.post("/transactionMetamask", transactionMetaMask);
+router.post('/transactionStripe', StripePayment);
 router.post('/auth/login', login);
 router.post('/register', register);
-router.post('/transactionStripe', StripePayment);
+
 router.put("/edit/:id", updateProductById);
 router.delete("/delete/:id", deleteProductById);
 
@@ -46,7 +47,6 @@ router.delete("/delete/:id", deleteProductById);
 // router.use('/google/callback',googleCallback)
 // router.use('/auth/failure', authFailure)
 router.use("/protected", isLoggedIn, protected);
-
 router.use(cors(corsOptions))
 
 module.exports = router;

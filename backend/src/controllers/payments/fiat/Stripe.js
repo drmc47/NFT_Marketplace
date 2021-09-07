@@ -1,37 +1,24 @@
 const Stripe = require('stripe');
-const cors = require('cors');
-
 const stripe = new Stripe("sk_test_51JW0tcIjGDmG2UQfViGd7rcWR8FxrqAZLlj4BOh6MPkag7pIGxLqAAi0KoUw446WyFv5cM0LEuhw4Y1h210hyfqm00UO1p7kG7");
-
 
 async function StripePayment (req, res){
 
-const corsOptions ={
-   origin:"http://localhost:3000", 
-   credentials:true,            //access-control-allow-credentials:true
-   optionSuccessStatus:200,
-}
-
- // Use this after the variable declaration
-
-//app.use(cors({origin: 'http://Localhost:3000'}))
-
- try{
-    const { id, amount } = req.body
+   try {
+    const { id, amount, currency, description } = req.body
     const payment =  await stripe.paymentIntents.create({
-        amount,
-        currency: "AUD",
-        description: "Sonic NFT",
-        payment_method: id,
-        confirm: true
+         payment_method: id,
+         amount: 10000,
+         currency: "USD",
+         description: "soy una compra de NFT",
+         confirm: true,
     });
 
-    console.log(req.body)
-    console.log(payment);
-    //res.send({message: 'Succesful payment'})
+      console.log(req.body)
+      console.log(payment);
     res.json(payment);
- } catch (err){
-    console.log(err);
+
+ } catch (error){
+    console.log(error);
     res.json({message: err.raw.message});
  }
 
