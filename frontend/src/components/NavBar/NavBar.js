@@ -88,6 +88,7 @@ export default function NavBar(props) {
   const handleClose = (e) => {
     setanchorEl(null)
     setopen(false)
+    setValue(1)
   }
 
   //ADD
@@ -102,6 +103,22 @@ export default function NavBar(props) {
       setValue(0)
     } else if (window.location.pathname === '/categories' && value !== 1) {
       setValue(1)
+    } else if (window.location.pathname === '/categories/all' && value !== 1) {
+      setValue(1)
+    } else if (window.location.pathname === '/categories/superrare' && value !== 1) {
+      setValue(1)
+    } else if (window.location.pathname === '/categories/artblocks' && value !== 1) {
+      setValue(1)
+    } else if (window.location.pathname === '/categories/makerplace' && value !== 1) {
+      setValue(1)
+    } else if (window.location.pathname === '/categories/rarible' && value !== 1) {
+      setValue(1)
+    } else if (window.location.pathname === '/categories/godsunchined' && value !== 1) {
+      setValue(1)
+    } else if (window.location.pathname === '/categories/autoglyphs' && value !== 1) {
+      setValue(1)
+    } else if (window.location.pathname === '/categories/cryptokitties' && value !== 1) {
+      setValue(1)
     } else if (window.location.pathname === '/contact' && value !== 2) {
       setValue(2)
     } else if (window.location.pathname === '/about' && value !== 3) {
@@ -109,9 +126,23 @@ export default function NavBar(props) {
     } else if (window.location.pathname === '/create' && value !== 4) {
       setValue(4)
     } else if (window.location.pathname === '/profile' && value !== 5) {
-
       setValue(5)
     }
+    // switch (window.location.pathname) {
+    //   case '/':
+    //     if(value !== 0) setValue(0)
+        
+    //   case '/categories':
+    //     if(value !== 1) setValue(0)
+    //   case '/contact':
+    //     if(value !== 2) setValue(2)
+    //   case '/about':
+    //     if(value !== 3) setValue(3)
+    //   case '/create':
+    //     if(value !== 4) setValue(4)
+    //   case '/profile':
+    //     if(value !== 5) {setValue(5)}
+    // }
   }, [value])
 
   return (
@@ -128,8 +159,7 @@ export default function NavBar(props) {
             >
               <Tab
                 className={classes.tab}
-                component={Link}
-                to='/'
+                component={Link} to='/'
                 label='Home'
               />
               <Tab
@@ -137,29 +167,25 @@ export default function NavBar(props) {
                 aria-haspopup={anchorEl ? true : undefined}
                 className={classes.tab}
                 onMouseOver={(e) => handleclick(e)}
-                component={Link}
-                to='/categories/all'
+                component={Link} to='/categories'
                 label='Categories'
               />
               
               <Tab
                 className={classes.tab}
-                component={Link}
-                to='/contact'
+                component={Link} to='/contact'
                 label='Contact'
               />
               <Tab
                 className={classes.tab}
-                component={Link}
-                to='/about'
+                component={Link} to='/about'
                 label='About Us'
               />
               {/* ADD */}
               {userLogged && (
                 <Tab
                   className={classes.tab}
-                  component={Link}
-                  to='/create'
+                  component={Link} to='/create'
                   label='Create'
                 />
               )}
@@ -167,8 +193,7 @@ export default function NavBar(props) {
               {userLogged && (
                 <Tab
                   className={classes.tab}
-                  component={Link}
-                  to='/profile'
+                  component={Link} to='/profile'
                   label='My Profile'
                 />
               )}
@@ -206,23 +231,15 @@ export default function NavBar(props) {
               elevation={3}
             >
               <MenuItem
-                onClick={() => {
-                  handleClose()
-                  setValue(1)
-                }}
-                component={Link}
-                to='/categories/all'
+                onClick={handleClose}
+                component={Link} to='/categories'
                 classes={{ root: classes.menuItem }}
               >
                 Categories
-              </MenuItem>
+              </MenuItem >
               <MenuItem
-                onClick={() => {
-                  handleClose()
-                  setValue(1)
-                }}
-                component={Link}
-                to='/categories/all'
+                onClick={handleClose}
+                component={Link} to='/categories/all'
                 classes={{ root: classes.menuItem }}
               >
                 All NFTS
@@ -230,14 +247,51 @@ export default function NavBar(props) {
               <MenuItem
                 onClick={handleClose}
                 classes={{ root: classes.menuItem }}
+                component={Link} to='/categories/superrare'
               >
-                Images
+                SuperRare
               </MenuItem>
               <MenuItem
                 onClick={handleClose}
                 classes={{ root: classes.menuItem }}
+                component={Link} to='/categories/artblocks'
               >
-                GIF
+                Art-Blocks
+              </MenuItem>
+              <MenuItem
+                onClick={handleClose}
+                classes={{ root: classes.menuItem }}
+                component={Link} to='/categories/makerplace'
+              >
+                MakerPlace
+              </MenuItem>
+              <MenuItem
+                onClick={handleClose}
+                classes={{ root: classes.menuItem }}
+                component={Link} to='/categories/rarible'
+              >
+                Rarible
+              </MenuItem>
+              <MenuItem
+                onClick={handleClose}
+                classes={{ root: classes.menuItem }}
+                component={Link} to='/categories/godsunchained'
+              >
+                GodSunchained
+              </MenuItem>
+              <MenuItem
+                onClick={handleClose}
+                classes={{ root: classes.menuItem }}
+                component={Link} to='/categories/autoglyphs'
+              >
+                AutoGlyphs
+              </MenuItem>
+              <MenuItem
+                onClick={handleClose}
+                classes={{ root: classes.menuItem }}
+                component={Link} to='/categories/cryptokitties'
+              >
+                Cryptokitties
               </MenuItem>
             </Menu>
           </ToolBar>
