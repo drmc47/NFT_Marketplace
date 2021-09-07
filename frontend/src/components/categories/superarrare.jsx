@@ -1,19 +1,19 @@
 import React, { useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getNFTs} from "../../actions/getNFTs.js";
 import { makeStyles } from '@material-ui/core/styles';
 import Cards from "../card/card.jsx"
 import Grid from '@material-ui/core/Grid';
 import Search from "../Search/Search.jsx"
+import { filterByCategories } from "../../actions/filterCategorie";
 
 const useStyles = makeStyles((theme) => ({
     
     gridContainer: {
-      marginTop: "40px"
+      marginTop: "30px"
     }
   }));
 
-export default function All() {
+export default function SuperRare() {
 
   const stateAllNFTs = useSelector((state) => state.allNFTs);
   console.log(stateAllNFTs)
@@ -21,7 +21,11 @@ export default function All() {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getNFTs());
+    dispatch(filterByCategories("superrare"));
+    //dispatch(loading(true))
+    // return () => {
+    //   dispatch(getNFTs());
+    // };
   }, [dispatch]);
 
  

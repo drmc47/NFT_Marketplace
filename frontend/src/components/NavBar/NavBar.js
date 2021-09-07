@@ -109,7 +109,7 @@ export default function NavBar(props) {
       setValue(1)
     } else if (window.location.pathname === '/categories/artblocks' && value !== 1) {
       setValue(1)
-    } else if (window.location.pathname === '/categories/makerplace' && value !== 1) {
+    } else if (window.location.pathname === '/categories/makersplace' && value !== 1) {
       setValue(1)
     } else if (window.location.pathname === '/categories/rarible' && value !== 1) {
       setValue(1)
@@ -261,9 +261,9 @@ export default function NavBar(props) {
               <MenuItem
                 onClick={handleClose}
                 classes={{ root: classes.menuItem }}
-                component={Link} to='/categories/makerplace'
+                component={Link} to='/categories/makersplace'
               >
-                MakerPlace
+                MakersPlace
               </MenuItem>
               <MenuItem
                 onClick={handleClose}
