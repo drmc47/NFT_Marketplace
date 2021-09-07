@@ -1,7 +1,7 @@
 function Stripe() {
     return (
         <div>
-            <button className="button">  Stripe</button>
+            <button className="button">  Stripe Hola</button>
         </div>
     )
 }
