@@ -122,14 +122,9 @@ function rootReducer(state = initialState, action) {
         allNFTs: priceFilter,
       }
     case 'FILTER_CATEGORIE':
-      const Nfts = state.Nfts
-      const filterCat =
-        action.payload === 'All'
-          ? Nfts
-          : Nfts.filter((i) => i.dappSlug === action.payload)
       return {
         ...state,
-        allNFTs: filterCat,
+        allNFTs: action.payload,
       };
     case TRANSACTION_METAMASK:
         console.log("transactions:", state.transactions)

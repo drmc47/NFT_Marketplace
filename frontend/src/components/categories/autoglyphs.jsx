@@ -5,6 +5,7 @@ import Cards from "../card/card.jsx"
 import Grid from '@material-ui/core/Grid';
 import Search from "../Search/Search.jsx"
 import { filterByCategories } from "../../actions/filterCategorie";
+import { getNFTs} from "../../actions/getNFTs.js";
 
 const useStyles = makeStyles((theme) => ({
     
@@ -22,6 +23,7 @@ export default function AutoGlyphs() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(filterByCategories("autoglyphs"));
+    
     //dispatch(loading(true))
     // return () => {
     //   dispatch(getNFTs());
