@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import {useState} from 'react'
 import { postNFT } from '../../actions/postNft'
 import {useDispatch} from 'react-redux'
 import { useSelector } from "react-redux"

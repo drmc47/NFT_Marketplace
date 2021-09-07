@@ -1,5 +1,5 @@
 import React from 'react';
-import {ThemeProvider} from "@material-ui/styles";
+import { ThemeProvider } from "@material-ui/styles";
 import theme from "./components/ui/Theme"
 import { Route, Switch } from 'react-router-dom';
 import Login from './components/Login/Login.jsx'
@@ -25,10 +25,10 @@ import './App.css';
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <NavBar/>
+      <NavBar />
       <Switch>
         <Route exact path='/' component={Home}></Route>
-        <Route path="/nft/:id" component={NftDetail}/>
+        <Route path="/nft/:id" component={NftDetail} />
         <Route exact path='/categories' component={Categories}></Route>
         <Route exact path='/categories/all' component={All}></Route>
         <Route exact path='/categories/superrare' component={SuperRare}></Route>

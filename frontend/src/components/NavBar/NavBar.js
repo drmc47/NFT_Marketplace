@@ -1,8 +1,7 @@
-
 import React, { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux' //ADD
-import logout from '../../actions/logout' //ADD
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import logout from '../../actions/logout'
 import AppBar from '@material-ui/core/AppBar'
 import ToolBar from '@material-ui/core/ToolBar'
 import useScrollTrigger from '@material-ui/core/useScrollTrigger'
@@ -16,9 +15,6 @@ import MenuItem from '@material-ui/core/MenuItem'
 
 function ElevationScroll(props) {
   const { children } = props
-  // Note that you normally won't need to set the window ref as useScrollTrigger
-  // will default to window.
-  // This is only being set here because the demo is in an iframe.
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     threshold: 0,
@@ -68,9 +64,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export default function NavBar(props) {
-  const dispatch = useDispatch() //ADD
-  const userLogged = useSelector((state) => state.userLogged) //ADD
+export default function NavBar() {
+  const dispatch = useDispatch()
+  const userLogged = useSelector((state) => state.userLogged)
   const classes = useStyles()
   const [value, setValue] = useState(0)
   const [anchorEl, setanchorEl] = useState(null)
@@ -91,9 +87,7 @@ export default function NavBar(props) {
     setValue(1)
   }
 
-  //ADD
   const handleLogout = () => {
-    console.log('LOGGING OUT...')
     dispatch(logout())
     setValue(0)
   }
@@ -105,19 +99,40 @@ export default function NavBar(props) {
       setValue(1)
     } else if (window.location.pathname === '/categories/all' && value !== 1) {
       setValue(1)
-    } else if (window.location.pathname === '/categories/superrare' && value !== 1) {
+    } else if (
+      window.location.pathname === '/categories/superrare' &&
+      value !== 1
+    ) {
       setValue(1)
-    } else if (window.location.pathname === '/categories/artblocks' && value !== 1) {
+    } else if (
+      window.location.pathname === '/categories/artblocks' &&
+      value !== 1
+    ) {
       setValue(1)
-    } else if (window.location.pathname === '/categories/makersplace' && value !== 1) {
+    } else if (
+      window.location.pathname === '/categories/makersplace' &&
+      value !== 1
+    ) {
       setValue(1)
-    } else if (window.location.pathname === '/categories/rarible' && value !== 1) {
+    } else if (
+      window.location.pathname === '/categories/rarible' &&
+      value !== 1
+    ) {
       setValue(1)
-    } else if (window.location.pathname === '/categories/godsunchined' && value !== 1) {
+    } else if (
+      window.location.pathname === '/categories/godsunchined' &&
+      value !== 1
+    ) {
       setValue(1)
-    } else if (window.location.pathname === '/categories/autoglyphs' && value !== 1) {
+    } else if (
+      window.location.pathname === '/categories/autoglyphs' &&
+      value !== 1
+    ) {
       setValue(1)
-    } else if (window.location.pathname === '/categories/cryptokitties' && value !== 1) {
+    } else if (
+      window.location.pathname === '/categories/cryptokitties' &&
+      value !== 1
+    ) {
       setValue(1)
     } else if (window.location.pathname === '/contact' && value !== 2) {
       setValue(2)
@@ -128,21 +143,6 @@ export default function NavBar(props) {
     } else if (window.location.pathname === '/profile' && value !== 5) {
       setValue(5)
     }
-    // switch (window.location.pathname) {
-    //   case '/':
-    //     if(value !== 0) setValue(0)
-        
-    //   case '/categories':
-    //     if(value !== 1) setValue(0)
-    //   case '/contact':
-    //     if(value !== 2) setValue(2)
-    //   case '/about':
-    //     if(value !== 3) setValue(3)
-    //   case '/create':
-    //     if(value !== 4) setValue(4)
-    //   case '/profile':
-    //     if(value !== 5) {setValue(5)}
-    // }
   }, [value])
 
   return (
@@ -159,7 +159,8 @@ export default function NavBar(props) {
             >
               <Tab
                 className={classes.tab}
-                component={Link} to='/'
+                component={Link}
+                to='/'
                 label='Home'
               />
               <Tab
@@ -167,38 +168,41 @@ export default function NavBar(props) {
                 aria-haspopup={anchorEl ? true : undefined}
                 className={classes.tab}
                 onMouseOver={(e) => handleclick(e)}
-                component={Link} to='/categories'
+                component={Link}
+                to='/categories'
                 label='Categories'
               />
-              
+
               <Tab
                 className={classes.tab}
-                component={Link} to='/contact'
+                component={Link}
+                to='/contact'
                 label='Contact'
               />
               <Tab
                 className={classes.tab}
-                component={Link} to='/about'
+                component={Link}
+                to='/about'
                 label='About Us'
               />
               {/* ADD */}
               {userLogged && (
                 <Tab
                   className={classes.tab}
-                  component={Link} to='/create'
+                  component={Link}
+                  to='/create'
                   label='Create'
                 />
               )}
-              {/* ADD */}
               {userLogged && (
                 <Tab
                   className={classes.tab}
-                  component={Link} to='/profile'
+                  component={Link}
+                  to='/profile'
                   label='My Profile'
                 />
               )}
             </Tabs>
-            {/* ADD */}
             {userLogged ? (
               <Button
                 component={Link}
@@ -232,14 +236,16 @@ export default function NavBar(props) {
             >
               <MenuItem
                 onClick={handleClose}
-                component={Link} to='/categories'
+                component={Link}
+                to='/categories'
                 classes={{ root: classes.menuItem }}
               >
                 Categories
-              </MenuItem >
+              </MenuItem>
               <MenuItem
                 onClick={handleClose}
-                component={Link} to='/categories/all'
+                component={Link}
+                to='/categories/all'
                 classes={{ root: classes.menuItem }}
               >
                 All NFTS
@@ -247,49 +253,56 @@ export default function NavBar(props) {
               <MenuItem
                 onClick={handleClose}
                 classes={{ root: classes.menuItem }}
-                component={Link} to='/categories/superrare'
+                component={Link}
+                to='/categories/superrare'
               >
                 SuperRare
               </MenuItem>
               <MenuItem
                 onClick={handleClose}
                 classes={{ root: classes.menuItem }}
-                component={Link} to='/categories/artblocks'
+                component={Link}
+                to='/categories/artblocks'
               >
                 Art-Blocks
               </MenuItem>
               <MenuItem
                 onClick={handleClose}
                 classes={{ root: classes.menuItem }}
-                component={Link} to='/categories/makersplace'
+                component={Link}
+                to='/categories/makersplace'
               >
                 MakersPlace
               </MenuItem>
               <MenuItem
                 onClick={handleClose}
                 classes={{ root: classes.menuItem }}
-                component={Link} to='/categories/rarible'
+                component={Link}
+                to='/categories/rarible'
               >
                 Rarible
               </MenuItem>
               <MenuItem
                 onClick={handleClose}
                 classes={{ root: classes.menuItem }}
-                component={Link} to='/categories/godsunchained'
+                component={Link}
+                to='/categories/godsunchained'
               >
                 GodSunchained
               </MenuItem>
               <MenuItem
                 onClick={handleClose}
                 classes={{ root: classes.menuItem }}
-                component={Link} to='/categories/autoglyphs'
+                component={Link}
+                to='/categories/autoglyphs'
               >
                 AutoGlyphs
               </MenuItem>
               <MenuItem
                 onClick={handleClose}
                 classes={{ root: classes.menuItem }}
-                component={Link} to='/categories/cryptokitties'
+                component={Link}
+                to='/categories/cryptokitties'
               >
                 Cryptokitties
               </MenuItem>
@@ -299,16 +312,5 @@ export default function NavBar(props) {
       </ElevationScroll>
       <div className={classes.toolbarMargin} />
     </React.Fragment>
-
-    // <header className={style.navBar}>
-    //     <nav>
-    //         <ul className={style.list}>
-    //             <li className={style.list_item}>
-    //                 <NavLink exact to="/" >HOME</NavLink>
-    //                 <NavLink exact to="/Login" >Login</NavLink>
-    //             </li>
-    //         </ul>
-    //     </nav>
-    // </header>
   )
 }

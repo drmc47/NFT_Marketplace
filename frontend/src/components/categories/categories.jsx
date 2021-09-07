@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getNFTs} from "../../actions/getNFTs.js";
 import { makeStyles } from '@material-ui/core/styles';
@@ -22,10 +22,6 @@ export default function Categories() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getNFTs());
-    //dispatch(loading(true))
-    // return () => {
-    //   dispatch(getNFTs());
-    // };
   }, [dispatch]);
 
  
@@ -36,13 +32,13 @@ export default function Categories() {
           <Grid container spacing={6}  className={classes.gridContainer}>
               {
                   stateAllNFTs  ? stateAllNFTs.map(ele => {
-                    if(ele !== null) {
-                      return (
+                    return (
+                      ele !== null && (
                         <div>
-                            <Cards ele={ele} />
+                          <Cards ele={ele} />
                         </div>
+                      )
                     )
-                    }
 
                   }) : <h1>Loading</h1>
               }

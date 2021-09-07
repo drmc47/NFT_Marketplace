@@ -6,7 +6,6 @@ import React, { useState } from 'react'
 import { TextField, Button } from '@material-ui/core'
 import localLogin from '../../actions/login'
 import localSignup from '../../actions/signup'
-const Web3 = require('web3')
 
 export default function Login() {
   const dispatch = useDispatch()
@@ -116,8 +115,8 @@ export default function Login() {
 
         <div className='LoginDiv'>
           <a href="http://localhost:8001/auth/google">go google</a>
-            {signup ? 'Sign up' : 'Log in'} with Google
-       
+          {signup ? 'Sign up' : 'Log in'} with Google
+
           <div>
             <button
               onClick={handleSignup}
