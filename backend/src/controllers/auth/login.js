@@ -14,12 +14,9 @@ function login(req, res, next) {
   authenticate(async (authError, user) => {
     try {
       if (authError) {
-        // console.log('HOLA JUAN CALoo')
         res.status(401).send(authError);
       } else {
         const loggedUser = await loginUser(req, user);
-        // console.log('Logged user', loggedUser)
-        // console.log('user => ', user);
         res.send(loggedUser);
       }
     } catch (e) {
