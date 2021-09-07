@@ -40,9 +40,6 @@ router.post('/register', register);
 
 router.put("/edit/:id", updateProductById);
 router.delete("/delete/:id", deleteProductById);
-
-router.put("/edit/:id", updateProductById);
-router.delete("/delete/:id", deleteProductById);
 // router.use('/auth/google',isAuthenticated)
 // router.use('/google/callback',googleCallback)
 // router.use('/auth/failure', authFailure)
