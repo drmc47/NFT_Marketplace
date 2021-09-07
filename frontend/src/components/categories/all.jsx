@@ -32,14 +32,13 @@ export default function All() {
           <Grid container spacing={6}  className={classes.gridContainer}>
               {
                   stateAllNFTs  ? stateAllNFTs.map(ele => {
-                    if(ele !== null) {
-                      return (
+                    return (
+                      ele !== null && (
                         <div>
-                            <Cards ele={ele} />
+                          <Cards ele={ele} />
                         </div>
+                      )
                     )
-                    }
-
                   }) : <h1>Loading</h1>
               }
           </Grid>
