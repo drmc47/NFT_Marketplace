@@ -21,7 +21,7 @@ const initialState = {
   userLogged: null,
   nftDetail: [],
   Nfts: [],
-  filters: [],
+  filters: ['Funny', 'Animals', 'Sport', 'Music','Cute', 'Abstract art','Utopy'],
   transactions: [],
   categories: [
     'superrare',
@@ -35,17 +35,6 @@ const initialState = {
   ],
 }
 
-function getFilters(nfts) {
-  let f = []
-
-  nfts.forEach((g) => {
-    if (!f.includes(g.dappSlug)) {
-      f.push(g.dappSlug)
-    }
-  })
-  return f
-}
-
 function rootReducer(state = initialState, action) {
   switch (action.type) {
     case GET_NFTs:
@@ -54,7 +43,6 @@ function rootReducer(state = initialState, action) {
         allNFTs: action.payload,
         filtered: action.payload,
         Nfts: action.payload,
-        filters: getFilters(action.payload),
       }
     case GET_NFT_BY_NAME:
       return {
