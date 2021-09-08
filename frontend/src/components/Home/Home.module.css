@@ -1,8 +1,16 @@
 .container {
+    margin-top: 3rem;
     display: grid;
     justify-content:center;
     justify-items: center;
     align-items: center;
     gap: 50px;
+}
+
+.title {
+    width: 40px;
+    margin-top: 8rem;
+    margin-right: 10rem;
+    margin-left: 8rem;
 }
 

@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import sortByAbc from "../../actions/sortByAbc";
 import { sortByPrice } from "../../actions/sortByPrice";
 import { filterByCategories } from "../../actions/filterCategorie";
+import CollectionHome from "../collectionhome/collectionhome.jsx"
 import Cards from "../card/card.jsx"
 import Grid from '@material-ui/core/Grid';
 
@@ -42,8 +43,12 @@ export default function Home() {
         className={style.back1}
       >
         <div className={style.container}>
-          <h1> Welcome to NFTs-ECOMMERCE</h1>
-          <Search />
+          <Grid container spacing={6}>
+          <div className={style.title}
+          ><h1>Explore The NFTs Universe</h1></div>
+          <CollectionHome/>
+          </Grid>
+          {/* <Search /> */}
           <label htmlFor="">Filters/ Orders</label>
           {/* //ORDENAR POR ABC */}
           <select onChange={(e) => filterAscDesc(e)}>
