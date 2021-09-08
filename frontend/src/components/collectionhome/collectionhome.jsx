@@ -9,7 +9,7 @@ import style from "../collectionhome/collectionhome.module.css";
 export default function ColectionHome() {
 
     const stateAllNFTs = useSelector((state) => state.allNFTs);
-const selected = stateAllNFTs.slice(140,146)
+const selected = stateAllNFTs.slice(14,20)
 const dispatch = useDispatch();
 
 useEffect(() => {
