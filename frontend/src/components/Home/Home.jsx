@@ -8,6 +8,7 @@ import sortByAbc from "../../actions/sortByAbc";
 import { sortByPrice } from "../../actions/sortByPrice";
 import { filterByCategories } from "../../actions/filterCategorie";
 import CollectionHome from "../collectionhome/collectionhome.jsx"
+import ImageSlider from "../slider/slider"
 import Cards from "../card/card.jsx"
 import Grid from '@material-ui/core/Grid';
 
@@ -48,6 +49,7 @@ export default function Home() {
           ><h1>Explore The NFTs Universe</h1></div>
           <CollectionHome/>
           </Grid>
+         
           {/* <Search /> */}
           <label htmlFor="">Filters/ Orders</label>
           {/* //ORDENAR POR ABC */}
@@ -70,7 +72,6 @@ export default function Home() {
             <option value="max">Max</option>
             <option value="min">Min</option>
           </select>
-
           <Grid container spacing={6}>
             {stateAllNFTs.length > 0 ? (
               stateAllNFTs.map((ele) => (
