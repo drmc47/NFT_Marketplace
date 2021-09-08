@@ -6,12 +6,14 @@ import AppBar from '@material-ui/core/AppBar'
 import ToolBar from '@material-ui/core/ToolBar'
 import useScrollTrigger from '@material-ui/core/useScrollTrigger'
 import Typography from '@material-ui/core/Typography'
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/styles'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 import Button from '@material-ui/core/Button'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
+import {useTheme} from '@material-ui/core/styles'
 
 function ElevationScroll(props) {
   const { children } = props
@@ -53,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
   },
   menu: {
     backgroundColor: theme.palette.common.green,
-    color: 'white',
+    // color: 'white',
   },
   menuItem: {
     ...theme.typography.tab,
@@ -65,12 +67,14 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 export default function NavBar() {
-  const dispatch = useDispatch()
-  const userLogged = useSelector((state) => state.userLogged)
-  const classes = useStyles()
-  const [value, setValue] = useState(0)
-  const [anchorEl, setanchorEl] = useState(null)
-  const [open, setopen] = useState(false)
+  const dispatch = useDispatch();
+  const userLogged = useSelector((state) => state.userLogged);
+  const classes = useStyles();
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down('sm'));
+  const [value, setValue] = useState(0);
+  const [anchorEl, setanchorEl] = useState(null);
+  const [open, setopen] = useState(false);
 
   const handleChange = (e, value) => {
     setValue(value)
@@ -145,13 +149,9 @@ export default function NavBar() {
     }
   }, [value])
 
-  return (
+  const tabs = (
     <React.Fragment>
-      <ElevationScroll>
-        <AppBar position='fixed'>
-          <ToolBar>
-            <Typography variant='h5'>NFT MARKET</Typography>
-            <Tabs
+      <Tabs
               value={value}
               className={classes.tabContainer}
               onChange={handleChange}
@@ -175,8 +175,7 @@ export default function NavBar() {
 
               <Tab
                 className={classes.tab}
-                component={Link}
-                to='/contact'
+                component={Link} to='/contact'
                 label='Contact'
               />
               <Tab
@@ -203,28 +202,6 @@ export default function NavBar() {
                 />
               )}
             </Tabs>
-            {userLogged ? (
-              <Button
-                component={Link}
-                to='/'
-                onClick={handleLogout}
-                variant='contained'
-                color='secondary'
-                className={classes.button}
-              >
-                Logout
-              </Button>
-            ) : (
-              <Button
-                component={Link}
-                to='/login'
-                variant='contained'
-                color='secondary'
-                className={classes.button}
-              >
-                Login
-              </Button>
-            )}
             <Menu
               id='categoriesMenu'
               anchorEl={anchorEl}
@@ -307,6 +284,38 @@ export default function NavBar() {
                 Cryptokitties
               </MenuItem>
             </Menu>
+            {userLogged ? (
+              <Button
+                component={Link}
+                to='/'
+                onClick={handleLogout}
+                variant='contained'
+                color='secondary'
+                className={classes.button}
+              >
+                Logout
+              </Button>
+            ) : (
+              <Button
+                component={Link}
+                to='/login'
+                variant='contained'
+                color='secondary'
+                className={classes.button}
+              >
+                Login
+              </Button>
+            )}
+    </React.Fragment>
+  )
+
+  return (
+    <React.Fragment>
+      <ElevationScroll>
+        <AppBar position='fixed'>
+          <ToolBar>
+            <Typography variant='h5'>NFT MARKET</Typography>
+            {matches? null : tabs}
           </ToolBar>
         </AppBar>
       </ElevationScroll>
