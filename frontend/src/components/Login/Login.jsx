@@ -33,11 +33,12 @@ export default function Login() {
   function handleSubmit(e) {
     console.log("Estos son los inputs al momento del login =>", inputs);
     e.preventDefault();
+    dispatch(localLogin(inputs));
     if (signup) {
       dispatch(localSignup({ ...inputs, ...fullName }));
+      history.push("/");
       return;
     }
-    dispatch(localLogin(inputs));
     setInputs({ email: "", password: "" });
     setFullName({ firstName: "", lastName: "" });
     history.push("/");
@@ -114,7 +115,7 @@ export default function Login() {
         </form>
 
         <div className="LoginDiv">
-          <a href="http://localhost:8001/auth/google">go google</a>
+          <a href="http://localhost:8001/auth/google"> google</a>
           {signup ? "Sign up" : "Log in"} with Google
           <div>
             <button
