@@ -19,9 +19,9 @@ export default function Home() {
 
   useEffect(() => {
     dispatch(getNFTs());
-    return () => {
-      dispatch(getNFTs());
-    };
+    // return () => {
+    //   dispatch(getNFTs());
+    // };
   }, [dispatch]);
 
   const filterAscDesc = (e) => {

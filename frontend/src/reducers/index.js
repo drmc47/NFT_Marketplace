@@ -23,16 +23,7 @@ const initialState = {
   Nfts: [],
   filters: ['Funny', 'Animals', 'Sport', 'Music','Cute', 'Abstract art','Utopy'],
   transactions: [],
-  categories: [
-    'superrare',
-    'art-blocks',
-    'decentraland',
-    'makersplace',
-    'rarible',
-    'godsunchained',
-    'autoglyphs',
-    'cryptokitties',
-  ],
+  categories: [],
 }
 
 function rootReducer(state = initialState, action) {
@@ -80,7 +71,7 @@ function rootReducer(state = initialState, action) {
     case FILTER_BY_CATEGORY:
       return {
         ...state,
-        allNFTs: action.payload,
+        categories: action.payload,
       }
     case SORT_BY_PRICE:
       const priceFilter =

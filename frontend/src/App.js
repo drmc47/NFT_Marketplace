@@ -8,13 +8,13 @@ import Error from './components/Error/Error.jsx'
 import NavBar from './components/NavBar/NavBar.js'
 import Categories from './components/categories/categories.jsx'
 import All from './components/categories/all.jsx'
-import SuperRare from './components/categories/superarrare.jsx'
-import MakersPlace from './components/categories/makersplace.jsx'
-import Rarible from './components/categories/rarible.jsx'
-import GodSunchained from './components/categories/godsunchained.jsx'
-import AutoGlyphs from './components/categories/autoglyphs.jsx'
-import Cryptokitties from './components/categories/cryptokitties.jsx'
-import Artblocks from './components/categories/artblocks.jsx'
+import Funny from './components/categories/Funny.jsx'
+import Animals from './components/categories/Animals.jsx'
+import Sport from './components/categories/Sport.jsx'
+import Music from './components/categories/Music.jsx'
+import Cute from './components/categories/Cute.jsx'
+import Abstractart from './components/categories/Abstractart.jsx'
+import Utopy from './components/categories/Utopy.jsx'
 import Create from './components/create/create.jsx'
 import Profile from './components/profile/profile.jsx'
 import Contact from './components/contact/contact.jsx'
@@ -31,13 +31,13 @@ function App() {
         <Route path="/nft/:id" component={NftDetail} />
         <Route exact path='/categories' component={Categories}></Route>
         <Route exact path='/categories/all' component={All}></Route>
-        <Route exact path='/categories/superrare' component={SuperRare}></Route>
-        <Route exact path='/categories/makersplace' component={MakersPlace}></Route>
-        <Route exact path='/categories/rarible' component={Rarible}></Route>
-        <Route exact path='/categories/godsunchained' component={GodSunchained}></Route>
-        <Route exact path='/categories/autoglyphs' component={AutoGlyphs}></Route>
-        <Route exact path='/categories/cryptokitties' component={Cryptokitties}></Route>
-        <Route exact path='/categories/artblocks' component={Artblocks}></Route>
+        <Route exact path='/categories/funny' component={Funny}></Route>
+        <Route exact path='/categories/animals' component={Animals}></Route>
+        <Route exact path='/categories/sport' component={Sport}></Route>
+        <Route exact path='/categories/music' component={Music}></Route>
+        <Route exact path='/categories/cute' component={Cute}></Route>
+        <Route exact path='/categories/abstractart' component={Abstractart}></Route>
+        <Route exact path='/categories/utopy' component={Utopy}></Route>
         <Route exact path='/create' component={Create}></Route>
         <Route exact path='/profile' component={Profile}></Route>
         <Route exact path='/contact' component={Contact}></Route>
