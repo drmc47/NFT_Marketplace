@@ -104,37 +104,37 @@ export default function NavBar() {
     } else if (window.location.pathname === '/categories/all' && value !== 1) {
       setValue(1)
     } else if (
-      window.location.pathname === '/categories/superrare' &&
+      window.location.pathname === '/categories/funny' &&
       value !== 1
     ) {
       setValue(1)
     } else if (
-      window.location.pathname === '/categories/artblocks' &&
+      window.location.pathname === '/categories/animals' &&
       value !== 1
     ) {
       setValue(1)
     } else if (
-      window.location.pathname === '/categories/makersplace' &&
+      window.location.pathname === '/categories/sport' &&
       value !== 1
     ) {
       setValue(1)
     } else if (
-      window.location.pathname === '/categories/rarible' &&
+      window.location.pathname === '/categories/music' &&
       value !== 1
     ) {
       setValue(1)
     } else if (
-      window.location.pathname === '/categories/godsunchined' &&
+      window.location.pathname === '/categories/cute' &&
       value !== 1
     ) {
       setValue(1)
     } else if (
-      window.location.pathname === '/categories/autoglyphs' &&
+      window.location.pathname === '/categories/abstractart' &&
       value !== 1
     ) {
       setValue(1)
     } else if (
-      window.location.pathname === '/categories/cryptokitties' &&
+      window.location.pathname === '/categories/utopy' &&
       value !== 1
     ) {
       setValue(1)
@@ -231,57 +231,57 @@ export default function NavBar() {
                 onClick={handleClose}
                 classes={{ root: classes.menuItem }}
                 component={Link}
-                to='/categories/superrare'
+                to='/categories/funny'
               >
-                SuperRare
+                Funny
               </MenuItem>
               <MenuItem
                 onClick={handleClose}
                 classes={{ root: classes.menuItem }}
                 component={Link}
-                to='/categories/artblocks'
+                to='/categories/animals'
               >
-                Art-Blocks
+                Animals
               </MenuItem>
               <MenuItem
                 onClick={handleClose}
                 classes={{ root: classes.menuItem }}
                 component={Link}
-                to='/categories/makersplace'
+                to='/categories/sport'
               >
-                MakersPlace
+                Sport
               </MenuItem>
               <MenuItem
                 onClick={handleClose}
                 classes={{ root: classes.menuItem }}
                 component={Link}
-                to='/categories/rarible'
+                to='/categories/music'
               >
-                Rarible
+                Music
               </MenuItem>
               <MenuItem
                 onClick={handleClose}
                 classes={{ root: classes.menuItem }}
                 component={Link}
-                to='/categories/godsunchained'
+                to='/categories/cute'
               >
-                GodSunchained
+                Cute
               </MenuItem>
               <MenuItem
                 onClick={handleClose}
                 classes={{ root: classes.menuItem }}
                 component={Link}
-                to='/categories/autoglyphs'
+                to='/categories/abstractart'
               >
-                AutoGlyphs
+                Abstract art
               </MenuItem>
               <MenuItem
                 onClick={handleClose}
                 classes={{ root: classes.menuItem }}
                 component={Link}
-                to='/categories/cryptokitties'
+                to='/categories/utopy'
               >
-                Cryptokitties
+                Utopy
               </MenuItem>
             </Menu>
             {userLogged ? (

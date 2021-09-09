@@ -4,10 +4,13 @@ export function filterByCategories(payload) {
   return async function (dispatch) {
     try {
       let response = await axios.get("http://localhost:8001/nfts");
-      const filterCat =
-      payload === 'all'
-        ? response.data
-        : response.data.filter((i) => i.category === payload);
+      // if(payload === "all") {
+      //   let filterCat = response.data
+      // } else {
+      //   let filterCat = response.data.filter((i) => i.categories === payload);
+      // }
+      const filterCat = await payload === 'all' ? response.data
+        : response.data.filter((i) => i.categories === payload);
         console.log(payload);
         console.log(filterCat);
       return dispatch({

@@ -19,7 +19,7 @@ function validateNft(nft){
 
     const dispatch=useDispatch();
     const [errorsFromNft,setErrorsFromNft]=useState({})
-    const categories=useSelector(state=>state.categories)
+    const categories=useSelector(state=>state.filters)
    
    
     const [nft, setNft] = useState({

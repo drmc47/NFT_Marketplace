@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Cards from "../card/card.jsx"
 import Grid from '@material-ui/core/Grid';
 import Search from "../Search/Search.jsx"
-import { filterByCategories } from "../../actions/filterCategorie";
+import { getNFTs} from "../../actions/getNFTs.js";
 
 const useStyles = makeStyles((theme) => ({
     
@@ -13,20 +13,15 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 
-export default function Cryptokitties() {
-
-  const stateAllNFTs = useSelector((state) => state.allNFTs);
-  console.log(stateAllNFTs)
-
+export default function Cute() {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(filterByCategories("cryptokitties"));
-    //dispatch(loading(true))
-    // return () => {
-    //   dispatch(getNFTs());
-    // };
+    dispatch(getNFTs());
   }, [dispatch]);
+
+  const stateAllNFTs = useSelector((state) => state.allNFTs);
+  const filtered = stateAllNFTs.filter((i) => i.categories === "Cute");
 
  
     const classes = useStyles();
@@ -35,7 +30,7 @@ export default function Cryptokitties() {
           <Search></Search>
           <Grid container spacing={6}  className={classes.gridContainer}>
               {
-                  stateAllNFTs  ? stateAllNFTs.map(ele => {
+                  filtered  ? filtered.map(ele => {
                     return (
                       ele !== null && (
                         <div>
