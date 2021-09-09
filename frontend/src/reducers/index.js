@@ -1,3 +1,4 @@
+import swal from 'sweetalert';
 import {
   GET_NFTs,
   GET_NFT_BY_NAME,
@@ -12,6 +13,8 @@ import {
   LOGOUT,
   SIGNUP_SUCCESS,
   SIGNUP_ERROR,
+  ADD_SHOPPING_TROLLEY,
+  CONECT_LS,
 } from "../actions/constants";
 
 const initialState = {
@@ -32,6 +35,7 @@ const initialState = {
   ],
   transactions: [],
   categories: [],
+  shoppingTrolley: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -57,21 +61,21 @@ function rootReducer(state = initialState, action) {
       const ascDescFilter =
         action.payload === "za"
           ? state.allNFTs.sort((a, b) => {
-              if (
-                a.name?.charAt(0).toLowerCase() <
-                b.name?.charAt(0).toLowerCase()
-              )
-                return 1;
-              return -1;
-            })
+            if (
+              a.name?.charAt(0).toLowerCase() <
+              b.name?.charAt(0).toLowerCase()
+            )
+              return 1;
+            return -1;
+          })
           : state.allNFTs.sort((a, b) => {
-              if (
-                a.name?.charAt(0).toLowerCase() >
-                b.name?.charAt(0).toLowerCase()
-              )
-                return 1;
-              return -1;
-            });
+            if (
+              a.name?.charAt(0).toLowerCase() >
+              b.name?.charAt(0).toLowerCase()
+            )
+              return 1;
+            return -1;
+          });
       return {
         ...state,
         allNFTs: [...ascDescFilter],
@@ -85,11 +89,11 @@ function rootReducer(state = initialState, action) {
       const priceFilter =
         action.payload === "max"
           ? [...state.Nfts].sort(
-              (b, a) => parseInt(a.price) - parseInt(b.price)
-            )
+            (b, a) => parseInt(a.price) - parseInt(b.price)
+          )
           : [...state.Nfts].sort(
-              (b, a) => parseInt(b.price) - parseInt(a.price)
-            );
+            (b, a) => parseInt(b.price) - parseInt(a.price)
+          );
       console.log(priceFilter, priceFilter.length);
       return {
         ...state,
@@ -133,6 +137,58 @@ function rootReducer(state = initialState, action) {
         ...state,
         userLogged: null,
       };
+    case ADD_SHOPPING_TROLLEY:
+      const myStorage = window.localStorage;
+      let getmyStorage = myStorage.getItem('user')
+      let parsLocal = JSON.parse(getmyStorage)
+      swal({
+        title: "¡God Job!",
+        text: "¡ Your NFT was successfully added to favorites !",
+        icon: "success",
+        button: "OK!",
+        timer: 2000
+      })
+      if (!parsLocal) {
+        myStorage.setItem('user', JSON.stringify(state.shoppingTrolley.concat(action.payload)));
+        return {
+          ...state,
+          shoppingTrolley: state.shoppingTrolley.concat(JSON.parse(myStorage.getItem('user')))
+        }
+      }
+      if (parsLocal) {
+        console.log("parsLocal", parsLocal)
+        let productAction = action.payload._id
+        let isrepeat = parsLocal.map(e => e._id).includes(productAction)
+        console.log("isrepeat", isrepeat)
+
+        if (isrepeat) {
+          return swal({
+            title: "¡ Sorry =( !",
+            text: "¡ This NFT already exists in your shopping cart !",
+            icon: "warning",
+            button: "OK!",
+            timer: 2000
+          })
+        } else {
+          let local = JSON.parse(myStorage.setItem('user', JSON.stringify(JSON.parse(window.localStorage.getItem('user')).concat(action.payload))));
+          return {
+            ...state,
+            shoppingTrolley: local
+          }
+        }
+      }
+    case CONECT_LS:
+      if (!window.localStorage.getItem('user')) {
+        return {
+          ...state,
+          shoppingTrolley: state.shoppingTrolley
+        }
+      } else {
+        return {
+          ...state,
+          shoppingTrolley: JSON.parse(window.localStorage.getItem('user'))
+        }
+      }
     default:
       return state;
   }
