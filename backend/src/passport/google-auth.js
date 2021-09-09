@@ -20,12 +20,15 @@ passport.use(new GoogleStrategy(
       callbackURL: "http://localhost:8001/auth/google/callback"
     },
     async (_accessToken, _refreshToken, profile, done) => {
+      console.log(profile)
         try {
             const user = await User.findOne({googleID : profile.id}); // si el usuario no existe 
             if (!user) {
               let newUser = new User();
+                  newUser.username = profile.displayName.replace(' ', '').toLowerCase() + '@nftmarketplace.com'
                   newUser.googleID = profile.id
-                  newUser.firstName = profile.displayName //SISI YA SE QUE TRAE FIRST Y LAST NAME PERO ES LO QUE HAY
+                  newUser.firstName = profile.name.givenName
+                  newUser.lastName = profile.name.familyName
                   newUser.profilePic = profile.photos[0].value
                   await newUser.save() //guardamos en la base de datos
                   return done(null, newUser)
