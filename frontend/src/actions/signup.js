@@ -1,11 +1,11 @@
 import axios from "axios";
 import { SIGNUP_SUCCESS } from "./constants";
 
-export default function localSignup(userInfo) {
+export default function localSignup(payload) {
   return async function (dispatch) {
     console.log("acaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
     return await axios
-      .post("http://localhost:8001/register", userInfo)
+      .post("http://localhost:8001/register", payload)
       .then((data) => {
         console.log("data", data.data);
         dispatch({
@@ -16,7 +16,7 @@ export default function localSignup(userInfo) {
   };
   // console.log("acaaaaaaaaaaaaaaa");
   // return function (dispatch) {
-  //   return axios.post("localhost:8001/register", userInfo).then((data) => {
+  //   return axios.post("localhost:8001/register", payload).then((data) => {
   //     console.log(data, "dataaaa");
   //     dispatch({ type: SIGNUP_SUCCESS, payload: data.data });
   //   });

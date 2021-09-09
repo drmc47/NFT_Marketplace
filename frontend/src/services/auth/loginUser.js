@@ -6,8 +6,8 @@ const loginUser = async (user) => {
       username: user.email,
       password: user.password,
     });
-    console.log("data de loginUser =>", data);
-    return data;
+    console.log("data de loginUser =>", data.data);
+    return data.data;
   } catch (error) {
     return null;
   }
