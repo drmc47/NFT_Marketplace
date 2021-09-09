@@ -9,6 +9,7 @@ const db = mongoose.connection;
 mongoose.connect(uri, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
+        useCreateIndex: true
 })
 
 db.once('open', _=> {
@@ -19,4 +20,3 @@ db.on('error', err => {
         console.log(err);
 })
 
-//probando el merge por consola
