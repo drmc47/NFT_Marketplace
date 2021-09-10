@@ -8,24 +8,25 @@ import './contact.css'
 
 export default function Contact() {
     const dispatch = useDispatch();
+/*     useEffect(() => {
+        dispatch(getOrderShoppingCart())
+     }, [dispatch]) */
     
     const handleCartClick = function () {
-        useEffect(() => {
-            dispatch(getOrderShoppingCart())
-         }, [dispatch])
+        dispatch(getOrderShoppingCart())
         }
 
         const allProductsCart = useSelector(state => state.shoppingCart)
         console.log("info desde el reducer", allProductsCart)
-        // const misProductos = allProductsCart[0].items.map(e => e)
+        const misProductos = allProductsCart[0]?.items.map(e => e)
 
     return(
         <div>
-            <button onClick={() => dispatch(handleCartClick())}>
+            <button onClick={() => handleCartClick()}>
                 Mostrar carrito
             </button>
             <ShoppingCart/>
-{/*             
+            
     
                 <div className="divOrder">
                     <h6>Nombre</h6>
@@ -37,16 +38,16 @@ export default function Contact() {
             <div className="divOrder">
 
                 <div className="divData">
-                    <h5>{misProductos[0].name}</h5>
+                    <h5>{misProductos? misProductos[0].name : null}</h5>
                 </div>
                 <div className="divData">
-                    <h5>{misProductos[0].owner}</h5>
+                    <h5>{misProductos? misProductos[0].owner : null}</h5>
                 </div>
                 <div className="divData">
-                    <img src={misProductos[0].image} width="80px" height="80px" />
+                    <img src={misProductos? misProductos[0].image : null} width="80px" height="80px" />
                 </div>
                 <div className="divData">
-                    <h4>{misProductos[0].price}</h4>
+                    <h4>{misProductos? misProductos[0].price : null}</h4>
                 </div>
                 <div className="divData">
                     <h4>Quitar</h4>
@@ -55,22 +56,22 @@ export default function Contact() {
 
             <div className="divOrder">
                 <div className="divData">
-                    <h5>{misProductos[1].name}</h5>
+                    <h5>{misProductos? misProductos[1].name : null}</h5>
                 </div>
                 <div className="divData">
-                    <h5>{misProductos[1].owner}</h5>
+                    <h5>{misProductos? misProductos[1].owner : null}</h5>
                 </div>
                 <div className="divData">
-                    <img src={misProductos[1].image} width="80px" height="80px" />
+                    <img src={misProductos? misProductos[1].image : null} width="80px" height="80px" />
                 </div>
                 <div className="divData">
-                    <h4>{misProductos[1].price}</h4>
+                    <h4>{misProductos? misProductos[1].price : null}</h4>
                 </div>
                 <div className="divData">
                     <h4>Quitar</h4>
                 </div>
             </div>
-                <Payments/> */}
+                <Payments/>
         
         </div>
     )
