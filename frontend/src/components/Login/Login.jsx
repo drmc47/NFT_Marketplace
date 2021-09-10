@@ -5,7 +5,7 @@ import { TextField, Button } from '@material-ui/core'
 import localLogin from '../../actions/login'
 
 export default function Login({ invalidEmail, handleChange, handleSubmit }) {
-  const [inputs, setInputs] = useState({ email: '', password: '' })
+  const [inputs, setInputs] = useState({ username: '', password: '' })
 
   return (
     <div className='App'>
@@ -21,11 +21,11 @@ export default function Login({ invalidEmail, handleChange, handleSubmit }) {
           <div>
             <TextField
               onChange={(e) => handleChange(e, inputs, setInputs)}
-              error={inputs.email && invalidEmail(inputs.email)}
-              id='email'
-              name='email'
+              error={inputs.username && invalidEmail(inputs.username)}
+              id='username'
+              name='username'
               label='E-mail'
-              value={inputs.email}
+              value={inputs.username}
               variant='outlined'
             />
           </div>
@@ -45,7 +45,9 @@ export default function Login({ invalidEmail, handleChange, handleSubmit }) {
             <Button
               variant='contained'
               color='primary'
-              disabled={invalidEmail(inputs.email) && !inputs.password.length}
+              disabled={
+                invalidEmail(inputs.username) && !inputs.password.length
+              }
               type='submit'
             >
               Login

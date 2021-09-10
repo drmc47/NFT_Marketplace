@@ -10,7 +10,7 @@ export default function Signup({
   handleSubmit,
 }) {
   const [inputs, setInputs] = useState({
-    email: '',
+    username: '',
     firstName: '',
     lastName: '',
     password: '',
@@ -24,24 +24,17 @@ export default function Signup({
           action=''
           noValidate
           autoComplete='off'
-          onSubmit={(e) =>
-            handleSubmit(e, localSignup, {
-              username: inputs.username,
-              email: inputs.email,
-              password: inputs.password,
-            })
-          }
+          onSubmit={(e) => handleSubmit(e, localSignup, inputs)}
         >
           <div>
             <TextField
               onChange={(e) => handleChange(e, inputs, setInputs)}
-              error={inputs.email && invalidEmail(inputs.email)}
-              id='email'
-              name='email'
+              error={inputs.username && invalidEmail(inputs.username)}
+              id='username'
+              name='username'
               label='E-mail'
-              value={inputs.email}
+              value={inputs.username}
               variant='outlined'
-              //   helperText={invalidEmail(inputs.email) && 'Provide a valid email'}
             />
           </div>
           <div>
