@@ -2,30 +2,26 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getNFTs } from "../../actions/getNFTs.js";
 import style from "../Home/Home.module.css";
-import Search from "../Search/Search";
-import { Link } from "react-router-dom";
+// import Search from "../Search/Search";
 import sortByAbc from "../../actions/sortByAbc";
 import { sortByPrice } from "../../actions/sortByPrice";
 import { filterByCategories } from "../../actions/filterCategorie";
 import CollectionHome from "../collectionhome/collectionhome.jsx"
 import ImageSlider from "../slider/slider"
-import Cards from "../card/card.jsx"
 import Grid from '@material-ui/core/Grid';
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-import { conectLS } from "../../actions/conectLS.js";
-import { addShoppingTrolley } from "../../actions/addShoppingTrolley";
+
 
 export default function Home() {
   const filters = useSelector((state) => state.filters);
   const stateAllNFTs = useSelector((state) => state.allNFTs);
   const dispatch = useDispatch();
-  const handleClick = (ele)=>{
+  // const handleClick = (ele)=>{
 
-    dispatch(addShoppingTrolley(ele));
-  }
+  //   dispatch(addShoppingTrolley(ele));
+  // }
   useEffect(() => {
     dispatch(getNFTs());
-    dispatch(conectLS())
+    // dispatch(conectLS())
     // return () => {
     //   dispatch(getNFTs());
     // };
