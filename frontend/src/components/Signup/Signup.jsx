@@ -1,15 +1,20 @@
 import NavBar from '../NavBar/NavBar'
-import './Login.module.css'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router'
 import React, { useState } from 'react'
 import { TextField, Button } from '@material-ui/core'
-import localLogin from '../../actions/login'
+import localSignup from '../../actions/signup'
 
-export default function Login({ validateEmail }) {
+export default function Signup({ validateEmail }) {
   const dispatch = useDispatch()
   const history = useHistory()
-  const [inputs, setInputs] = useState({ email: '', password: '' })
+
+  const [inputs, setInputs] = useState({
+    username: '',
+    email: '',
+    password: '',
+    passwordConfirmation: '',
+  })
   const [error, setError] = useState({ emailError: false, passError: false })
 
   function handleChange(e) {
@@ -19,20 +24,21 @@ export default function Login({ validateEmail }) {
       passError: !inputs.password.length,
     })
   }
-
   function handleSubmit(e) {
-    console.log('Estos son los inputs al momento del login =>', inputs)
     e.preventDefault()
-    dispatch(localLogin(inputs))
-    setInputs({ email: '', password: '' })
+    dispatch(localSignup(inputs))
+    setInputs({
+      username: '',
+      email: '',
+      password: '',
+      passwordConfirmation: '',
+    })
     history.push('/')
   }
-
   return (
     <div className='App'>
       <NavBar />
       <header className='App-header'>
-        <h1>Login</h1>
         <form action='' noValidate autoComplete='off' onSubmit={handleSubmit}>
           <div>
             <TextField
@@ -49,12 +55,32 @@ export default function Login({ validateEmail }) {
           <div>
             <TextField
               onChange={(e) => handleChange(e)}
+              id='username'
+              name='username'
+              label='Username'
+              value={inputs.username}
+              variant='outlined'
+            />
+          </div>
+          <div>
+            <TextField
+              onChange={(e) => handleChange(e)}
               id='password'
               name='password'
               label='Password'
               value={inputs.password}
               variant='outlined'
               type='password'
+            />
+          </div>
+          <div>
+            <TextField
+              onChange={(e) => handleChange(e)}
+              id='passwordValidation'
+              name='passwordValidation'
+              label='Confirm password'
+              value={inputs.passwordValidation}
+              variant='outlined'
             />
           </div>
 
@@ -65,13 +91,13 @@ export default function Login({ validateEmail }) {
               disabled={!error.emailError && !error.passError ? false : true}
               type='submit'
             >
-              Login
+              Sign up
             </Button>
           </div>
         </form>
 
         <div className='LoginDiv'>
-          <a href='http://localhost:8001/auth/google'>Log in with Google</a>
+          <a href='http://localhost:8001/auth/google'>Signup with Google</a>
         </div>
       </header>
     </div>
