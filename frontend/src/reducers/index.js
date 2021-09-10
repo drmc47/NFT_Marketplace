@@ -15,6 +15,7 @@ import {
   SIGNUP_ERROR,
   ADD_SHOPPING_TROLLEY,
   CONECT_LS,
+  GET_CATEGORIES
 } from "../actions/constants";
 
 const initialState = {
@@ -25,13 +26,13 @@ const initialState = {
   nftDetail: [],
   Nfts: [],
   filters: [
-    "Funny",
-    "Animals",
-    "Sport",
-    "Music",
-    "Cute",
-    "Abstract art",
-    "Utopy",
+  //   "Funny",
+  //   "Animals",
+  //   "Sport",
+  //   "Music",
+  //   "Cute",
+  //   "Abstract art",
+  //   "Utopy",
   ],
   transactions: [],
   categories: [],
@@ -191,6 +192,11 @@ function rootReducer(state = initialState, action) {
           ...state,
           shoppingTrolley: JSON.parse(window.localStorage.getItem('user'))
         }
+      }
+    case GET_CATEGORIES:
+      return{
+        ...state,
+        filters:state.filters.concat(payload)
       }
     default:
       return state;
