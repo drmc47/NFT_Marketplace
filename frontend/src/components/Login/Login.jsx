@@ -6,19 +6,22 @@ import React, { useState } from 'react'
 import { TextField, Button } from '@material-ui/core'
 import localLogin from '../../actions/login'
 
-export default function Login({ validateEmail }) {
+export default function Login({ validateEmail, errors, handleChange }) {
   const dispatch = useDispatch()
   const history = useHistory()
   const [inputs, setInputs] = useState({ email: '', password: '' })
-  const [error, setError] = useState({ emailError: false, passError: false })
+  // const [error, setError] = useState({ emailError: false, passError: false })
 
-  function handleChange(e) {
-    setInputs({ ...inputs, [e.target.name]: e.target.value })
-    setError({
-      emailError: validateEmail(inputs.email).error,
-      passError: !inputs.password.length,
-    })
-  }
+  // function handleChange(e) {
+  //   setInputs({ ...inputs, [e.target.name]: e.target.value })
+  //   // setError({
+  //   //   emailError: validateEmail(inputs.email).error,
+  //   //   passError: !inputs.password.length,
+  //   // })
+  //   if (validateEmail(inputs.email)) {
+  //     errors.email = 'Insert a valid email'
+  //   }
+  // }
 
   function handleSubmit(e) {
     console.log('Estos son los inputs al momento del login =>', inputs)
@@ -36,19 +39,20 @@ export default function Login({ validateEmail }) {
         <form action='' noValidate autoComplete='off' onSubmit={handleSubmit}>
           <div>
             <TextField
-              onChange={(e) => handleChange(e)}
-              error={error.emailError}
+              onChange={(e) => handleChange(e, inputs, setInputs)}
+              error={validateEmail(inputs.email)}
               id='email'
               name='email'
               label='E-mail'
               value={inputs.email}
               variant='outlined'
-              helperText={validateEmail(inputs.email)?.message}
+              // helperText={validateEmail(inputs.email)?.message}
+              helperText={errors?.email}
             />
           </div>
           <div>
             <TextField
-              onChange={(e) => handleChange(e)}
+              onChange={(e) => handleChange(e, inputs, setInputs)}
               id='password'
               name='password'
               label='Password'
@@ -62,7 +66,7 @@ export default function Login({ validateEmail }) {
             <Button
               variant='contained'
               color='primary'
-              disabled={!error.emailError && !error.passError ? false : true}
+              // disabled={!error.emailError && !error.passError ? false : true}
               type='submit'
             >
               Login

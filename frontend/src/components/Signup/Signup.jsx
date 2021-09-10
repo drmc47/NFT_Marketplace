@@ -5,7 +5,11 @@ import React, { useState } from 'react'
 import { TextField, Button } from '@material-ui/core'
 import localSignup from '../../actions/signup'
 
-export default function Signup({ validateEmail }) {
+export default function Signup({
+  validateEmail,
+  validatePassword,
+  handleChange,
+}) {
   const dispatch = useDispatch()
   const history = useHistory()
 
@@ -17,13 +21,6 @@ export default function Signup({ validateEmail }) {
   })
   const [error, setError] = useState({ emailError: false, passError: false })
 
-  function handleChange(e) {
-    setInputs({ ...inputs, [e.target.name]: e.target.value })
-    setError({
-      emailError: validateEmail(inputs.email).error,
-      passError: !inputs.password.length,
-    })
-  }
   function handleSubmit(e) {
     e.preventDefault()
     dispatch(localSignup(inputs))
@@ -42,7 +39,7 @@ export default function Signup({ validateEmail }) {
         <form action='' noValidate autoComplete='off' onSubmit={handleSubmit}>
           <div>
             <TextField
-              onChange={(e) => handleChange(e)}
+              onChange={(e) => handleChange(e, inputs, setInputs)}
               error={error.emailError}
               id='email'
               name='email'
@@ -54,7 +51,7 @@ export default function Signup({ validateEmail }) {
           </div>
           <div>
             <TextField
-              onChange={(e) => handleChange(e)}
+              onChange={(e) => handleChange(e, inputs, setInputs)}
               id='username'
               name='username'
               label='Username'
@@ -64,7 +61,7 @@ export default function Signup({ validateEmail }) {
           </div>
           <div>
             <TextField
-              onChange={(e) => handleChange(e)}
+              onChange={(e) => handleChange(e, inputs, setInputs)}
               id='password'
               name='password'
               label='Password'
@@ -75,12 +72,13 @@ export default function Signup({ validateEmail }) {
           </div>
           <div>
             <TextField
-              onChange={(e) => handleChange(e)}
+              onChange={(e) => handleChange(e, inputs, setInputs)}
               id='passwordValidation'
               name='passwordValidation'
               label='Confirm password'
               value={inputs.passwordValidation}
               variant='outlined'
+              type='password'
             />
           </div>
 

@@ -1,11 +1,10 @@
 import loginUser from '../services/auth/loginUser'
 
 export default function localLogin(payload) {
-
   return async function (dispatch) {
     const response = await loginUser(payload)
-    if (response.data) {
-      const user = response.data
+    if (response) {
+      const user = response
       dispatch({
         type: 'LOGIN_SUCCESS',
         payload: user,

@@ -21,7 +21,15 @@ const initialState = {
   userLogged: null,
   nftDetail: [],
   Nfts: [],
-  filters: ['Funny', 'Animals', 'Sport', 'Music','Cute', 'Abstract art','Utopy'],
+  filters: [
+    'Funny',
+    'Animals',
+    'Sport',
+    'Music',
+    'Cute',
+    'Abstract art',
+    'Utopy',
+  ],
   transactions: [],
   categories: [],
 }
@@ -113,11 +121,12 @@ function rootReducer(state = initialState, action) {
         userLogged: null,
       }
     case SIGNUP_SUCCESS:
+      console.log('signup action en reducer, ', action.payload)
       return {
         ...state,
         userLogged: {
-          email: action.payload.email,
-          firstName: action.payload.firstName,
+          token: action.payload.token,
+          username: action.payload.username,
         },
       }
     case SIGNUP_ERROR:

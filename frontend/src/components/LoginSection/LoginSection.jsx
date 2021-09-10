@@ -5,19 +5,24 @@ import Signup from '../Signup/Signup'
 export default function LoginSection() {
   const [signup, setSignup] = useState(false)
 
-  const validateEmail = (input) => {
-    return {
-      error: !/\S+@\S+\.\S+/.test(input),
-      message: !/\S+@\S+\.\S+/.test(input) ? 'Please enter a valid email' : '',
-    }
+  const errors = {}
+  const validateEmail = (input) => !/\S+@\S+\.\S+/.test(input)
+  const validatePassword = (input) => !/(?=.*[0-9])/.test(input)
+
+  function handleChange(e, state, setState) {
+    setState({ ...state, [e.target.name]: e.target.value })
   }
 
   return (
     <div>
       {signup ? (
-        <Signup validateEmail={validateEmail} />
+        <Signup
+          validateEmail={validateEmail}
+          handleChange={handleChange}
+          validatePassword={validatePassword}
+        />
       ) : (
-        <Login validateEmail={validateEmail} />
+        <Login validateEmail={validateEmail} handleChange={handleChange} />
       )}
 
       <div>
