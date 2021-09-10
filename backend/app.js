@@ -8,6 +8,8 @@ const session = require("express-session");
 const passport = require("passport");
 const routes = require("./src/routes/index");
 const cors = require("cors");
+const verifyToken = require('./src/controllers/middlewares/verifyToken');
+
 
 //INSTANCIA DE EXPRESS
 const server = express();
@@ -44,6 +46,7 @@ server.use(cookieParser());
 server.use(morgan("dev"));
 server.use(passport.initialize());
 server.use(passport.session());
+server.use('/profile', verifyToken)
 
 server.use("/", routes);
 

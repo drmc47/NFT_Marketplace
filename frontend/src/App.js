@@ -29,6 +29,7 @@ function App() {
       <Switch>
         <Route exact path='/' component={Home}></Route>
         <Route path="/nft/:id" component={NftDetail} />
+        <Route path="/categories/nft/:id" component={NftDetail} />
         <Route exact path='/categories' component={Categories}></Route>
         <Route exact path='/categories/all' component={All}></Route>
         <Route exact path='/categories/funny' component={Funny}></Route>

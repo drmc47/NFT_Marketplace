@@ -2,25 +2,26 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getNFTs } from "../../actions/getNFTs.js";
 import style from "../Home/Home.module.css";
-import Search from "../Search/Search";
-import { Link } from "react-router-dom";
+// import Search from "../Search/Search";
 import sortByAbc from "../../actions/sortByAbc";
 import { sortByPrice } from "../../actions/sortByPrice";
 import { filterByCategories } from "../../actions/filterCategorie";
 import CollectionHome from "../collectionhome/collectionhome.jsx"
 import ImageSlider from "../slider/slider"
-import Cards from "../card/card.jsx"
 import Grid from '@material-ui/core/Grid';
-import { conectLS } from "../../actions/conectLS.js";
+
 
 export default function Home() {
   const filters = useSelector((state) => state.filters);
   const stateAllNFTs = useSelector((state) => state.allNFTs);
   const dispatch = useDispatch();
+  // const handleClick = (ele)=>{
 
+  //   dispatch(addShoppingTrolley(ele));
+  // }
   useEffect(() => {
     dispatch(getNFTs());
-    dispatch(conectLS())
+    // dispatch(conectLS())
     // return () => {
     //   dispatch(getNFTs());
     // };
@@ -41,21 +42,19 @@ export default function Home() {
   };
 
   return (
-    <div>
-      <div
-        className={style.back1}
-      >
-        <div className={style.container}>
+    <React.Fragment>
+       
           <Grid container spacing={6}>
-          <div className={style.title}
-          ><h1>Explore The NFTs Universe</h1></div>
-          <CollectionHome/>
+            <div className={style.title}
+            ><h1>Explore The NFTs Universe</h1></div>
+            <CollectionHome />
           </Grid>
-         
+          <ImageSlider/>
+        
           {/* <Search /> */}
-          <label htmlFor="">Filters/ Orders</label>
+          {/* <label htmlFor="">Filters/ Orders</label> */}
           {/* //ORDENAR POR ABC */}
-          <select onChange={(e) => filterAscDesc(e)}>
+          {/* <select onChange={(e) => filterAscDesc(e)}>
             <option value="">Asc-Desc</option>
             <option value="az">A-Z</option>
             <option value="za">Z-A</option>
@@ -81,14 +80,15 @@ export default function Home() {
                   <Link to={`nft/${ele._id}`}>
                     <Cards ele={ele} />
                   </Link>
+                  <AddShoppingCartIcon
+                    onClick={() => handleClick(ele)}
+                  />
                 </div>
               ))
             ) : (
               <p>loading...</p>
             )}
-          </Grid>
-        </div>
-      </div>
-    </div>
+          </Grid> */}
+      </React.Fragment>
   );
 }
