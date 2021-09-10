@@ -25,15 +25,7 @@ const initialState = {
   userLogged: null,
   nftDetail: [],
   Nfts: [],
-  filters: [
-  //   "Funny",
-  //   "Animals",
-  //   "Sport",
-  //   "Music",
-  //   "Cute",
-  //   "Abstract art",
-  //   "Utopy",
-  ],
+  filters: [],
   transactions: [],
   categories: [],
   shoppingTrolley: [],
@@ -196,7 +188,7 @@ function rootReducer(state = initialState, action) {
     case GET_CATEGORIES:
       return{
         ...state,
-        filters:state.filters.concat(payload)
+        filters:state.filters.concat(action.payload)
       }
     default:
       return state;

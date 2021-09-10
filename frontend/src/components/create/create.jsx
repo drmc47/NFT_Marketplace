@@ -1,8 +1,10 @@
+import React, { useEffect } from "react";
 import {useState} from 'react'
 import { postNFT } from '../../actions/postNft'
 import {useDispatch} from 'react-redux'
 import { useSelector } from "react-redux"
 import { Link } from 'react-router-dom'
+import { getCategories } from '../../actions/getCategories'
 
 
 //categorias
@@ -16,11 +18,15 @@ function validateNft(nft){
     
         return errorsNft;
     }
-
+    
     const dispatch=useDispatch();
     const [errorsFromNft,setErrorsFromNft]=useState({})
     const categories=useSelector(state=>state.filters)
-   
+    console.log("soyyyy create",categories)
+    useEffect(() => {
+        dispatch(getCategories())
+    }, [dispatch]);
+    
    
     const [nft, setNft] = useState({
         name:"",
