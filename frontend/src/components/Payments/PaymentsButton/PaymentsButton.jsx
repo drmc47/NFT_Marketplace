@@ -9,18 +9,16 @@ function Payments() {
 
   return (
     <div>
-      <button className="payments" type="button" onClick={() => setPaymentOption(!paymentOption)} >
-        {paymentOption ? 'Comprar' : 'Comprar'}
-      </button>
 
       {paymentOption ? (
-        <div >
-        </div>
-      ) : (
         <div className="paymentOption">
           <Stripe />
           <MercadoPago />
           <MetaMask />
+        </div>
+      ) : (
+        <div>
+          
         </div>
       )}
     </div>
