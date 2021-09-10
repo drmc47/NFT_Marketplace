@@ -10,7 +10,7 @@ import localSignup from "../../actions/signup";
 export default function Login() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [inputs, setInputs] = useState({ email: "", password: "" });
+  const [inputs, setInputs] = useState({ username: "", password: "" });
   const [fullName, setFullName] = useState({ firstName: "", lastName: "" });
   const [error, setError] = useState({ emailError: false, passError: false });
   const [signup, setSignup] = useState(false);
@@ -26,20 +26,19 @@ export default function Login() {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
     setFullName({ ...fullName, [e.target.name]: e.target.value });
     setError({
-      emailError: validateEmail(inputs.email).error,
+      emailError: validateEmail(inputs.username).error,
       passError: !inputs.password.length,
     });
   }
   function handleSubmit(e) {
-    console.log("Estos son los inputs al momento del login =>", inputs);
     e.preventDefault();
-    dispatch(localLogin(inputs));
-    if (signup) {
-      dispatch(localSignup({ ...inputs, ...fullName }));
+    if (signup) {      
+      dispatch(localSignup(inputs));
       history.push("/");
       return;
     }
-    setInputs({ email: "", password: "" });
+    dispatch(localLogin(inputs));
+    setInputs({ username: "", password: "" });
     setFullName({ firstName: "", lastName: "" });
     history.push("/");
   }
@@ -59,11 +58,11 @@ export default function Login() {
               onChange={(e) => handleChange(e)}
               error={error.emailError}
               id="email"
-              name="email"
+              name="username"
               label="E-mail"
-              value={inputs.email}
+              value={inputs.username}
               variant="outlined"
-              helperText={validateEmail(inputs.email)?.message}
+              helperText={validateEmail(inputs.username)?.message}
             />
           </div>
           {signup && (
@@ -106,7 +105,7 @@ export default function Login() {
             <Button
               variant="contained"
               color="primary"
-              disabled={!error.emailError && !error.passError ? false : true}
+              disabled={!error.usernameError && !error.passError ? false : true}
               type="submit"
             >
               {signup ? "Sign up" : "Login"}
@@ -120,7 +119,7 @@ export default function Login() {
           <div>
             <button
               onClick={handleSignup}
-              disabled={!error.emailError && !error.passError ? false : true}
+              disabled={!error.usernameError && !error.passError ? false : true}
             >
               {signup
                 ? "Already have an account? Login"

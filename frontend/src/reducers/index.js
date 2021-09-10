@@ -149,7 +149,7 @@ function rootReducer(state = initialState, action) {
       let parsLocal = JSON.parse(getmyStorage)
       swal({
         title: "¡God Job!",
-        text: "¡ Your NFT was successfully added to favorites !",
+        text: "¡ Your NFT was successfully added shopping cart !",
         icon: "success",
         button: "OK!",
         timer: 2000
@@ -168,13 +168,16 @@ function rootReducer(state = initialState, action) {
         console.log("isrepeat", isrepeat)
 
         if (isrepeat) {
-          return swal({
+          swal({
             title: "¡ Sorry =( !",
             text: "¡ This NFT already exists in your shopping cart !",
             icon: "warning",
             button: "OK!",
             timer: 2000
           })
+          return {
+            ...state
+          }
         } else {
           let local = JSON.parse(myStorage.setItem('user', JSON.stringify(JSON.parse(window.localStorage.getItem('user')).concat(action.payload))));
           return {
