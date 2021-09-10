@@ -16,6 +16,8 @@ export default function Home() {
   const filters = useSelector((state) => state.filters);
   const stateAllNFTs = useSelector((state) => state.allNFTs);
   const dispatch = useDispatch();
+
+  console.log("soyyyyyyyy filterrr jejejejej",filters)
   
   useEffect(() => {
     dispatch(getNFTs());

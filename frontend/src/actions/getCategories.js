@@ -5,10 +5,9 @@ export function getCategories() {
   return async function (dispatch) {
     try {
       let categories = await axios.get("http://localhost:8001/categories");
-      console.log(categories);
       return dispatch({
         type: GET_CATEGORIES,
-        payload: categories,
+        payload: categories.data,
       });
     } catch (error) {
       console.log(error);
