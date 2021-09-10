@@ -31,7 +31,6 @@ export default function Login() {
     });
   }
   function handleSubmit(e) {
-    console.log("Estos son los inputs al momento del login =>", inputs);
     e.preventDefault();
     if (signup) {      
       dispatch(localSignup(inputs));
@@ -61,7 +60,7 @@ export default function Login() {
               id="email"
               name="username"
               label="E-mail"
-              value={inputs.email}
+              value={inputs.username}
               variant="outlined"
               helperText={validateEmail(inputs.username)?.message}
             />
