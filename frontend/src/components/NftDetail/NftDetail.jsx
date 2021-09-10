@@ -11,6 +11,7 @@ export default function NftDetail() {
 
     useEffect(() => {
         dispatch(getNftDetail(id))
+        console.log(id)
         return () => {
             dispatch(getClean())
         }

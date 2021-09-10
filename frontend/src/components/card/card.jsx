@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -21,7 +22,7 @@ const useStyles = makeStyles({
   },
   media: {
     height: 300,
-    width: 310,
+    width: 320,
   },
 });
 
@@ -30,7 +31,8 @@ export default function Cards({ ele }) {
 
   return (
     <div>
-      <Card className={classes.card}>
+      <Card className={classes.card} component={Link}
+                to={`nft/${ele._id}`}>
         <CardHeader
           action={
             <IconButton>

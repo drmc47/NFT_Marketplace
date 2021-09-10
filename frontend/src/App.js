@@ -19,14 +19,18 @@ import Create from './components/create/create.jsx'
 import Profile from './components/profile/profile.jsx'
 import Contact from './components/contact/contact.jsx'
 import About from './components/about/about.jsx'
+import ImageSlider from "./components/slider/slider"
 import NftDetail from './components/NftDetail/NftDetail'
 import './App.css';
+
+
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <NavBar />
       <Switch>
+      <Route exact path='/slider' component={ImageSlider}></Route>
         <Route exact path='/' component={Home}></Route>
         <Route path="/nft/:id" component={NftDetail} />
         <Route exact path='/categories' component={Categories}></Route>

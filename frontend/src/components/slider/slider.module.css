@@ -1,15 +1,25 @@
 .box {
-    width: 100px;
-    height: 100px;
+    width: 300px;
+    height: 300px;
     background-color: blueviolet;
 }
 .box2 {
-    width: 100px;
-    height: 100px;
+    width: 300px;
+    height: 300px;
     background-color: rgb(116, 226, 43);
 }
 .box3 {
-    width: 100px;
-    height: 100px;
+    width: 300px;
+    height: 300px;
     background-color: rgb(226, 43, 186);
 }
+
+.slick-prev {
+    left: 3% !important;
+    z-index: 1;
+    color: black;
+  }
+  .slick-next {
+    right: 3% !important;
+    z-index: 1;
+  }

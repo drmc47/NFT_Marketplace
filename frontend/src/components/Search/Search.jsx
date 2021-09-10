@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   searchIcon: {
-    color: "white",
+    // color: "white",
     padding: theme.spacing(0, 2),
     height: '100%',
     position: 'absolute',
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
   inputRoot: {
-    color: 'white',
+    // color: 'white',
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
