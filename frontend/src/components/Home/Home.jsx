@@ -77,7 +77,7 @@ export default function Home() {
           <Grid container spacing={6}>
             {stateAllNFTs.length > 0 ? (
               stateAllNFTs.map((ele) => (
-                <div>
+                <div key={ele._id}>
                   <Link to={`nft/${ele._id}`}>
                     <Cards ele={ele} />
                   </Link>
