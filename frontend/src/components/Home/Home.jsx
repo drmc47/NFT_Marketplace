@@ -11,13 +11,18 @@ import CollectionHome from "../collectionhome/collectionhome.jsx"
 import ImageSlider from "../slider/slider"
 import Cards from "../card/card.jsx"
 import Grid from '@material-ui/core/Grid';
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { conectLS } from "../../actions/conectLS.js";
+import { addShoppingTrolley } from "../../actions/addShoppingTrolley";
 
 export default function Home() {
   const filters = useSelector((state) => state.filters);
   const stateAllNFTs = useSelector((state) => state.allNFTs);
   const dispatch = useDispatch();
+  const handleClick = (ele)=>{
 
+    dispatch(addShoppingTrolley(ele));
+  }
   useEffect(() => {
     dispatch(getNFTs());
     dispatch(conectLS())
@@ -44,9 +49,9 @@ export default function Home() {
     <React.Fragment>
        
           <Grid container spacing={6}>
-          <div className={style.title}
-          ><h1>Explore The NFTs Universe</h1></div>
-          <CollectionHome/>
+            <div className={style.title}
+            ><h1>Explore The NFTs Universe</h1></div>
+            <CollectionHome />
           </Grid>
           <ImageSlider/>
         
@@ -75,10 +80,13 @@ export default function Home() {
           <Grid container spacing={6}>
             {stateAllNFTs.length > 0 ? (
               stateAllNFTs.map((ele) => (
-                <div>
+                <div key={ele._id}>
                   <Link to={`nft/${ele._id}`}>
                     <Cards ele={ele} />
                   </Link>
+                  <AddShoppingCartIcon
+                    onClick={() => handleClick(ele)}
+                  />
                 </div>
               ))
             ) : (

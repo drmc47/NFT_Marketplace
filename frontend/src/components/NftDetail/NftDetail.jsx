@@ -17,7 +17,6 @@ export default function NftDetail() {
     }, [id, dispatch])
 
     const nftDetail = useSelector(state => state.nftDetail)
-    console.log("Detalle del NFT", nftDetail)
 
 
     return <div>
