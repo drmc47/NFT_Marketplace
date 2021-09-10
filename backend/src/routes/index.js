@@ -12,6 +12,12 @@ const corsOptions = {
   credentials: true,
   optionSuccessStatus: 200,
 };
+const {
+  createCategorie,
+  updateCategorieById,
+  deleteCategorieById,
+  getCategories,
+} = require("../controllers/products/categorie");
 
 const {
   searchProduct,
@@ -22,7 +28,10 @@ const {
   getNFTs,
 } = require("../controllers/products/products");
 
-// Routes
+//Routes categories
+router.get("/categories", getCategories);
+
+// Routes Products
 router.get("/search", searchProduct);
 router.get("/nfts", getNFTs);
 router.get("/nft/:id", getProductById);
@@ -30,6 +39,11 @@ router.post("/nft", createProduct);
 router.post("/transactionMetamask", transactionMetaMask);
 router.post("/transactionStripe", StripePayment);
 router.put("/edit/:id", updateProductById);
+
+//1 admin crea categorias
+//2 admin asigna roles a user
+//3 modifica el fee (%comision)
+//4 admin elimina nfts
 
 router.delete("/admin/:id", deleteProductById); // RUTA DEL ADMIN
 router.post(
@@ -56,7 +70,7 @@ router.post(
     passReqToCallback: true,
   }),
   async (req, res, next) => {
-    res.json(req.user);
+    res.send(req.user);
     //res.redirect(AL JOM DEL PROYECTO)
   }
 );
