@@ -11,10 +11,7 @@ passport.deserializeUser(async (id, done) => {
   done(null, user);
 });
 
-passport.use(
-  "local-signup",
-  new LocalStrategy(
-    {
+passport.use("local-signup", new LocalStrategy({
       usernameField: "username",
       passwordField: "password",
       passReqToCallback: true,
@@ -30,6 +27,7 @@ passport.use(
           password,
           firstName: req.body.firstName,
           lastName: req.body.lastName,
+          profilePic: req.body.profilePic ? req.body.profilePic : "",
         });
         console.log(user, "llegaaaa");
         if (req.body.roles) {
@@ -50,17 +48,17 @@ passport.use(
   )
 );
 
-passport.use(
-  "local-login",
-  new LocalStrategy(
-    {
+passport.use("local-login", new LocalStrategy({
       usernameField: "username",
       passwordField: "password",
       passReqToCallback: true,
     },
+    // //const userFound = await User.findOne({ email: req.body.email }).populate(
+    //     "roles"
+    //     );
     async (_req, username, password, done) => {
       try {
-        const user = await User.findOne({ username });
+        const user = await User.findOne({ username }).populate("roles");
         if (!user) {
           done(null, false, {
             message: "MIRA LA VERDAD QUE ESE USUARIO NO SE ONDA",

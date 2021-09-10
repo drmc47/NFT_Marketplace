@@ -9,19 +9,19 @@ import { filterByCategories } from "../../actions/filterCategorie";
 import CollectionHome from "../collectionhome/collectionhome.jsx"
 import ImageSlider from "../slider/slider"
 import Grid from '@material-ui/core/Grid';
+import { getCategories } from "../../actions/getCategories.js";
 
 
 export default function Home() {
   const filters = useSelector((state) => state.filters);
   const stateAllNFTs = useSelector((state) => state.allNFTs);
   const dispatch = useDispatch();
-  // const handleClick = (ele)=>{
 
-  //   dispatch(addShoppingTrolley(ele));
-  // }
+  console.log("soyyyyyyyy filterrr jejejejej",filters)
+  
   useEffect(() => {
     dispatch(getNFTs());
-    // dispatch(conectLS())
+    dispatch(getCategories())
     // return () => {
     //   dispatch(getNFTs());
     // };
