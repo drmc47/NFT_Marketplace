@@ -5,11 +5,11 @@ export function filterByCategories(payload) {
     try {
       let response = await axios.get("http://localhost:8001/nfts");
       const filterCat =
-      payload === 'all'
-        ? response.data
-        : response.data.filter((i) => i.category === payload);
-        console.log(payload);
-        console.log(filterCat);
+        payload === "all"
+          ? response.data
+          : response.data.filter((i) => i.category === payload);
+      console.log(payload);
+      console.log(filterCat);
       return dispatch({
         type: "FILTER_CATEGORIE",
         payload: filterCat,
@@ -18,5 +18,4 @@ export function filterByCategories(payload) {
       console.log(error);
     }
   };
-};
-
+}
