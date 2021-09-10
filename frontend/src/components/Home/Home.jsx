@@ -11,6 +11,7 @@ import CollectionHome from "../collectionhome/collectionhome.jsx"
 import ImageSlider from "../slider/slider"
 import Cards from "../card/card.jsx"
 import Grid from '@material-ui/core/Grid';
+import { conectLS } from "../../actions/conectLS.js";
 
 export default function Home() {
   const filters = useSelector((state) => state.filters);
@@ -19,6 +20,7 @@ export default function Home() {
 
   useEffect(() => {
     dispatch(getNFTs());
+    dispatch(conectLS())
     // return () => {
     //   dispatch(getNFTs());
     // };
