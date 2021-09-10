@@ -25,7 +25,7 @@ passport.use(new GoogleStrategy(
             const user = await User.findOne({googleID : profile.id}); // si el usuario no existe 
             if (!user) {
               let newUser = new User();
-                  newUser.username = profile.displayName.replace(' ', '').toLowerCase() + '@nftmarketplace.com'
+                  newUser.username = profile.emails[0].value
                   newUser.googleID = profile.id
                   newUser.firstName = profile.name.givenName
                   newUser.lastName = profile.name.familyName
