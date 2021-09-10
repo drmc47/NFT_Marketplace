@@ -42,5 +42,6 @@ const createCategories = async () => {
     console.log(error);
   }
 };
+//holi
 
 module.exports = { createRoles, createCategories };
