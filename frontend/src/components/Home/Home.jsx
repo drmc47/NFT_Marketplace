@@ -46,21 +46,19 @@ export default function Home() {
   };
 
   return (
-    <div>
-      <div
-        className={style.back1}
-      >
-        <div className={style.container}>
+    <React.Fragment>
+       
           <Grid container spacing={6}>
             <div className={style.title}
             ><h1>Explore The NFTs Universe</h1></div>
             <CollectionHome />
           </Grid>
-
+          <ImageSlider/>
+        
           {/* <Search /> */}
-          <label htmlFor="">Filters/ Orders</label>
+          {/* <label htmlFor="">Filters/ Orders</label> */}
           {/* //ORDENAR POR ABC */}
-          <select onChange={(e) => filterAscDesc(e)}>
+          {/* <select onChange={(e) => filterAscDesc(e)}>
             <option value="">Asc-Desc</option>
             <option value="az">A-Z</option>
             <option value="za">Z-A</option>
@@ -94,9 +92,7 @@ export default function Home() {
             ) : (
               <p>loading...</p>
             )}
-          </Grid>
-        </div>
-      </div>
-    </div>
+          </Grid> */}
+      </React.Fragment>
   );
 }
