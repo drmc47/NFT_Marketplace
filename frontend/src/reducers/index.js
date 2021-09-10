@@ -1,130 +1,194 @@
-import { GET_NTFs, SET_LOADING, IS_AUTORIZATED, TRANSACTION_METAMASK } from "../actions/constants";
+import swal from 'sweetalert';
+import {
+  GET_NFTs,
+  GET_NFT_BY_NAME,
+  GET_NFT_BY_ID,
+  FILTER_BY_NAME,
+  FILTER_BY_CATEGORY,
+  SORT_BY_PRICE,
+  POST_NFT,
+  IS_AUTHENTICATED,
+  TRANSACTION_METAMASK,
+  LOGIN_SUCCESS,
+  LOGOUT,
+  SIGNUP_SUCCESS,
+  SIGNUP_ERROR,
+  ADD_SHOPPING_TROLLEY,
+  CONECT_LS,
+} from "../actions/constants";
 
 const initialState = {
-  allNFTs: [], // state of all NFTS from API openSea
-  filtered: [], // contains array for make the filters
-  loading: true, //  boolean for show a image when is loading. Set first : true
+  allNFTs: [], // all NFTS from API openSea
+  filtered: [],
   userIsAuthenticated: [],
-  page: 1,
+  userLogged: null,
   nftDetail: [],
   Nfts: [],
-  userLogged: null,
-  filters: [],
+  filters: [
+    "Funny",
+    "Animals",
+    "Sport",
+    "Music",
+    "Cute",
+    "Abstract art",
+    "Utopy",
+  ],
   transactions: [],
+  categories: [],
+  shoppingTrolley: [],
 };
-
-function getFilters(nfts) {
-  let f = [];
-
-  nfts.map((g) => {
-    if (!f.includes(g.dappSlug)) {
-      f.push(g.dappSlug);
-    }
-  });
-
-  return f;
-}
 
 function rootReducer(state = initialState, action) {
   switch (action.type) {
-    case GET_NTFs:
+    case GET_NFTs:
       return {
         ...state,
-        page: 1,
         allNFTs: action.payload,
         filtered: action.payload,
-        loading: false,
         Nfts: action.payload,
-        filters: getFilters(action.payload),
       };
-    case IS_AUTORIZATED:
-      return {
-        ...state,
-        userIsAuthenticated: action.payload,
-      };
-    case SET_LOADING:
-      return {
-        ...state,
-        loading: action.payload,
-      };
-    case "PAGE":
-      return {
-        ...state,
-        page: action.payload,
-      };
-    case "GET_NFT_BY_NAME":
+    case GET_NFT_BY_NAME:
       return {
         ...state,
         allNFTs: action.payload,
       };
-    case "GET_NFT_BY_ID":
+    case GET_NFT_BY_ID:
       return {
         ...state,
         nftDetail: action.payload,
       };
-    case "FILTER_BY_DES_ASC":
+    case FILTER_BY_NAME:
       const ascDescFilter =
         action.payload === "za"
           ? state.allNFTs.sort((a, b) => {
-              // cat.name.charAt(0).toUpperCase()
-              if (a.name !== null && a.name > b.name !== null) {
-                if (
-                  a.name?.charAt(0).toLowerCase() <
-                  b.name?.charAt(0).toLowerCase()
-                ) {
-                  return 1;
-                } else {
-                  return -1;
-                }
-              }
-            })
+            if (
+              a.name?.charAt(0).toLowerCase() <
+              b.name?.charAt(0).toLowerCase()
+            )
+              return 1;
+            return -1;
+          })
           : state.allNFTs.sort((a, b) => {
-              if (a.name !== null && b.name !== null) {
-                if (
-                  a.name?.charAt(0).toLowerCase() >
-                  b.name?.charAt(0).toLowerCase()
-                ) {
-                  return 1;
-                } else {
-                  return -1;
-                }
-              }
-            });
-
-      console.log(ascDescFilter, "asi queda");
+            if (
+              a.name?.charAt(0).toLowerCase() >
+              b.name?.charAt(0).toLowerCase()
+            )
+              return 1;
+            return -1;
+          });
       return {
         ...state,
         allNFTs: [...ascDescFilter],
       };
-    case "SORT_PRICE":
+    case FILTER_BY_CATEGORY:
+      return {
+        ...state,
+        categories: action.payload,
+      };
+    case SORT_BY_PRICE:
       const priceFilter =
         action.payload === "max"
           ? [...state.Nfts].sort(
-              (b, a) => parseInt(a.price) - parseInt(b.price)
-            )
+            (b, a) => parseInt(a.price) - parseInt(b.price)
+          )
           : [...state.Nfts].sort(
-              (b, a) => parseInt(b.price) - parseInt(a.price)
-            );
+            (b, a) => parseInt(b.price) - parseInt(a.price)
+          );
       console.log(priceFilter, priceFilter.length);
       return {
         ...state,
         allNFTs: priceFilter,
       };
-    case "FILTER_CATEGORIE":
-      const Nfts = state.Nfts;
-      const filterCat =
-        action.payload === "All"
-          ? Nfts
-          : Nfts.filter((i) => i.dappSlug === action.payload);
+    case POST_NFT:
       return {
         ...state,
-        allNFTs: filterCat,
+        allNFTs: [state.allNFTs, action.payload],
+      };
+    case IS_AUTHENTICATED:
+      return {
+        ...state,
+        userIsAuthenticated: action.payload,
       };
     case TRANSACTION_METAMASK:
-        console.log("transactions:", state.transactions)
       return {
-        ...state, transactions: action.payload,
+        ...state,
+        transactions: action.payload,
       };
+    case LOGIN_SUCCESS:
+      return {
+        ...state,
+        userLogged: action.payload,
+      };
+    case LOGOUT:
+      return {
+        ...state,
+        userLogged: null,
+      };
+    case SIGNUP_SUCCESS:
+      return {
+        ...state,
+        userLogged: {
+          email: action.payload.email,
+          firstName: action.payload.firstName,
+        },
+      };
+    case SIGNUP_ERROR:
+      return {
+        ...state,
+        userLogged: null,
+      };
+    case ADD_SHOPPING_TROLLEY:
+      const myStorage = window.localStorage;
+      let getmyStorage = myStorage.getItem('user')
+      let parsLocal = JSON.parse(getmyStorage)
+      swal({
+        title: "¡God Job!",
+        text: "¡ Your NFT was successfully added to favorites !",
+        icon: "success",
+        button: "OK!",
+        timer: 2000
+      })
+      if (!parsLocal) {
+        myStorage.setItem('user', JSON.stringify(state.shoppingTrolley.concat(action.payload)));
+        return {
+          ...state,
+          shoppingTrolley: state.shoppingTrolley.concat(JSON.parse(myStorage.getItem('user')))
+        }
+      }
+      if (parsLocal) {
+        console.log("parsLocal", parsLocal)
+        let productAction = action.payload._id
+        let isrepeat = parsLocal.map(e => e._id).includes(productAction)
+        console.log("isrepeat", isrepeat)
+
+        if (isrepeat) {
+          return swal({
+            title: "¡ Sorry =( !",
+            text: "¡ This NFT already exists in your shopping cart !",
+            icon: "warning",
+            button: "OK!",
+            timer: 2000
+          })
+        } else {
+          let local = JSON.parse(myStorage.setItem('user', JSON.stringify(JSON.parse(window.localStorage.getItem('user')).concat(action.payload))));
+          return {
+            ...state,
+            shoppingTrolley: local
+          }
+        }
+      }
+    case CONECT_LS:
+      if (!window.localStorage.getItem('user')) {
+        return {
+          ...state,
+          shoppingTrolley: state.shoppingTrolley
+        }
+      } else {
+        return {
+          ...state,
+          shoppingTrolley: JSON.parse(window.localStorage.getItem('user'))
+        }
+      }
     default:
       return state;
   }

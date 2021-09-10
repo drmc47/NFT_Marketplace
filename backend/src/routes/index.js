@@ -1,44 +1,104 @@
 const { Router } = require("express");
-const axios = require("axios");
 const router = Router();
-const auth = require("../controllers/user/auth.js");
+const cors = require("cors");
 const passport = require("passport");
-const { isLoggedIn } = require("../controllers/user/isLoggedIn");
-const { protected } = require("../controllers/apiGoogle/protected");
-
-const { transactionMetaMask } = require("../controllers/payments/crypto/transactionMetaMask");
+const {
+  transactionMetaMask,
+} = require("../controllers/payments/crypto/transactionMetaMask");
+const { StripePayment } = require("../controllers/payments/fiat/Stripe");
+const jwt = require("jsonwebtoken");
+const corsOptions = {
+  origin: "http://localhost:3000",
+  credentials: true,
+  optionSuccessStatus: 200,
+};
 
 const {
   searchProduct,
   createProduct,
-  getProductsApi,
-  getProductsDb,
   getProductById,
   updateProductById,
   deleteProductById,
   getNFTs,
 } = require("../controllers/products/products");
-const login = require('../controllers/auth/login');
-const register = require('../controllers/user/register');
 
 // Routes
 router.get("/search", searchProduct);
 router.get("/nfts", getNFTs);
 router.get("/nft/:id", getProductById);
 router.post("/nft", createProduct);
-router.post("/transaction", transactionMetaMask);
-router.post('/auth/login', login);
-router.post('/register', register);
-
+router.post("/transactionMetamask", transactionMetaMask);
+router.post("/transactionStripe", StripePayment);
 router.put("/edit/:id", updateProductById);
 router.delete("/delete/:id", deleteProductById);
+//REGISTRO LOCAL
+router.post(
+  "/register",
+  passport.authenticate("local-signup", {
+    // successRedirect : 'https://localhost:3000/',
+    // failureRedirect: 'https://localhost:3000/login',
+    passReqToCallback: true,
+  }),
+  async (req, res, next) => {
+    res.json(req.user);
+    //res.redirect(AL JOM DEL PROYECTO)
+  }
+);
 
-router.put("/edit/:id", updateProductById);
-router.delete("/delete/:id", deleteProductById);
-// router.use('/auth/google',isAuthenticated)
-// router.use('/google/callback',googleCallback)
-// router.use('/auth/failure', authFailure)
-router.use("/protected", isLoggedIn, protected);
+//INICIO DE SESION LOCAL
+router.post(
+  "/login",
+  passport.authenticate("local-login", {
+    // successRedirect : 'https://localhost:3000/',
+    // failureRedirect: 'https://localhost:3000/login',
+    passReqToCallback: true,
+  }),
+  async (req, res, next) => {
+    try {
+      if (req.error || !req.user) {
+        const error = new Error("new Error");
+        return next(error);
+      }
+      req.login(req.user, { session: false }, async (err) => {
+        if (err) return next(err);
+        const body = { _id: req.user.id, username: req.user.username };
+        const token = jwt.sign({ user: body }, "superstringinhackeable");
+        return res.send({ text: "Jelou tenes el token " + token });
+      });
+    } catch (error) {
+      return next(error);
+    }
+  }
+);
+
+//INICIO DE SESION CON GOOGLE
+router.get(
+  "/auth/google",
+  passport.authenticate("google", {
+    scope: ["https://www.googleapis.com/auth/plus.login"],
+  })
+);
+
+router.get(
+  "/auth/google/callback",
+  passport.authenticate("google", {
+    failureRedirect: "http://localhost:3000/laconchadesumadre",
+    // successRedirect: 'http://localhost:3000/profile',
+    passReqToCallback: true,
+  }),
+  async (req, res) => {
+    const token = jwt.sign(
+      { googleID: req.user.googleID },
+      "superstringinhackeable",
+      {
+        expiresIn: 60 * 60 * 24, // equivalente a 24 horas
+      }
+    );
+    res.send({ text: "Jelou tenes el token " + token });
+    // res.redirect('http://localhost:3000/profile')
+  }
+);
+
+router.use(cors(corsOptions));
 
 module.exports = router;
-

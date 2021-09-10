@@ -1,14 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
-import CardActions from "@material-ui/core/CardActions";
-import FavoriteIcon from "@material-ui/icons/Favorite";
+import StarBorderIcon from "@material-ui/icons/StarBorder";
 import IconButton from "@material-ui/core/IconButton";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import { addShoppingTrolley } from "../../actions/addShoppingTrolley";
+
 
 const useStyles = makeStyles({
   card: {
@@ -29,6 +31,11 @@ const useStyles = makeStyles({
 
 export default function Cards({ ele }) {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const handleClick = (ele)=>{
+
+    dispatch(addShoppingTrolley(ele));
+  }
 
   return (
     <div>
@@ -36,7 +43,7 @@ export default function Cards({ ele }) {
         <CardHeader
           action={
             <IconButton>
-              <FavoriteIcon />
+              <StarBorderIcon />
             </IconButton>
           }
         />
@@ -51,6 +58,9 @@ export default function Cards({ ele }) {
           <Typography>{ele.name}</Typography>
           <Typography>Price: {ele.price}ETH</Typography>
         </CardContent>
+        <AddShoppingCartIcon
+          onClick={()=> handleClick(ele)}
+          />
       </Card>
     </div>
   );
