@@ -1,14 +1,13 @@
-import { Schema, model } from "mongoose";
-
-export const ROLES = ["user", "admin", "moderator"];
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
 const roleSchema = new Schema(
   {
     name: String,
   },
   {
-    versionKey: false,
+    versionKey: false, // no genera el el id por default
   }
 );
 
-export default model("Role", roleSchema);
+module.exports = mongoose.model("Roles", roleSchema);
