@@ -15,6 +15,10 @@ import {
   SIGNUP_ERROR,
   ADD_SHOPPING_TROLLEY,
   CONECT_LS,
+  POST_ORDER_SHOPPING_CART,
+  GET_ORDER_SHOPPING_CART,
+  POST_PROFILE_USER,
+  GET_PROFILE_USER,
 } from "../actions/constants";
 
 const initialState = {
@@ -36,6 +40,8 @@ const initialState = {
   transactions: [],
   categories: [],
   shoppingTrolley: [],
+  shoppingCart: [],
+  profileUserData: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -191,6 +197,27 @@ function rootReducer(state = initialState, action) {
           ...state,
           shoppingTrolley: JSON.parse(window.localStorage.getItem('user'))
         }
+      }
+    case POST_ORDER_SHOPPING_CART:
+      return {
+        ...state,
+        shoppingTrolley: action.payload,
+      }
+    case GET_ORDER_SHOPPING_CART:
+      return {
+        ...state,
+        shoppingCart: action.payload,
+      }
+    case POST_PROFILE_USER:
+      return {
+        ...state,
+        profileUser: action.payload,
+      }
+  
+    case GET_PROFILE_USER:
+      return {
+        ...state,
+        profileUserData: action.payload,
       }
     default:
       return state;
