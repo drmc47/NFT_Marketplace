@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -39,7 +40,9 @@ export default function Cards({ ele }) {
 
   return (
     <div>
-      <Card className={classes.card}>
+      <Card className={classes.card}
+      component={Link}
+      to={`nft/${ele._id}`}>
         <CardHeader
           action={
             <IconButton>
