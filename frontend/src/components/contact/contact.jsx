@@ -8,21 +8,24 @@ import './contact.css'
 
 export default function Contact() {
     const dispatch = useDispatch();
-    const allProductsCart = useSelector(state => state.shoppingCart)
     
-    useEffect(() => {
-        dispatch(getOrderShoppingCart())
-        return () => {
-          dispatch(getClean())
+    const handleCartClick = function () {
+        useEffect(() => {
+            dispatch(getOrderShoppingCart())
+         }, [dispatch])
         }
-      }, [dispatch])
 
-    const misProductos = allProductsCart[0].items.map(e => e)
+        const allProductsCart = useSelector(state => state.shoppingCart)
+        console.log("info desde el reducer", allProductsCart)
+        // const misProductos = allProductsCart[0].items.map(e => e)
 
     return(
         <div>
+            <button onClick={() => dispatch(handleCartClick())}>
+                Mostrar carrito
+            </button>
             <ShoppingCart/>
-
+{/*             
     
                 <div className="divOrder">
                     <h6>Nombre</h6>
@@ -67,7 +70,7 @@ export default function Contact() {
                     <h4>Quitar</h4>
                 </div>
             </div>
-                <Payments/>
+                <Payments/> */}
         
         </div>
     )
