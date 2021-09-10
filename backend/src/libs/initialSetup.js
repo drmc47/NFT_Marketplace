@@ -42,6 +42,6 @@ const createCategories = async () => {
     console.log(error);
   }
 };
-//holis
+//holiss
 
 module.exports = { createRoles, createCategories };
