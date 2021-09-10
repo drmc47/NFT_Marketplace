@@ -30,7 +30,23 @@ router.post("/nft", createProduct);
 router.post("/transactionMetamask", transactionMetaMask);
 router.post("/transactionStripe", StripePayment);
 router.put("/edit/:id", updateProductById);
+
+router.delete("/admin/:id", deleteProductById); // RUTA DEL ADMIN
+router.post(
+  "/admin/create",
+  passport.authenticate("local-signup", {
+    // successRedirect : 'https://localhost:3000/',
+    // failureRedirect: 'https://localhost:3000/login',
+    passReqToCallback: true,
+  }),
+  async (req, res, next) => {
+    res.json(req.user);
+    //res.redirect(AL JOM DEL PROYECTO)
+  }
+);
+
 router.delete("/delete/:id", deleteProductById);
+
 //REGISTRO LOCAL
 router.post(
   "/register",
@@ -46,6 +62,7 @@ router.post(
 );
 
 //INICIO DE SESION LOCAL
+
 router.post(
   "/login",
   passport.authenticate("local-login", {
