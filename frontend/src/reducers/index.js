@@ -3,6 +3,7 @@ import {
   GET_NFTs,
   GET_NFT_BY_NAME,
   GET_NFT_BY_ID,
+  GET_CATEGORIES,
   FILTER_BY_NAME,
   SORT_BY_PRICE,
   POST_NFT,
@@ -14,15 +15,11 @@ import {
   SIGNUP_ERROR,
   ADD_SHOPPING_TROLLEY,
   CONECT_LS,
-  GET_CATEGORIES,
   POST_ORDER_SHOPPING_CART,
   GET_ORDER_SHOPPING_CART,
   POST_PROFILE_USER,
   GET_PROFILE_USER,
-  GET_PROFILE_ADMIN,
-  POST_CATEGORIE
 } from "../actions/constants";
-
 
 const initialState = {
   allNFTs: [], // all NFTS from API openSea
@@ -31,13 +28,12 @@ const initialState = {
   userLogged: null,
   nftDetail: [],
   Nfts: [],
+  filters: [],
   transactions: [],
   categories: [],
   shoppingTrolley: [],
   shoppingCart: [],
   profileUserData: [],
-  profileAdmin:[],
-  postCategorie:""
 };
 
 function rootReducer(state = initialState, action) {
@@ -82,11 +78,13 @@ function rootReducer(state = initialState, action) {
         ...state,
         allNFTs: [...ascDescFilter],
       };
+
     case GET_CATEGORIES:
       return {
         ...state,
         categories: action.payload
       };
+
     case SORT_BY_PRICE:
       const priceFilter =
         action.payload === "max"
@@ -214,16 +212,6 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         profileUserData: action.payload,
-      }
-    case GET_PROFILE_ADMIN:
-      return {
-        ...state,
-        profileAdmin: action.payload,
-      }
-      case POST_CATEGORIE:
-      return {
-        ...state,
-        postCategorie: action.payload,
       }
     default:
       return state;
