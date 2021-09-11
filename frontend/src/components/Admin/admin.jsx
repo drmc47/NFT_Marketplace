@@ -3,9 +3,11 @@ import { useParams, Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import getProfileAdmin from "../../actions/getProfileAdmin"
 import getClean from "../../actions/getClean"
-import postCategorie from "../../actions/postCategorie"
+import postCategorie from "../../actions/admin/postCategorie"
 import { getCategories } from '../../actions/getCategories'
-import {deleteCategory} from '../../actions/deleteCategory'
+import {deleteCategory} from '../../actions/admin/deleteCategory'
+import { deleteNFT } from '../../actions/admin/deleteNFT'
+import { getNFTs } from '../../actions/getNFTs'
 
 
 export default function AdminProfile() {
@@ -13,9 +15,11 @@ export default function AdminProfile() {
   const dispatch = useDispatch();
   
   const categoriesDB=useSelector(state=>state.categories)
+  const nfts=useSelector(state=>state.allNFTs)
   
   useEffect(() => {
     dispatch(getCategories())
+    dispatch(getNFTs())
     // dispatch(getProfileAdmin())
     // return () => {
     //   dispatch(getClean())
@@ -76,6 +80,20 @@ export default function AdminProfile() {
             <form onSubmit={(e)=>handleDelete(e)}>
             <h4>Delete</h4>
             <label htmlFor="">Categories</label> 
+            <select required name="deleteCategory" onChange={(e)=>onInputChange(e)} defaultValue="">
+            <option value="">Choose categories</option>
+            {categoriesDB.map((cat)=>(
+                <option key={cat._id} name={cat.name} value={cat._id}>{cat.name?.charAt(0).toUpperCase()+cat.name?.slice(1)}</option>
+            ))}
+           </select>
+           <button type="submit">Delete!</button>
+            </form>
+
+            <form 
+            // onSubmit={(e)=>handleDeleteNFT(e)}
+            >
+            <h4>Delete NFT</h4>
+            <label htmlFor="">NFTs </label> 
             <select required name="deleteCategory" onChange={(e)=>onInputChange(e)} defaultValue="">
             <option value="">Choose categories</option>
             {categoriesDB.map((cat)=>(

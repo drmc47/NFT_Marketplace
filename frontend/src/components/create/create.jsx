@@ -76,7 +76,7 @@ function validateNft(nft){
         setNft({
         name:"",
         image: "",
-        categories:"",
+        categories:[],
         description:"",
         reviews:"",
         currency:"",
@@ -180,7 +180,7 @@ function validateNft(nft){
         <select required name="categories" onChange={(e)=>onInputChange(e)} defaultValue="">
             <option value="">Choose categories</option>
             {categories.map((cat)=>(
-                <option key={cat._id} name={cat.name} value={cat.name}>{cat.name?.charAt(0).toUpperCase()+cat.name?.slice(1)}</option>
+                <option key={cat._id} name={cat.name} value={cat._id}>{cat.name?.charAt(0).toUpperCase()+cat.name?.slice(1)}</option>
             ))}
         </select>
          

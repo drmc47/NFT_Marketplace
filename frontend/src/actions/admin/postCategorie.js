@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { POST_CATEGORIE } from './constants';
+import { POST_CATEGORIE } from '../constants';
 
 
 export default function postCategorie(cat) {
