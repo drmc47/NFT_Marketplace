@@ -19,6 +19,7 @@ import {
   GET_ORDER_SHOPPING_CART,
   POST_PROFILE_USER,
   GET_PROFILE_USER,
+  GET_USERS
 } from "../actions/constants";
 
 const initialState = {
@@ -34,6 +35,7 @@ const initialState = {
   shoppingTrolley: [],
   shoppingCart: [],
   profileUserData: [],
+  allUsers:[]
 };
 
 function rootReducer(state = initialState, action) {
@@ -212,6 +214,11 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         profileUserData: action.payload,
+      }
+      case GET_USERS:
+      return {
+        ...state,
+        allUsers: action.payload,
       }
     default:
       return state;
