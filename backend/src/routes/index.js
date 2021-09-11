@@ -6,6 +6,8 @@ const {
   transactionMetaMask,
 } = require("../controllers/payments/crypto/transactionMetaMask");
 const { StripePayment } = require("../controllers/payments/fiat/Stripe");
+const { createOrder, getOrder } = require("../controllers/products/orders");
+const { createProfile, getProfile } = require("../controllers/users/user");
 const jwt = require("jsonwebtoken");
 const corsOptions = {
   origin: "http://localhost:3000",
@@ -33,12 +35,18 @@ const {
 
 //Routes categories
 router.get("/categories", getCategories);
-
+router.post("/create/categorie", createCategorie);
+router.put("/edit/categorie/:id", updateCategorieById);
+router.delete("/categorie/:id", deleteCategorieById);
 // Routes Products
 router.get("/search", searchProduct);
 router.get("/nfts", getNFTs);
 router.get("/nft/:id", getProductById);
+router.get("/orderCart", getOrder);
+router.get("/profile", getProfile);
+router.post("/profile", createProfile);
 router.post("/nft", createProduct);
+router.post("/orderCart", createOrder);
 router.post("/transactionMetamask", transactionMetaMask);
 router.post("/transactionStripe", StripePayment);
 router.put("/edit/:id", updateProductById);

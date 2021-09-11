@@ -20,8 +20,10 @@ import Profile from './components/profile/profile.jsx'
 import Contact from './components/contact/contact.jsx'
 import About from './components/about/about.jsx'
 import NftDetail from './components/NftDetail/NftDetail'
+import NavBarShoppingCart from "./components/NavBarShoppingCart/shoppingcart.jsx"
 import './App.css'
 import LoginSection from './components/LoginSection/LoginSection'
+import AdminProfile from './components/Admin/admin'
 
 function App() {
   return (
@@ -38,6 +40,7 @@ function App() {
         <Route exact path='/categories/sport' component={Sport}></Route>
         <Route exact path='/categories/music' component={Music}></Route>
         <Route exact path='/categories/cute' component={Cute}></Route>
+        <Route exact path='/admin'component={AdminProfile}></Route>
         <Route
           exact
           path='/categories/abstractart'
@@ -48,6 +51,7 @@ function App() {
         <Route exact path='/profile' component={Profile}></Route>
         <Route exact path='/contact' component={Contact}></Route>
         <Route exact path='/about' component={About}></Route>
+        <Route exact path='/shoppingcart' component={NavBarShoppingCart}></Route>
         <Route exact path='/login' component={LoginSection}></Route>
         <Route path='/*' component={Error}></Route>
       </Switch>

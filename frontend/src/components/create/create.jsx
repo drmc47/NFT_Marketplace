@@ -20,14 +20,12 @@ function validateNft(nft){
     }
     
     const dispatch=useDispatch();
-    const [errorsFromNft,setErrorsFromNft]=useState({})
-    const categories=useSelector(state=>state.filters)
-    console.log("soyyyy create",categories)
     useEffect(() => {
         dispatch(getCategories())
     }, [dispatch]);
-    
-   
+    const [errorsFromNft,setErrorsFromNft]=useState({})
+    const categories=useSelector(state=>state.categories)
+      
     const [nft, setNft] = useState({
         name:"",
         description:"",
@@ -91,13 +89,11 @@ function validateNft(nft){
         })
     }
 
-
-
     return(
         
         <div>
       
-       <Link to="/nfts">
+       <Link to="/">
             <button>HOME</button>
         </Link>
        
