@@ -2,13 +2,9 @@ const { Router } = require("express");
 const router = Router();
 const cors = require("cors");
 const passport = require("passport");
-<<<<<<< HEAD
-const { transactionMetaMask } = require("../controllers/payments/crypto/transactionMetaMask");
-=======
 const {
   transactionMetaMask,
 } = require("../controllers/payments/crypto/transactionMetaMask");
->>>>>>> 470291f550d6858cd1c4ec9723d17908f07fc606
 const { StripePayment } = require("../controllers/payments/fiat/Stripe");
 const { createOrder, getOrder } = require("../controllers/products/orders")
 const { createProfile, getProfile } = require('../controllers/users/user')

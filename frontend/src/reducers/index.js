@@ -4,7 +4,6 @@ import {
   GET_NFT_BY_NAME,
   GET_NFT_BY_ID,
   FILTER_BY_NAME,
-  FILTER_BY_CATEGORY,
   SORT_BY_PRICE,
   POST_NFT,
   IS_AUTHENTICATED,
@@ -15,6 +14,7 @@ import {
   SIGNUP_ERROR,
   ADD_SHOPPING_TROLLEY,
   CONECT_LS,
+  GET_CATEGORIES,
   POST_ORDER_SHOPPING_CART,
   GET_ORDER_SHOPPING_CART,
   POST_PROFILE_USER,
@@ -28,7 +28,6 @@ const initialState = {
   userLogged: null,
   nftDetail: [],
   Nfts: [],
-  filters: [],
   transactions: [],
   categories: [],
   shoppingTrolley: [],
@@ -78,7 +77,7 @@ function rootReducer(state = initialState, action) {
         ...state,
         allNFTs: [...ascDescFilter],
       };
-    case FILTER_BY_CATEGORY:
+    case GET_CATEGORIES:
       return {
         ...state,
         categories: action.payload,

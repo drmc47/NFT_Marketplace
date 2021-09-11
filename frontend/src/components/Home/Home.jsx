@@ -2,10 +2,8 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getNFTs } from "../../actions/getNFTs.js";
 import style from "../Home/Home.module.css";
-// import Search from "../Search/Search";
 import sortByAbc from "../../actions/sortByAbc";
 import { sortByPrice } from "../../actions/sortByPrice";
-import { filterByCategories } from "../../actions/filterCategorie";
 import CollectionHome from "../collectionhome/collectionhome.jsx"
 import ImageSlider from "../slider/slider"
 import Grid from '@material-ui/core/Grid';
@@ -13,11 +11,11 @@ import { getCategories } from "../../actions/getCategories.js";
 
 
 export default function Home() {
-  const filters = useSelector((state) => state.filters);
+  const categories = useSelector((state) => state.categories);
   const stateAllNFTs = useSelector((state) => state.allNFTs);
   const dispatch = useDispatch();
 
-  console.log("soyyyyyyyy filterrr jejejejej",filters)
+  console.log("soyyyyyyyy filterrr jejejejej",categories)
   
   useEffect(() => {
     dispatch(getNFTs());
@@ -37,9 +35,9 @@ export default function Home() {
     dispatch(sortByPrice(e.target.value));
   };
 
-  const handleCategorie = (e) => {
-    dispatch(filterByCategories(e.target.value));
-  };
+  // const handleCategorie = (e) => {
+  //   dispatch(filterByCategories(e.target.value));
+  // };
 
   return (
     <React.Fragment>
