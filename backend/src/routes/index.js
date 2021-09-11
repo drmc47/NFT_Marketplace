@@ -24,7 +24,7 @@ const {
   getUserById,
 } = require("../controllers/Admin/admin");
 //ROUTES ADMIN
-router.get("/all", getUsers);
+router.get("/admin/users", getUsers);
 router.get("/user/:id", getUserById);
 router.put("/admin/edit/:id", updateAdminById);
 router.delete("/deleteUser/:id", deleteUser);
