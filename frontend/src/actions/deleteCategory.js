@@ -1,5 +1,5 @@
 import axios from "axios";
-import { DELETE_CATEGORIE } from "./constants";
+
 
 export function deleteCategory(id) {
   return async function (dispatch) {
