@@ -1,5 +1,6 @@
 .houselists {
     display: flex;
+    margin-top: 3rem;
     }
 .house {
     position: relative;
