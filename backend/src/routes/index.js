@@ -9,21 +9,40 @@ const { StripePayment } = require("../controllers/payments/fiat/Stripe");
 const { createOrder, getOrder } = require("../controllers/products/orders");
 const { createProfile, getProfile } = require("../controllers/users/user");
 const jwt = require("jsonwebtoken");
+const User = require("../models/User");
+const verifyToken = require("../controllers/middlewares/verifyToken");
 const corsOptions = {
   origin: "http://localhost:3000",
   credentials: true,
   optionSuccessStatus: 200,
 };
+//ADMIN
+const {
+  getUsers,
+  updateAdminById,
+  deleteUser,
+  getUserById,
+} = require("../controllers/Admin/admin");
+//ROUTES ADMIN
+router.get("/all", getUsers);
+router.get("/user/:id", getUserById);
+router.put("/admin/edit/:id", updateAdminById);
+router.delete("/deleteUser/:id", deleteUser);
 
+//CATEGORIES
 const {
   createCategorie,
   updateCategorieById,
   deleteCategorieById,
   getCategories,
 } = require("../controllers/products/categorie");
-const User = require("../models/User");
-const verifyToken = require("../controllers/middlewares/verifyToken");
+//ROUTES CATEGORIES
+router.get("/categories", getCategories);
+router.post("/create/categorie", createCategorie);
+router.put("/edit/categorie/:id", updateCategorieById);
+router.delete("/categorie/:id", deleteCategorieById);
 
+//PRODUCTS
 const {
   searchProduct,
   createProduct,
@@ -33,23 +52,20 @@ const {
   getNFTs,
 } = require("../controllers/products/products");
 
-//Routes categories
-router.get("/categories", getCategories);
-router.post("/create/categorie", createCategorie);
-router.put("/edit/categorie/:id", updateCategorieById);
-router.delete("/categorie/:id", deleteCategorieById);
-// Routes Products
+// ROUTES PRODUCTS
 router.get("/search", searchProduct);
 router.get("/nfts", getNFTs);
 router.get("/nft/:id", getProductById);
 router.get("/orderCart", getOrder);
-router.get("/profile", getProfile);
-router.post("/profile", createProfile);
 router.post("/nft", createProduct);
 router.post("/orderCart", createOrder);
 router.post("/transactionMetamask", transactionMetaMask);
 router.post("/transactionStripe", StripePayment);
 router.put("/edit/:id", updateProductById);
+
+//ROUTES PROFILE
+router.get("/profile", getProfile);
+router.post("/profile", createProfile);
 
 //1 admin crea categorias
 //2 admin asigna roles a user
