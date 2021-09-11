@@ -23,6 +23,7 @@ import NftDetail from './components/NftDetail/NftDetail'
 import NavBarShoppingCart from "./components/NavBarShoppingCart/shoppingcart.jsx"
 import './App.css'
 import LoginSection from './components/LoginSection/LoginSection'
+import AdminProfile from './components/Admin/admin'
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
         <Route exact path='/categories/sport' component={Sport}></Route>
         <Route exact path='/categories/music' component={Music}></Route>
         <Route exact path='/categories/cute' component={Cute}></Route>
+        <Route exact path='/admin'component={AdminProfile}></Route>
         <Route
           exact
           path='/categories/abstractart'
