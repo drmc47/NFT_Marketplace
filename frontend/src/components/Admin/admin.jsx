@@ -26,6 +26,7 @@ export default function AdminProfile() {
       [e.target.name]: e.target.value
     })
   }
+  //algo
   async function handleSubmit(e) {
      e.preventDefault()
      console.log("cat",categories)
