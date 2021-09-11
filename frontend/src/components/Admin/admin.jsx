@@ -14,6 +14,7 @@ export default function AdminProfile() {
       dispatch(getClean())
     }
   }, [dispatch])
+  //algo
   const admin = useSelector((state) => state.profileAdmin)
   console.log("Información del perfil desded el Reducer:", admin[0])
   
