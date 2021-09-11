@@ -3,6 +3,7 @@ import {
   GET_NFTs,
   GET_NFT_BY_NAME,
   GET_NFT_BY_ID,
+  GET_CATEGORIES,
   FILTER_BY_NAME,
   FILTER_BY_CATEGORY,
   SORT_BY_PRICE,
@@ -83,6 +84,11 @@ function rootReducer(state = initialState, action) {
         ...state,
         categories: action.payload,
       };
+      case GET_CATEGORIES:
+              return {
+                ...state,
+                categories: action.payload,
+              }
     case SORT_BY_PRICE:
       const priceFilter =
         action.payload === "max"
