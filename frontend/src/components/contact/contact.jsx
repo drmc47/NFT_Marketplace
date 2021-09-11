@@ -20,6 +20,7 @@ export default function Contact() {
           console.log(error.text)
         }
       )
+    e.target.reset()
   }
   return (
     <div>
@@ -37,6 +38,7 @@ export default function Contact() {
               type='text'
               variant='outlined'
               label='Name'
+              size='small'
             />
           </Box>
           <Box mb='1rem'>
@@ -45,6 +47,7 @@ export default function Contact() {
               type='email'
               variant='outlined'
               label='Email'
+              size='small'
             />
           </Box>
           <Box mb='1rem'>
@@ -52,7 +55,7 @@ export default function Contact() {
               name='message'
               type='text'
               variant='outlined'
-              minRows='6'
+              size='medium'
               label='Message'
             />
           </Box>
