@@ -14,6 +14,8 @@ import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import {useTheme} from '@material-ui/core/styles'
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import IconButton from "@material-ui/core/IconButton";
 
 function ElevationScroll(props) {
   const { children } = props
@@ -64,6 +66,9 @@ const useStyles = makeStyles((theme) => ({
       opacity: 1,
     },
   },
+  shoppingcart: {
+    color: "black"
+  }
 }))
 
 export default function NavBar() {
@@ -284,6 +289,14 @@ export default function NavBar() {
                 Utopy
               </MenuItem>
             </Menu>
+           
+              <IconButton component={Link}
+                to='/shoppingcart'>
+                <ShoppingCartIcon  
+                />
+              </IconButton>
+           
+
             {userLogged ? (
               <Button
                 component={Link}
