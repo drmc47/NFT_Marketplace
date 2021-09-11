@@ -21,7 +21,7 @@ export default function Abstractart() {
   }, [dispatch]);
 
   const stateAllNFTs = useSelector((state) => state.allNFTs);
-  const filtered = stateAllNFTs.filter((i) => i.categories === "Abstract art");
+  const filtered = stateAllNFTs.filter((i) => i.categories[0] === "Abstract art");
 
  
     const classes = useStyles();
