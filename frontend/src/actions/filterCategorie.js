@@ -7,7 +7,7 @@ export function filterByCategories(payload) {
       const filterCat =
         payload === "all"
           ? response.data
-          : response.data.filter((i) => i.categories[0] === payload);
+          : response.data.filter((i) => i.category === payload);
       console.log(payload);
       console.log(filterCat);
       return dispatch({
