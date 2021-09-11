@@ -85,7 +85,7 @@ function rootReducer(state = initialState, action) {
     case GET_CATEGORIES:
       return {
         ...state,
-        categories: action.payload,
+        categories: action.payload
       };
     case SORT_BY_PRICE:
       const priceFilter =
