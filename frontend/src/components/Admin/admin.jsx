@@ -165,9 +165,8 @@ async function handleDeleteNFT(e) {
             <h3>User to administrator</h3>
 
    
-            {/* <button>Select an administrator</button>
-            <button>Delete NFTs</button>
-            <button>Change Fee price </button> */} 
+           
+            {/* <button>Change Fee price </button>  */}
 
          
         </div>
