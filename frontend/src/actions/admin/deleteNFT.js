@@ -1,11 +1,12 @@
 import axios from "axios";
 
-
-export function deleteNFT(id) {
-  return async function () {
+//
+export function deleteNFT(ids) {
+    console.log("esto me llega como ids",ids)
+  return  function () {
     try {
-      const category = await axios.delete('http://localhost:8001/categorie/'+id);
-    } catch (error) {
+      ids.map(id=> axios.delete('http://localhost:8001/admin/'+id))
+     } catch (error) {
       console.log(error);
     }
   };
