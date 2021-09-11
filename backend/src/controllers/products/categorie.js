@@ -27,8 +27,8 @@ async function getCategoriesDb() {
 let getCategories = async (_req, res, next) => {
   try {
     let cats = await getCategoriesDb();
-    const categories = cats.map((c) => c.name);
-    return res.json(categories);
+    //const categories = cats.map((c) => c.name);
+    return res.json(cats);
   } catch (error) {
     next("Error");
   }
@@ -51,7 +51,7 @@ async function deleteCategorieById(req, res, next) {
   const id = req.params.id;
   console.log("id categorie desde backend", id);
   try {
-    const cat = await Catogorie.findByIdAndDelete({ _id: id });
+    const cat = await Categorie.findByIdAndDelete({ _id: id });
     if (!cat) {
       res.send("Can´t remove it");
     } else {
