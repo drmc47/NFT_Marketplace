@@ -1,22 +1,30 @@
 import NavBar from '../NavBar/NavBar'
-import './Login.module.css'
 import React, { useState } from 'react'
 import { TextField, Button } from '@material-ui/core'
-import localLogin from '../../actions/login'
+import localSignup from '../../actions/signup'
 
-export default function Login({ invalidEmail, handleChange, handleSubmit }) {
-  const [inputs, setInputs] = useState({ username: '', password: '' })
+export default function Signup({
+  invalidEmail,
+  invalidPassword,
+  handleChange,
+  handleSubmit,
+}) {
+  const [inputs, setInputs] = useState({
+    username: '',
+    firstName: '',
+    lastName: '',
+    password: '',
+  })
 
   return (
     <div className='App'>
       <NavBar />
       <header className='App-header'>
-        <h1>Login</h1>
         <form
           action=''
           noValidate
           autoComplete='off'
-          onSubmit={(e) => handleSubmit(e, localLogin, inputs)}
+          onSubmit={(e) => handleSubmit(e, localSignup, inputs)}
         >
           <div>
             <TextField
@@ -32,6 +40,28 @@ export default function Login({ invalidEmail, handleChange, handleSubmit }) {
           <div>
             <TextField
               onChange={(e) => handleChange(e, inputs, setInputs)}
+              id='firstName'
+              name='firstName'
+              label='First name'
+              value={inputs.firstName}
+              variant='outlined'
+            />
+          </div>
+          <div>
+            <TextField
+              onChange={(e) => handleChange(e, inputs, setInputs)}
+              id='lastName'
+              name='lastName'
+              label='lastName'
+              value={inputs.lastName}
+              variant='outlined'
+              type='text'
+            />
+          </div>
+          <div>
+            <TextField
+              onChange={(e) => handleChange(e, inputs, setInputs)}
+              error={inputs.password && invalidPassword(inputs.password)}
               id='password'
               name='password'
               label='Password'
@@ -45,18 +75,16 @@ export default function Login({ invalidEmail, handleChange, handleSubmit }) {
             <Button
               variant='contained'
               color='primary'
-              disabled={
-                invalidEmail(inputs.username) && !inputs.password.length
-              }
               type='submit'
+              disabled={!inputs.firstName && !inputs.email && !inputs.password}
             >
-              Login
+              Sign up
             </Button>
           </div>
         </form>
 
         <Button className='LoginDiv' variant='contained' color='secondary'>
-          <a href='http://localhost:8001/auth/google'>Log in with Google</a>
+          <a href='http://localhost:8001/auth/google'>Sign up with Google</a>
         </Button>
       </header>
     </div>

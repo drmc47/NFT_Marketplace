@@ -2,7 +2,13 @@ const { Router } = require("express");
 const router = Router();
 const cors = require("cors");
 const passport = require("passport");
+<<<<<<< HEAD
 const { transactionMetaMask } = require("../controllers/payments/crypto/transactionMetaMask");
+=======
+const {
+  transactionMetaMask,
+} = require("../controllers/payments/crypto/transactionMetaMask");
+>>>>>>> 470291f550d6858cd1c4ec9723d17908f07fc606
 const { StripePayment } = require("../controllers/payments/fiat/Stripe");
 const { createOrder, getOrder } = require("../controllers/products/orders")
 const { createProfile, getProfile } = require('../controllers/users/user')
@@ -20,9 +26,7 @@ const {
   getCategories,
 } = require("../controllers/products/categorie");
 const User = require("../models/User");
-const verifyToken = require('../controllers/middlewares/verifyToken');
-
-
+const verifyToken = require("../controllers/middlewares/verifyToken");
 
 const {
   searchProduct,
@@ -55,7 +59,9 @@ router.put("/edit/:id", updateProductById);
 //4 admin elimina nfts
 
 router.delete("/admin/:id", deleteProductById); // RUTA DEL ADMIN
-router.post("/admin/create", passport.authenticate("local-signup", {
+router.post(
+  "/admin/create",
+  passport.authenticate("local-signup", {
     // successRedirect : 'https://localhost:3000/',
     // failureRedirect: 'https://localhost:3000/login',
     passReqToCallback: true,
@@ -69,7 +75,9 @@ router.post("/admin/create", passport.authenticate("local-signup", {
 router.delete("/delete/:id", deleteProductById);
 
 //REGISTRO LOCAL
-router.post("/register",passport.authenticate("local-signup", {
+router.post(
+  "/register",
+  passport.authenticate("local-signup", {
     // successRedirect : 'https://localhost:3000/',
     // failureRedirect: 'https://localhost:3000/login',
     passReqToCallback: true,
@@ -84,7 +92,9 @@ router.post("/register",passport.authenticate("local-signup", {
 
 //INICIO DE SESION LOCAL
 
-router.post("/login", passport.authenticate("local-login", {
+router.post(
+  "/login",
+  passport.authenticate("local-login", {
     // successRedirect : 'https://localhost:3000/',
     // failureRedirect: 'https://localhost:3000/login',
     passReqToCallback: true,
@@ -108,17 +118,25 @@ router.post("/login", passport.authenticate("local-login", {
 );
 
 //INICIO DE SESION CON GOOGLE
-router.get("/auth/google", passport.authenticate("google", {scope: ['email', 'profile']}));
-router.get("/auth/google/callback", passport.authenticate("google", {
+router.get(
+  "/auth/google",
+  passport.authenticate("google", { scope: ["email", "profile"] })
+);
+router.get(
+  "/auth/google/callback",
+  passport.authenticate("google", {
     failureRedirect: "http://localhost:3000/laconchadesumadre",
     // successRedirect: 'http://localhost:3000/profile',
     passReqToCallback: true,
   }),
   async (req, res) => {
     const token = jwt.sign(
-      { googleID: req.user.googleID }, "superstringinhackeable", {
+      { googleID: req.user.googleID },
+      "superstringinhackeable",
+      {
         expiresIn: 60 * 60 * 24, // equivalente a 24 horas
-      });
+      }
+    );
     res.send(token);
     // res.redirect('http://localhost:3000/profile')
   }
