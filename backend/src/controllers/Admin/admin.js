@@ -3,7 +3,7 @@ const Users = require("../../models/User");
 async function getUsersDb() {
   try {
     const users = await Users.find({ roles: "613bd8b725b8702ce89f7473" });
-    //console.log(users, "estos son los users");
+
     return users;
   } catch (err) {
     console.log(err);
