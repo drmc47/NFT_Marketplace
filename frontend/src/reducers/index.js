@@ -19,8 +19,10 @@ import {
   GET_ORDER_SHOPPING_CART,
   POST_PROFILE_USER,
   GET_PROFILE_USER,
-  GET_PROFILE_ADMIN
+  GET_PROFILE_ADMIN,
+  POST_CATEGORIE
 } from "../actions/constants";
+
 
 const initialState = {
   allNFTs: [], // all NFTS from API openSea
@@ -34,7 +36,8 @@ const initialState = {
   shoppingTrolley: [],
   shoppingCart: [],
   profileUserData: [],
-  profileAdmin:[]
+  profileAdmin:[],
+  postCategorie:""
 };
 
 function rootReducer(state = initialState, action) {
@@ -216,6 +219,11 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         profileAdmin: action.payload,
+      }
+      case POST_CATEGORIE:
+      return {
+        ...state,
+        postCategorie: action.payload,
       }
     default:
       return state;
