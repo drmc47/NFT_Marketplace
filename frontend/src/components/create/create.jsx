@@ -25,6 +25,7 @@ function validateNft(nft){
     }, [dispatch]);
     const [errorsFromNft,setErrorsFromNft]=useState({})
     const categories=useSelector(state=>state.categories)
+    console.log(categories,"desde create")
       
     const [nft, setNft] = useState({
         name:"",
@@ -179,7 +180,7 @@ function validateNft(nft){
         <select required name="categories" onChange={(e)=>onInputChange(e)} defaultValue="">
             <option value="">Choose categories</option>
             {categories.map((cat)=>(
-                <option key={cat} name={cat} value={cat}>{cat?.charAt(0).toUpperCase()+cat?.slice(1)}</option>
+                <option key={cat._id} name={cat.name} value={cat.name}>{cat.name?.charAt(0).toUpperCase()+cat.name?.slice(1)}</option>
             ))}
         </select>
          

@@ -78,11 +78,13 @@ function rootReducer(state = initialState, action) {
         ...state,
         allNFTs: [...ascDescFilter],
       };
-      case GET_CATEGORIES:
-              return {
-                ...state,
-                categories: action.payload,
-              }
+
+    case GET_CATEGORIES:
+      return {
+        ...state,
+        categories: action.payload
+      };
+
     case SORT_BY_PRICE:
       const priceFilter =
         action.payload === "max"

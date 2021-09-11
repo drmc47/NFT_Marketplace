@@ -52,10 +52,11 @@ async function deleteCategorieById(req, res, next) {
   console.log("id categorie desde backend", id);
   try {
     const cat = await Categorie.findByIdAndDelete({ _id: id });
+    console.log(cat)
     if (!cat) {
       res.send("Can´t remove it");
     } else {
-      res.json("Categorie deleted");
+      res.json(cat);
     }
   } catch (error) {
     next("error");
