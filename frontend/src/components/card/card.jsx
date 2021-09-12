@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux'
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -33,6 +33,7 @@ const useStyles = makeStyles({
 
 export default function Cards({ ele }) {
   const classes = useStyles();
+  const userLogged = useSelector((state) => state.userLogged);
   const dispatch = useDispatch();
   const handleClick = (ele)=>{
     dispatch(addShoppingTrolley(ele));
@@ -52,7 +53,9 @@ export default function Cards({ ele }) {
         <CardHeader
           action={
             <IconButton>
-              <StarBorderIcon />
+              {userLogged? <StarBorderIcon />
+              :null}
+              
             </IconButton>
           }
           />
