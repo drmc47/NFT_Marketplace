@@ -3,6 +3,9 @@ const passport = require('passport');
 const {GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = process.env;
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const User = require('../models/User');
+const Roles = require('../models/Role');
+
+const jwt = require("jsonwebtoken");
 
 passport.serializeUser((user, done) => {
     done(null, user.id);
@@ -25,11 +28,16 @@ passport.use(new GoogleStrategy(
             const user = await User.findOne({googleID : profile.id}); // si el usuario no existe 
             if (!user) {
               let newUser = new User();
-                  newUser.username = profile.emails[0].value
-                  newUser.googleID = profile.id
-                  newUser.firstName = profile.name.givenName
-                  newUser.lastName = profile.name.familyName
-                  newUser.profilePic = profile.photos[0].value
+              newUser.username = profile.emails[0].value
+              newUser.googleID = profile.id
+              newUser.firstName = profile.name.givenName
+              newUser.lastName = profile.name.familyName
+              newUser.profilePic = profile.photos[0].value
+              const token = jwt.sign({ googleID: profile.id}, "superstringinhackeable");
+              newUser.token = token;
+              const foundRoles = await Roles.findOne({ name: "user" });
+              newUser.roles = [foundRoles._id];
+    
                   await newUser.save() //guardamos en la base de datos
                   return done(null, newUser)
             }

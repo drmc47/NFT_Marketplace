@@ -51,6 +51,7 @@ const {
   deleteProductById,
   getNFTs,
 } = require("../controllers/products/products");
+const verifyAdmin = require("../controllers/middlewares/verifyAdmin");
 
 // ROUTES PRODUCTS
 router.get("/search", searchProduct);
@@ -97,9 +98,9 @@ router.post(
     passReqToCallback: true,
   }),
 
-  async (req, res, next) => {
-    res.send(req.user);
-
+  async (req, res, _next) => {
+      return res.send(req.user);
+    
     //res.redirect(AL JOM DEL PROYECTO)
   }
 );
@@ -123,6 +124,10 @@ router.post(
         if (err) return next(err);
         const body = { _id: req.user.id, username: req.user.username };
         const token = jwt.sign({ user: body }, "superstringinhackeable");
+        const user = User.findOne({username : req.body.username})
+        console.log(username)
+        user.token = token;
+        user.save();
         return res.send(token);
       });
     } catch (error) {
@@ -139,22 +144,18 @@ router.get(
 router.get(
   "/auth/google/callback",
   passport.authenticate("google", {
-    failureRedirect: "http://localhost:3000/laconchadesumadre",
-    // successRedirect: 'http://localhost:3000/profile',
+    failureRedirect: "http://localhost:3000/rutadeerror",
+    // successRedirect: 'http://localhost:3000/',
     passReqToCallback: true,
   }),
   async (req, res) => {
-    const token = jwt.sign(
-      { googleID: req.user.googleID },
-      "superstringinhackeable",
-      {
-        expiresIn: 60 * 60 * 24, // equivalente a 24 horas
-      }
-    );
-    res.send(token);
+    res.send(req.user);
     // res.redirect('http://localhost:3000/profile')
   }
 );
+
+//PRUEBAS
+router.get('/prueba', verifyAdmin)
 
 router.use(cors(corsOptions));
 
