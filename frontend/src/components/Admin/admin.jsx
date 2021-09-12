@@ -22,6 +22,7 @@ export default function AdminProfile() {
   const users=useSelector(state=>state.allUsers)
   
   
+  
   useEffect(() => {
     dispatch(getCategories())
     dispatch(getNFTs())
@@ -39,14 +40,16 @@ export default function AdminProfile() {
     nameCategory: "",
     deleteCategory: "",
     deleteNFT: [],
-    user:""
+    users:[]
   })
 
   function onInputChange(e) {
-    if (e.target.name === "deleteNFT") {
+    if (e.target.name === "deleteNFT" || e.target.name === "users") {
+      const arrays= inputs[e.target.name];
+      console.log("entroo ehhhh")
         setInputs({
         ...inputs,
-        [e.target.name]: inputs.deleteNFT.concat(e.target.value),
+        [e.target.name]: arrays.concat(e.target.value),
       });
     } else {
       setInputs({ ...inputs, [e.target.name]: e.target.value }); 
@@ -130,7 +133,7 @@ async function handleDeleteNFT(e) {
                     ></input>
                     <div>
                   <label name={n.name}> {n.name} </label>
-                  <img src={n.image} alt="NFT image" width="150" height="150"/>
+                  <img src={n.image} alt="NFT image" width="60" height="60"/>
                   </div>
                 </div>
               ))}
@@ -138,23 +141,22 @@ async function handleDeleteNFT(e) {
            <button type="submit">Delete!</button>
             </form>
 
-            <form name="selectUser" 
+            <form name="users" 
             // onSubmit={(e)=>handleDeleteNFT(e)}
             >
             <h3>Change role</h3>
             <label htmlFor="">Users</label>             
             <div>
               {users.map((u) => (
-                <div key={u._id}>
+                <div key={u}>
                   <input
                     type="checkbox"
-                    name="user"
-                    value={u._id}
+                    name="users"
+                    value={u}
                     onChange={(e)=>onInputChange(e)}
                     ></input>
                     <div>
-                  <label name={u.name}> {u.name} </label>
-                  <img src={u.image? u.image : "http://assets.stickpng.com/images/585e4beacb11b227491c3399.png"} alt="User image" width="150" height="150"/>
+                  <label name={u}> {u} </label>
                   </div>
                 </div>
               ))}
