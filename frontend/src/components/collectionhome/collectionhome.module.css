@@ -1,12 +1,14 @@
 .houselists {
     display: flex;
     margin-top: 3rem;
+    margin-bottom: 3rem;
+    
     }
 .house {
     position: relative;
     overflow: hidden;
     width: 70px;
-    height: 550px;
+    height: 420px;
     background-size: auto 105%;
     background-position: center;
     border-radius: 60px;
@@ -15,19 +17,15 @@
     box-shadow: 0px 0px 10px -1px rgba(255,255,255,1);
     min-width: 100px;
     transition: .5s ease;
-    margin: 15px;
+    margin: 10px;
+    
     }
     .house:hover {
     min-width: 300px;
     background-size: auto 100%;
     border-radius: 10px;
     }
-    .house-inner {
-    position: relative;
-    height: 100%;
-    display: flex;
-    align-items: flex-end;
-    }
+  
     .house::before {
     content: '';
     width: 100%;
@@ -38,4 +36,26 @@
     }
     .house:hover::before{
     background: none;
+    
     }
+
+    .image {
+        width: 300px;
+        height: 350px;
+    }
+    .house_name {
+        color: #263942;
+        transform: rotate(-90deg);
+        font-size: 20px;
+        letter-spacing: 2px;
+        transition: .5s ease;
+        max-width: 1%;
+        text-decoration: none;
+        /* margin-bottom: 150px; */
+        }
+        .house:hover .house_name{
+        transform:rotate(0deg);
+        margin-bottom: 3%;
+        margin-left:20%;
+        text-decoration: none;
+        }

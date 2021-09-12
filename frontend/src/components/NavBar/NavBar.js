@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import logout from '../../actions/logout'
@@ -16,6 +16,8 @@ import useMediaQuery from '@material-ui/core/useMediaQuery'
 import {useTheme} from '@material-ui/core/styles'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import IconButton from "@material-ui/core/IconButton";
+import { getCategories } from '../../actions/getCategories'
+// import { createChainedFunction } from '@material-ui/core'
 
 function ElevationScroll(props) {
   const { children } = props
@@ -74,6 +76,7 @@ const useStyles = makeStyles((theme) => ({
 export default function NavBar() {
   const dispatch = useDispatch();
   const userLogged = useSelector((state) => state.userLogged);
+  const categories = useSelector((state) => state.categories);
   const classes = useStyles();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down('sm'));
@@ -102,46 +105,10 @@ export default function NavBar() {
   }
 
   useEffect(() => {
+    dispatch(getCategories());
     if (window.location.pathname === '/' && value !== 0) {
       setValue(0)
-    } else if (window.location.pathname === '/categories' && value !== 1) {
-      setValue(1)
-    } else if (window.location.pathname === '/categories/all' && value !== 1) {
-      setValue(1)
-    } else if (
-      window.location.pathname === '/categories/funny' &&
-      value !== 1
-    ) {
-      setValue(1)
-    } else if (
-      window.location.pathname === '/categories/animals' &&
-      value !== 1
-    ) {
-      setValue(1)
-    } else if (
-      window.location.pathname === '/categories/sport' &&
-      value !== 1
-    ) {
-      setValue(1)
-    } else if (
-      window.location.pathname === '/categories/music' &&
-      value !== 1
-    ) {
-      setValue(1)
-    } else if (
-      window.location.pathname === '/categories/cute' &&
-      value !== 1
-    ) {
-      setValue(1)
-    } else if (
-      window.location.pathname === '/categories/abstractart' &&
-      value !== 1
-    ) {
-      setValue(1)
-    } else if (
-      window.location.pathname === '/categories/utopy' &&
-      value !== 1
-    ) {
+    } else if (window.location.pathname.includes('/categories') && value !== 1) {
       setValue(1)
     } else if (window.location.pathname === '/contact' && value !== 2) {
       setValue(2)
@@ -207,7 +174,8 @@ export default function NavBar() {
                 />
               )}
             </Tabs>
-            <Menu
+              { 
+               <Menu
               id='categoriesMenu'
               anchorEl={anchorEl}
               open={open}
@@ -216,7 +184,7 @@ export default function NavBar() {
               classes={{ paper: classes.menu }}
               elevation={3}
             >
-              <MenuItem
+               <MenuItem
                 onClick={handleClose}
                 component={Link}
                 to='/categories'
@@ -232,64 +200,154 @@ export default function NavBar() {
               >
                 All NFTS
               </MenuItem>
-              <MenuItem
+              {categories.length >0 && <MenuItem
                 onClick={handleClose}
-                classes={{ root: classes.menuItem }}
                 component={Link}
-                to='/categories/funny'
+                to={`/categories/${categories[0]._id}`}
+                classes={{ root: classes.menuItem }}
               >
-                Funny
-              </MenuItem>
-              <MenuItem
+               {categories[0].name}
+              </MenuItem>}
+              {categories.length >1 && <MenuItem
                 onClick={handleClose}
-                classes={{ root: classes.menuItem }}
                 component={Link}
-                to='/categories/animals'
+                to={`/categories/${categories[1]._id}`}
+                classes={{ root: classes.menuItem }}
               >
-                Animals
-              </MenuItem>
-              <MenuItem
+               {categories[1].name}
+              </MenuItem>}
+              {categories.length >2 && <MenuItem
                 onClick={handleClose}
-                classes={{ root: classes.menuItem }}
                 component={Link}
-                to='/categories/sport'
+                to={`/categories/${categories[2]._id}`}
+                classes={{ root: classes.menuItem }}
               >
-                Sport
-              </MenuItem>
-              <MenuItem
+               {categories[2].name}
+              </MenuItem>}
+              {categories.length >3 && <MenuItem
                 onClick={handleClose}
-                classes={{ root: classes.menuItem }}
                 component={Link}
-                to='/categories/music'
+                to={`/categories/${categories[3]._id}`}
+                classes={{ root: classes.menuItem }}
               >
-                Music
-              </MenuItem>
-              <MenuItem
+               {categories[3].name}
+              </MenuItem>}
+              {categories.length >4 && <MenuItem
                 onClick={handleClose}
-                classes={{ root: classes.menuItem }}
                 component={Link}
-                to='/categories/cute'
+                to={`/categories/${categories[4]._id}`}
+                classes={{ root: classes.menuItem }}
               >
-                Cute
-              </MenuItem>
-              <MenuItem
+               {categories[4].name}
+              </MenuItem>}
+              {categories.length >5 && <MenuItem
                 onClick={handleClose}
-                classes={{ root: classes.menuItem }}
                 component={Link}
-                to='/categories/abstractart'
+                to={`/categories/${categories[5]._id}`}
+                classes={{ root: classes.menuItem }}
               >
-                Abstract art
-              </MenuItem>
-              <MenuItem
+               {categories[5].name}
+              </MenuItem>}
+              {categories.length >0 && <MenuItem
                 onClick={handleClose}
-                classes={{ root: classes.menuItem }}
                 component={Link}
-                to='/categories/utopy'
+                to='/categories'
+                classes={{ root: classes.menuItem }}
               >
-                Utopy
-              </MenuItem>
+               Show More...
+              </MenuItem>}
+              {/* <MenuItem
+                onClick={handleClose}
+                component={Link}
+                to='/categories/all'
+                classes={{ root: classes.menuItem }}
+              >
+                All NFTS
+              </MenuItem> */}
             </Menu>
-           
+            //   id='categoriesMenu'
+            //   anchorEl={anchorEl}
+            //   open={open}
+            //   onClose={handleClose}
+            //   MenuListProps={{ onMouseLeave: handleClose }}
+            //   classes={{ paper: classes.menu }}
+            //   elevation={3}
+            // >
+            //   <MenuItem
+            //     onClick={handleClose}
+            //     component={Link}
+            //     to='/categories'
+            //     classes={{ root: classes.menuItem }}
+            //   >
+            //     Categories
+            //   </MenuItem>
+            //   <MenuItem
+            //     onClick={handleClose}
+            //     component={Link}
+            //     to='/categories/all'
+            //     classes={{ root: classes.menuItem }}
+            //   >
+            //     All NFTS
+            //   </MenuItem>
+            //   <MenuItem
+            //     onClick={handleClose}
+            //     classes={{ root: classes.menuItem }}
+            //     component={Link}
+            //     to='/categories/funny'
+            //   >
+            //     Funny
+            //   </MenuItem>
+            //   <MenuItem
+            //     onClick={handleClose}
+            //     classes={{ root: classes.menuItem }}
+            //     component={Link}
+            //     to='/categories/animals'
+            //   >
+            //     Animals
+            //   </MenuItem>
+            //   <MenuItem
+            //     onClick={handleClose}
+            //     classes={{ root: classes.menuItem }}
+            //     component={Link}
+            //     to='/categories/sport'
+            //   >
+            //     Sport
+            //   </MenuItem>
+            //   <MenuItem
+            //     onClick={handleClose}
+            //     classes={{ root: classes.menuItem }}
+            //     component={Link}
+            //     to='/categories/music'
+            //   >
+            //     Music
+            //   </MenuItem>
+            //   <MenuItem
+            //     onClick={handleClose}
+            //     classes={{ root: classes.menuItem }}
+            //     component={Link}
+            //     to='/categories/cute'
+            //   >
+            //     Cute
+            //   </MenuItem>
+            //   <MenuItem
+            //     onClick={handleClose}
+            //     classes={{ root: classes.menuItem }}
+            //     component={Link}
+            //     to='/categories/abstractart'
+            //   >
+            //     Abstract art
+            //   </MenuItem>
+            //   <MenuItem
+            //     onClick={handleClose}
+            //     classes={{ root: classes.menuItem }}
+            //     component={Link}
+            //     to='/categories/utopy'
+            //   >
+            //     Utopy
+            //   </MenuItem>
+            //     
+            // </Menu>
+              }
               <IconButton component={Link}
                 to='/shoppingcart'>
                 <ShoppingCartIcon  
