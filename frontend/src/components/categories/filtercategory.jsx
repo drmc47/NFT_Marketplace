@@ -1,4 +1,5 @@
 import React, { useEffect} from "react";
+import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from '@material-ui/core/styles';
 import Cards from "../card/card.jsx"
@@ -13,15 +14,16 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 
-export default function Utopy() {
-
+export default function FilterCategory() {
+  const { id } = useParams();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getNFTs());
   }, [dispatch]);
 
   const stateAllNFTs = useSelector((state) => state.allNFTs);
-  const filtered = stateAllNFTs.filter((i) => i.categories === "Utopy");
+  const filtered = stateAllNFTs.length >0 && stateAllNFTs.filter((i) => i.categories[0] === id);
+  
 
  
     const classes = useStyles();
@@ -30,7 +32,7 @@ export default function Utopy() {
           <Search></Search>
           <Grid container spacing={6}  className={classes.gridContainer}>
               {
-                  filtered  ? filtered.map(ele => {
+                  filtered.length >0  ? filtered.map(ele => {
                     return (
                       ele !== null && (
                         <div>
