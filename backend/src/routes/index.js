@@ -124,10 +124,9 @@ router.post(
         if (err) return next(err);
         const body = { _id: req.user.id, username: req.user.username };
         const token = jwt.sign({ user: body }, "superstringinhackeable");
-        const user = User.findOne({username : req.body.username})
-        console.log(username)
-        user.token = token;
-        user.save();
+        const filter = {username : req.body.username};
+        const update = {token : token}
+        await User.findOneAndUpdate(filter, update, {new : true});
         return res.send(token);
       });
     } catch (error) {
