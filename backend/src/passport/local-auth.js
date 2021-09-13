@@ -2,6 +2,8 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const User = require("../models/User");
 const Roles = require("../models/Role");
+const jwt = require("jsonwebtoken");
+
 passport.serializeUser((user, done) => {
   done(null, user.id);
 });
@@ -25,13 +27,19 @@ passport.use(
         if (found) {
           return done(null, false, { message: "YA TE REGISTRASTE ANTES " });
         }
+       
+  
         const user = new User({
           username,
           password,
           firstName: req.body.firstName,
           lastName: req.body.lastName,
           profilePic: req.body.profilePic ? req.body.profilePic : "",
+          token : '',
         });
+        const body = { _id: user._id, username: username };
+        const token = jwt.sign({ user: body }, "superstringinhackeable");
+        user.token = token
         if (req.body.roles) {
           const rol = await Roles.find({ name: { $in: req.body.roles } });
           user.roles = rol.map((role) => role._id);
@@ -39,9 +47,7 @@ passport.use(
           const foundRoles = await Roles.findOne({ name: "user" });
           user.roles = [foundRoles._id];
         }
-        const savedUser = await user.save();
-        console.log(savedUser, "acaaaaaaaaa");
-        console.log(user, "SOY USER");
+        await user.save();
         return done(null, user);
       } catch (error) {
         done(error);
