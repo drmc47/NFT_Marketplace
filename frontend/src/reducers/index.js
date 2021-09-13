@@ -20,7 +20,9 @@ import {
   GET_ORDER_SHOPPING_CART,
   POST_PROFILE_USER,
   GET_PROFILE_USER,
-  GET_USERS
+  GET_USERS,
+  LOGIN_GOOGLE_OK,
+  LOGIN_GOOGLE_ERROR
 } from "../actions/constants";
 
 const initialState = {
@@ -36,7 +38,8 @@ const initialState = {
   shoppingTrolley: [],
   shoppingCart: [],
   profileUserData: [],
-  allUsers:[]
+  allUsers:[],
+  userLoggedGoogle: null
 };
 
 function rootReducer(state = initialState, action) {
@@ -223,6 +226,16 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         allUsers: action.payload,
+      }
+    case LOGIN_GOOGLE_OK:
+      console.log("entre al reducer")
+      return {
+        ...state,
+        userLoggedGoogle: action.payload,
+      }
+    case LOGIN_GOOGLE_ERROR:
+      return {
+        ...state,
       }
     default:
       return state;

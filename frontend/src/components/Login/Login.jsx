@@ -3,9 +3,17 @@ import './Login.module.css'
 import React, { useState } from 'react'
 import { TextField, Button } from '@material-ui/core'
 import localLogin from '../../actions/login'
+import isAutorizeByGoogle from '../../actions/isAutorizeByGoogle'
+import { useDispatch} from 'react-redux'
 
 export default function Login({ invalidEmail, handleChange, handleSubmit }) {
+
   const [inputs, setInputs] = useState({ username: '', password: '' })
+/*   const dispatch = useDispatch(); 
+  const handleClick = ()=>{
+    console.log("entre en handleClick")
+    dispatch(isAutorizeByGoogle())
+  } */
 
   return (
     <div className='App'>
@@ -55,9 +63,11 @@ export default function Login({ invalidEmail, handleChange, handleSubmit }) {
           </div>
         </form>
 
-        <Button className='LoginDiv' variant='contained' color='secondary'>
-          <a href='http://localhost:8001/auth/google'>Log in with Google</a>
+        <Button className='LoginDiv' variant='contained' color='secondary'
+        /* onClick={() => handleClick()} */>
+          Login with Google
         </Button>
+        <a href='http://localhost:8001/auth/google'>Log in with Google</a>
       </header>
     </div>
   )
