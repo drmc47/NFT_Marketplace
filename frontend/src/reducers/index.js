@@ -5,6 +5,7 @@ import {
   GET_NFT_BY_ID,
   GET_CATEGORIES,
   FILTER_BY_NAME,
+  FILTER_BY_CATEGORY,
   SORT_BY_PRICE,
   POST_NFT,
   IS_AUTHENTICATED,
@@ -80,6 +81,11 @@ function rootReducer(state = initialState, action) {
         ...state,
         allNFTs: [...ascDescFilter],
       };
+    case FILTER_BY_CATEGORY:
+      return {
+        ...state,
+        allNFTs: action.payload
+      }
 
     case GET_CATEGORIES:
       return {

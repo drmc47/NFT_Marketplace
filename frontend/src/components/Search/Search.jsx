@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   search: {
+    zIndex: 999,
     maxWidth: "250px",
     position: 'fixed',
     right: "15px",

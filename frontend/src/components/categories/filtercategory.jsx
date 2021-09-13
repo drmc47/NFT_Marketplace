@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Cards from "../card/card.jsx"
 import Grid from '@material-ui/core/Grid';
 import Search from "../Search/Search.jsx"
+import SortBy from "../Sortby/Sortby.jsx"
 import { getNFTs} from "../../actions/getNFTs.js";
 
 const useStyles = makeStyles((theme) => ({
@@ -29,6 +30,7 @@ export default function FilterCategory() {
     const classes = useStyles();
     return(
         <React.Fragment>
+          {/* <SortBy></SortBy> */}
           <Search></Search>
           <Grid container spacing={6}  className={classes.gridContainer}>
               {
