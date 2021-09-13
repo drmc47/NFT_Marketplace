@@ -9,6 +9,7 @@ import {deleteCategory} from '../../actions/admin/deleteCategory'
 import { deleteNFT } from '../../actions/admin/deleteNFT'
 import { getNFTs } from '../../actions/getNFTs'
 import { getUsers } from '../../actions/admin/getUsers'
+import usersToAdmin from '../../actions/admin/usersToAdmin'
 
 
 
@@ -46,8 +47,7 @@ export default function AdminProfile() {
   function onInputChange(e) {
     if (e.target.name === "deleteNFT" || e.target.name === "users") {
       const arrays= inputs[e.target.name];
-      console.log("entroo ehhhh")
-        setInputs({
+         setInputs({
         ...inputs,
         [e.target.name]: arrays.concat(e.target.value),
       });
@@ -83,9 +83,14 @@ async function handleDeleteNFT(e) {
   
 }
 
-
-
-
+async function handleRole(e) {
+  e.preventDefault()
+  dispatch(usersToAdmin(inputs.users))
+  alert('Role changed')
+  dispatch(getUsers())
+  setInputs({users:""})
+  
+}
   
   return ( <div>
 
@@ -142,10 +147,10 @@ async function handleDeleteNFT(e) {
             </form>
 
             <form name="users" 
-            // onSubmit={(e)=>handleDeleteNFT(e)}
+            onSubmit={(e)=>handleRole(e)}
             >
             <h3>Change role</h3>
-            <label htmlFor="">Users</label>             
+            <label htmlFor="">Users To Admin</label>             
             <div>
               {users.map((u) => (
                 <div key={u}>
@@ -164,7 +169,7 @@ async function handleDeleteNFT(e) {
            <button type="submit">Change!</button>
             </form>
 
-            <h3>User to administrator</h3>
+            
 
    
            
