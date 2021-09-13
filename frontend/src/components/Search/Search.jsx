@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   search: {
+    zIndex: 999,
     maxWidth: "250px",
     position: 'fixed',
     right: "15px",
@@ -24,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   searchIcon: {
-    color: "white",
+    color: "black",
     padding: theme.spacing(0, 2),
     height: '100%',
     position: 'absolute',
@@ -34,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
   inputRoot: {
-    color: 'white',
+    color: 'black',
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),

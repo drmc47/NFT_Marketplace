@@ -5,6 +5,7 @@ import {
   GET_NFT_BY_ID,
   GET_CATEGORIES,
   FILTER_BY_NAME,
+  FILTER_BY_CATEGORY,
   SORT_BY_PRICE,
   POST_NFT,
   IS_AUTHENTICATED,
@@ -19,6 +20,7 @@ import {
   GET_ORDER_SHOPPING_CART,
   POST_PROFILE_USER,
   GET_PROFILE_USER,
+  GET_USERS,
 } from '../actions/constants'
 
 const initialState = {
@@ -34,6 +36,7 @@ const initialState = {
   shoppingTrolley: [],
   shoppingCart: [],
   profileUserData: [],
+  allUsers: [],
 }
 
 function rootReducer(state = initialState, action) {
@@ -77,6 +80,11 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         allNFTs: [...ascDescFilter],
+      }
+    case FILTER_BY_CATEGORY:
+      return {
+        ...state,
+        allNFTs: action.payload,
       }
 
     case GET_CATEGORIES:
@@ -161,10 +169,10 @@ function rootReducer(state = initialState, action) {
         }
       }
       if (parsLocal) {
-        console.log('parsLocal', parsLocal)
         let productAction = action.payload._id
-        let isrepeat = parsLocal.map((e) => e._id).includes(productAction)
-        console.log('isrepeat', isrepeat)
+        let isrepeat = parsLocal
+          ? parsLocal.map((e) => e._id).includes(productAction)
+          : null
 
         if (isrepeat) {
           swal({
@@ -227,6 +235,11 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         profileUserData: action.payload,
+      }
+    case GET_USERS:
+      return {
+        ...state,
+        allUsers: action.payload,
       }
     default:
       return state

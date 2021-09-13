@@ -3,9 +3,15 @@ import { useParams, Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import getProfileAdmin from "../../actions/getProfileAdmin"
 import getClean from "../../actions/getClean"
-import postCategorie from "../../actions/postCategorie"
+import postCategorie from "../../actions/admin/postCategorie"
 import { getCategories } from '../../actions/getCategories'
-import {deleteCategory} from '../../actions/deleteCategory'
+import {deleteCategory} from '../../actions/admin/deleteCategory'
+import { deleteNFT } from '../../actions/admin/deleteNFT'
+import { getNFTs } from '../../actions/getNFTs'
+import { getUsers } from '../../actions/admin/getUsers'
+import usersToAdmin from '../../actions/admin/usersToAdmin'
+
+
 
 
 export default function AdminProfile() {
@@ -13,26 +19,43 @@ export default function AdminProfile() {
   const dispatch = useDispatch();
   
   const categoriesDB=useSelector(state=>state.categories)
+  const nfts=useSelector(state=>state.allNFTs)
+  const users=useSelector(state=>state.allUsers)
+  
+  
   
   useEffect(() => {
     dispatch(getCategories())
+    dispatch(getNFTs())
+    dispatch(getUsers())
     // dispatch(getProfileAdmin())
     // return () => {
     //   dispatch(getClean())
     // }
   }, [dispatch])
-  //algo
+  
   // const admin = useSelector((state) => state.profileAdmin)
-  // console.log("Información del perfil desded el Reducer:", admin[0])
+  
 
-  const [inputs,setInputs]=useState({})
+  const [inputs,setInputs]=useState({
+    nameCategory: "",
+    deleteCategory: "",
+    deleteNFT: [],
+    users:[]
+  })
 
   function onInputChange(e) {
-    setInputs({
-      ...inputs,
-      [e.target.name]: e.target.value
-    })
+    if (e.target.name === "deleteNFT" || e.target.name === "users") {
+      const arrays= inputs[e.target.name];
+         setInputs({
+        ...inputs,
+        [e.target.name]: arrays.concat(e.target.value),
+      });
+    } else {
+      setInputs({ ...inputs, [e.target.name]: e.target.value }); 
+    }
   }
+  
   
   async function handleSubmit(e) {
      e.preventDefault()
@@ -51,7 +74,23 @@ export default function AdminProfile() {
   setInputs({deleteCategory:""})
   
 }
+async function handleDeleteNFT(e) {
+  e.preventDefault()
+  dispatch(deleteNFT(inputs.deleteNFT))
+  alert('NFT deleted')
+  dispatch(getNFTs())
+  setInputs({deleteNFT:""})
+  
+}
 
+async function handleRole(e) {
+  e.preventDefault()
+  dispatch(usersToAdmin(inputs.users))
+  alert('Role changed')
+  dispatch(getUsers())
+  setInputs({users:""})
+  
+}
   
   return ( <div>
 
@@ -79,15 +118,62 @@ export default function AdminProfile() {
             <select required name="deleteCategory" onChange={(e)=>onInputChange(e)} defaultValue="">
             <option value="">Choose categories</option>
             {categoriesDB.map((cat)=>(
-                <option key={cat._id} name={cat.name} value={cat._id}>{cat.name?.charAt(0).toUpperCase()+cat.name?.slice(1)}</option>
+              <option key={cat._id} name={cat.name} value={cat._id}>{cat.name?.charAt(0).toUpperCase()+cat.name?.slice(1)}</option>
             ))}
            </select>
            <button type="submit">Delete!</button>
             </form>
+
+            <form name="deleteNFT" onSubmit={(e)=>handleDeleteNFT(e)}>
+            <h3>Delete NFT</h3>
+            <label htmlFor="">NFTs</label>             
+            <div>
+              {nfts.map((n) => (
+                <div key={n._id}>
+                  <input
+                    type="checkbox"
+                    name="deleteNFT"
+                    value={n._id}
+                    onChange={(e)=>onInputChange(e)}
+                    ></input>
+                    <div>
+                  <label name={n.name}> {n.name} </label>
+                  <img src={n.image} alt="NFT image" width="60" height="60"/>
+                  </div>
+                </div>
+              ))}
+            </div>            
+           <button type="submit">Delete!</button>
+            </form>
+
+            <form name="users" 
+            onSubmit={(e)=>handleRole(e)}
+            >
+            <h3>Change role</h3>
+            <label htmlFor="">Users To Admin</label>             
+            <div>
+              {users.map((u) => (
+                <div key={u}>
+                  <input
+                    type="checkbox"
+                    name="users"
+                    value={u}
+                    onChange={(e)=>onInputChange(e)}
+                    ></input>
+                    <div>
+                  <label name={u}> {u} </label>
+                  </div>
+                </div>
+              ))}
+            </div>            
+           <button type="submit">Change!</button>
+            </form>
+
+            
+
    
-            {/* <button>Select an administrator</button>
-            <button>Delete NFTs</button>
-            <button>Change Fee price </button> */} 
+           
+            {/* <button>Change Fee price </button>  */}
 
          
         </div>
