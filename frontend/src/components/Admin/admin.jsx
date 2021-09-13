@@ -9,6 +9,7 @@ import {deleteCategory} from '../../actions/admin/deleteCategory'
 import { deleteNFT } from '../../actions/admin/deleteNFT'
 import { getNFTs } from '../../actions/getNFTs'
 import { getUsers } from '../../actions/admin/getUsers'
+import usersToAdmin from '../../actions/admin/usersToAdmin'
 
 
 
@@ -20,6 +21,7 @@ export default function AdminProfile() {
   const categoriesDB=useSelector(state=>state.categories)
   const nfts=useSelector(state=>state.allNFTs)
   const users=useSelector(state=>state.allUsers)
+  
   
   
   useEffect(() => {
@@ -39,14 +41,15 @@ export default function AdminProfile() {
     nameCategory: "",
     deleteCategory: "",
     deleteNFT: [],
-    user:""
+    users:[]
   })
 
   function onInputChange(e) {
-    if (e.target.name === "deleteNFT") {
-        setInputs({
+    if (e.target.name === "deleteNFT" || e.target.name === "users") {
+      const arrays= inputs[e.target.name];
+         setInputs({
         ...inputs,
-        [e.target.name]: inputs.deleteNFT.concat(e.target.value),
+        [e.target.name]: arrays.concat(e.target.value),
       });
     } else {
       setInputs({ ...inputs, [e.target.name]: e.target.value }); 
@@ -80,9 +83,14 @@ async function handleDeleteNFT(e) {
   
 }
 
-
-
-
+async function handleRole(e) {
+  e.preventDefault()
+  dispatch(usersToAdmin(inputs.users))
+  alert('Role changed')
+  dispatch(getUsers())
+  setInputs({users:""})
+  
+}
   
   return ( <div>
 
@@ -130,7 +138,7 @@ async function handleDeleteNFT(e) {
                     ></input>
                     <div>
                   <label name={n.name}> {n.name} </label>
-                  <img src={n.image} alt="NFT image" width="150" height="150"/>
+                  <img src={n.image} alt="NFT image" width="60" height="60"/>
                   </div>
                 </div>
               ))}
@@ -138,23 +146,22 @@ async function handleDeleteNFT(e) {
            <button type="submit">Delete!</button>
             </form>
 
-            <form name="selectUser" 
-            // onSubmit={(e)=>handleDeleteNFT(e)}
+            <form name="users" 
+            onSubmit={(e)=>handleRole(e)}
             >
             <h3>Change role</h3>
-            <label htmlFor="">Users</label>             
+            <label htmlFor="">Users To Admin</label>             
             <div>
               {users.map((u) => (
-                <div key={u._id}>
+                <div key={u}>
                   <input
                     type="checkbox"
-                    name="user"
-                    value={u._id}
+                    name="users"
+                    value={u}
                     onChange={(e)=>onInputChange(e)}
                     ></input>
                     <div>
-                  <label name={u.name}> {u.name} </label>
-                  <img src={u.image? u.image : "http://assets.stickpng.com/images/585e4beacb11b227491c3399.png"} alt="User image" width="150" height="150"/>
+                  <label name={u}> {u} </label>
                   </div>
                 </div>
               ))}
@@ -162,7 +169,7 @@ async function handleDeleteNFT(e) {
            <button type="submit">Change!</button>
             </form>
 
-            <h3>User to administrator</h3>
+            
 
    
            

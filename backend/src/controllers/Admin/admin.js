@@ -2,8 +2,7 @@ const Users = require("../../models/User");
 
 async function getUsersDb() {
   try {
-    const users = await Users.find({ roles: "613bd8b725b8702ce89f7473" });
-
+    const users = await Users.find({ roles: "613bd8b725b8702ce89f7473" });   
     return users;
   } catch (err) {
     console.log(err);
@@ -27,17 +26,10 @@ let getUsers = async (_req, res, next) => {
 };
 
 async function updateAdminById(req, res, next) {
+  console.log("uopt")
   try {
-    const id = req.params.id;
-    const { username, roles, firstName, lastName } = req.body;
-    let newUser = {
-      username,
-      roles,
-      firstName,
-      lastName,
-    };
-    const update = await Users.findByIdAndUpdate({ _id: id }, newUser);
-
+    const username = req.params.username;
+    const update = await Users.findOneAndUpdate({ 'username':username}, {'roles':"613bd8b725b8702ce89f7474"},{new:true});
     return res.send(update);
   } catch (error) {
     next("error");
