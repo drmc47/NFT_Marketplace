@@ -43,7 +43,7 @@ export default function Profile() {
       <aside className="aside">
 
         <div className="infoProfile">
-          <img src={getProfile[0]? getProfile[0].image : "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Imagen_no_disponible.svg/1024px-Imagen_no_disponible.svg.png"} alt="Image Not Found" />
+          <img src={getProfile[0]? getProfile[0].image : "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Imagen_no_disponible.svg/1024px-Imagen_no_disponible.svg.png"} alt="Not Found" />
         </div>
         <div className="accesos">
 
