@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Cards from "../card/card.jsx"
 import Grid from '@material-ui/core/Grid';
 import Search from "../Search/Search.jsx"
+import SortBy from "../Sortby/Sortby.jsx"
 
 const useStyles = makeStyles((theme) => ({
     
@@ -29,6 +30,7 @@ export default function All() {
     return(
         <React.Fragment>
           <Search></Search>
+          <SortBy></SortBy>
           <Grid container spacing={6}  className={classes.gridContainer}>
               {
                   stateAllNFTs  ? stateAllNFTs.map(ele => {
