@@ -164,9 +164,8 @@ function rootReducer(state = initialState, action) {
         }
       }
       if (parsLocal) {
-        console.log("parsLocal", parsLocal)
         let productAction = action.payload._id
-        let isrepeat = parsLocal.map(e => e._id).includes(productAction)
+        let isrepeat = parsLocal? parsLocal.map(e => e._id).includes(productAction) : null
 
         if (isrepeat) {
           swal({

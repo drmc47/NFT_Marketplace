@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrderShoppingCart } from "../../actions/getOrderShoppingCart";
+import { removeLS } from "../../actions/removeLS";
 import { getLS } from "../../actions/getLS";
 import ShoppingCart from '../shoppingCart/shoppingCart'
 import Payments from '../Payments/PaymentsButton/PaymentsButton'
@@ -18,7 +19,9 @@ export default function NavBarShoppingCart() {
 
 
     const handleCartClick = function () {
-        dispatch(getOrderShoppingCart())
+/*         dispatch(getOrderShoppingCart()) */
+        dispatch(removeLS())
+        dispatch(getLS())
     }
 
 
@@ -27,7 +30,7 @@ export default function NavBarShoppingCart() {
     return (
         <div>
             <button onClick={() => handleCartClick()}>
-                Mostrar carrito
+               ¡ Delete your ShoppingCart !
             </button>
             <ShoppingCart />
 
@@ -42,7 +45,6 @@ export default function NavBarShoppingCart() {
             {
                 allProductsCart?.map(e => (
                     <div className="divOrder">
-                        {console.log("e.name", e.name)}
                         <div className="divData">
                             <h5>{e ? e.name : null}</h5>
                         </div>
