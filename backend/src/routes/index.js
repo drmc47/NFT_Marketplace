@@ -7,6 +7,7 @@ const {
   transactionMetaMask,
 } = require("../controllers/payments/crypto/transactionMetaMask");
 const { StripePayment } = require("../controllers/payments/fiat/Stripe");
+const { MPayment } = require("../controllers/payments/fiat/MercadoPago");
 const { createOrder, getOrder } = require("../controllers/products/orders");
 const { createProfile, getProfile } = require("../controllers/users/user");
 const jwt = require("jsonwebtoken");
@@ -66,6 +67,7 @@ router.post("/nft", createProduct);
 router.post("/orderCart", createOrder);
 router.post("/transactionMetamask", transactionMetaMask);
 router.post("/transactionStripe", StripePayment);
+router.post('/MercadoPagoTransaction', MPayment);
 router.put("/edit/:id", updateProductById);
 
 //ROUTES PROFILE

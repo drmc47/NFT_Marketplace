@@ -10,6 +10,8 @@ import {
   POST_NFT,
   IS_AUTHENTICATED,
   TRANSACTION_METAMASK,
+  TRANSACTION_MERCADO_PAGO,
+  TRANSACTION_STRIPE,
   LOGIN_SUCCESS,
   LOGOUT,
   SIGNUP_SUCCESS,
@@ -123,14 +125,12 @@ function rootReducer(state = initialState, action) {
         ...state,
         transactions: action.payload,
       };
-    case 'ROLE':
-      return{
-        ...state,
-        role:action.payload
-      }
+    case TRANSACTION_MERCADO_PAGO:
+      return state;
+    case TRANSACTION_STRIPE:
+      return state;
     case LOGIN_SUCCESS:
-      window.localStorage.setItem("token",action.payload[0])
-      console.log("reducer",action.payload[1])
+//       window.localStorage.setItem("token",action.payload[0])
       return {
         ...state,
         role:action.payload[1],
@@ -164,7 +164,7 @@ function rootReducer(state = initialState, action) {
         text: "¡ Your NFT was successfully added shopping cart !",
         icon: "success",
         button: "OK!",
-        timer: 2000
+        timer: 1500
       })
       if (!parsLocal) {
         myStorage.setItem('user', JSON.stringify(state.shoppingTrolley.concat(action.payload)));
@@ -183,7 +183,7 @@ function rootReducer(state = initialState, action) {
             text: "¡ This NFT already exists in your shopping cart !",
             icon: "warning",
             button: "OK!",
-            timer: 2000
+            timer: 1500
           })
           return {
             ...state
@@ -229,7 +229,7 @@ function rootReducer(state = initialState, action) {
         ...state,
         profileUserData: action.payload,
       }
-      case GET_USERS:
+    case GET_USERS:
       return {
         ...state,
         allUsers: action.payload,

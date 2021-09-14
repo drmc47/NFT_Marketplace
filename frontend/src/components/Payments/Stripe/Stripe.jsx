@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-//import "bootswatch/dist/lux/bootstrap.min.css";
-import   "./Stripe";
+import { useDispatch, useSelector } from 'react-redux';
+import { TransactionStripe } from "../../../actions/StripeTransaction";
+import "bootswatch/dist/lux/bootstrap.min.css";
+import "./Stripe.css";
 
 import { loadStripe } from "@stripe/stripe-js";
 import {
@@ -10,11 +12,12 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 
-import axios from "axios";
 
 function Stripe() {
 
 const stripePromise = loadStripe("pk_test_51JW0tcIjGDmG2UQfAkI8szNjoLv5Ub72nxET50aEEsFKFgGGAZECrupO2Uxgp13JtpxGxSD2mtunzeSYWvK3WrJy00al1P3DwN");
+const dispatch = useDispatch();
+const purchaseOrder = useSelector((state) => state.shoppingTrolley);
 
 const CheckoutForm = () => {
   const stripe = useStripe();
@@ -33,59 +36,73 @@ const CheckoutForm = () => {
     setLoading(true);
 
     if (!error) {
-       console.log(paymentMethod)
+      // console.log(paymentMethod)
       const { id } = paymentMethod;
+        //Tengo que calcular el monto total.
+        //purchaseOrder
       try {
-        const { data } = await axios.post(
-          "http://localhost:3001/api/checkout",
-          {
-            id,
-            amount: 10000, //cents
-          }
-        );
-        console.log('Data: ', data);
 
-        elements.getElement(CardElement).clear();
+        let amount = {
+            id,
+            purchaseOrder
+          }
+          dispatch(TransactionStripe(amount));
+          elements.getElement(CardElement).clear();
+
       } catch (error) {
-        console.log('Error: ', error);
+        console.log(error);
       }
       setLoading(false);
-      console.log('Error: ', error);
     }
   };
 
   console.log(!stripe || loading);
-
+  const [StripeOption, setStripeOption] = useState(true);
   return (
-    <form  onSubmit={handleSubmit}>
-      {/* Product Information */}
-{/*       <img src="https://www.pinclipart.com/picdir/big/570-5704113_sonic-running-png-clipart-png-download-running-classic.png"
-         alt="nft-blockchain"
-         /> */}
+    <div className="App">
+      <button className="button" type="button" onClick={() => setStripeOption(!StripeOption)} >
+        {StripeOption ? 'Stripe' : 'Stripe'}
+      </button>
 
-      {/* <h3 >Price: 100$</h3> */}
+      {StripeOption ? (
+        <div >
 
-      {/* User Card Input */}
-
-      <button className="button" disabled={!stripe}>
-      {loading ? (
-        <div  role="status">
-          <span ></span>
         </div>
-      ) : "Stripe"}
-    </button>
-    </form>
-    /*       <div >
-        <CardElement />
-      </div> */
+      ) : (
+
+    <div className="paymentOption">
+
+        <header className="App-header">
+
+        <form  onSubmit={handleSubmit}>
+              <div>
+                <div>
+                  <CardElement />
+                </div>
+
+              <button onClick={(e) => handleSubmit(e)} className="button" disabled={!stripe}>
+                {loading ? (
+                  <div  role="status">
+                    <span ></span>
+                  </div>
+                ) : "Buy"}
+                
+             </button>
+
+          </div>
+        </form>
+    </header>
+    </div>    
+      )}
+    </div>
   );
 };
 
   return (
     <Elements stripe={stripePromise}>
-      <div >
-        <div >
-          <div >
+      <div className="container p-4">
+        <div className="row h-100">
+          <div className="col-md-4 offset-md-4 h-100">
             <CheckoutForm />
           </div>
         </div>
