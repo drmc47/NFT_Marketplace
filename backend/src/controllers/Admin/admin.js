@@ -1,29 +1,28 @@
 const Users = require("../../models/User");
 
-async function getUsersDb() {
+async function getUsersDb(_req, res, next) {
   try {
     const users = await Users.find({ roles: "613bd8b725b8702ce89f7473" });   
-    return users;
+    return res.send(users);
   } catch (err) {
     console.log(err);
   }
 }
 
-let getUsers = async (_req, res, next) => {
-  try {
-    let allUsers = await getUsersDb();
-    console.log(allUsers);
-    var all = allUsers.map((p) => {
-      var obj = p.username;
-      var image = p.profilePic;
-      var combined = obj + " " + image;
-      return combined;
-    });
-    return res.json(all);
-  } catch (error) {
-    next("Error");
-  }
-};
+// let getUsers = async (_req, res, next) => {
+//   try {
+//     let allUsers = await getUsersDb();
+//       var all = allUsers.map((p) => {
+//       var obj = p.username;
+//       var image = p.profilePic;
+//       var combined = obj + " " + image;
+//       return combined;
+//     });
+//     return res.json(all);
+//   } catch (error) {
+//     next("Error");
+//   }
+// };
 
 async function updateAdminById(req, res, next) {
   console.log("uopt")
@@ -61,4 +60,4 @@ const deleteUser = async (req, res) => {
   }
 };
 
-module.exports = { getUsers, updateAdminById, getUserById, deleteUser };
+module.exports = { getUsersDb, updateAdminById, getUserById, deleteUser };
