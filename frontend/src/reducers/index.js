@@ -129,11 +129,13 @@ function rootReducer(state = initialState, action) {
     case TRANSACTION_STRIPE:
       return state;
     case LOGIN_SUCCESS:
+      let islogged = JSON.parse(window.sessionStorage.getItem("userLogged")) 
       return {
         ...state,
-        userLogged: action.payload,
+        userLogged: islogged
       };
     case LOGOUT:
+      window.sessionStorage.sessionStorage.clear()
       return {
         ...state,
         userLogged: null,
