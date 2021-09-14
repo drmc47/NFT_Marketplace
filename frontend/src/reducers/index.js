@@ -160,7 +160,7 @@ function rootReducer(state = initialState, action) {
         text: "¡ Your NFT was successfully added shopping cart !",
         icon: "success",
         button: "OK!",
-        timer: 2000
+        timer: 1500
       })
       if (!parsLocal) {
         myStorage.setItem('user', JSON.stringify(state.shoppingTrolley.concat(action.payload)));
@@ -179,7 +179,7 @@ function rootReducer(state = initialState, action) {
             text: "¡ This NFT already exists in your shopping cart !",
             icon: "warning",
             button: "OK!",
-            timer: 2000
+            timer: 1500
           })
           return {
             ...state
@@ -225,7 +225,7 @@ function rootReducer(state = initialState, action) {
         ...state,
         profileUserData: action.payload,
       }
-      case GET_USERS:
+    case GET_USERS:
       return {
         ...state,
         allUsers: action.payload,
