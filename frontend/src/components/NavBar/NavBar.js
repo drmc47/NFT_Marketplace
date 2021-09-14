@@ -76,6 +76,7 @@ const useStyles = makeStyles((theme) => ({
 export default function NavBar() {
   const dispatch = useDispatch();
   const userLogged = useSelector((state) => state.userLogged);
+  const role=useSelector((state) => state.role)
   const categories = useSelector((state) => state.categories);
   const classes = useStyles();
   const theme = useTheme();
@@ -156,6 +157,14 @@ export default function NavBar() {
                 to='/about'
                 label='About Us'
               />
+              {role ==="admin" && (
+                <Tab
+                  className={classes.tab}
+                  component={Link}
+                  to='/admin'
+                  label='Admin'
+                />
+              )}
               {/* ADD */}
               {userLogged && (
                 <Tab
