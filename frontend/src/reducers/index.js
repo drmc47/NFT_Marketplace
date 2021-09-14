@@ -36,7 +36,8 @@ const initialState = {
   shoppingTrolley: [],
   shoppingCart: [],
   profileUserData: [],
-  allUsers:[]
+  allUsers:[],
+  role:""
 };
 
 function rootReducer(state = initialState, action) {
@@ -122,14 +123,23 @@ function rootReducer(state = initialState, action) {
         ...state,
         transactions: action.payload,
       };
+    case 'ROLE':
+      return{
+        ...state,
+        role:action.payload
+      }
     case LOGIN_SUCCESS:
+      window.localStorage.setItem("token",action.payload[0])
+      console.log("reducer",action.payload[1])
       return {
         ...state,
-        userLogged: action.payload,
+        role:action.payload[1],
+        userLogged: action.payload[0],
       };
     case LOGOUT:
       return {
         ...state,
+        role:null,
         userLogged: null,
       };
     case SIGNUP_SUCCESS:
