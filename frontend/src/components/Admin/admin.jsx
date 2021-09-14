@@ -2,7 +2,7 @@ import React, { useEffect,useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import getProfileAdmin from "../../actions/getProfileAdmin"
-import getClean from "../../actions/getClean"
+import getClean, { getCleanUser } from "../../actions/getClean"
 import postCategorie from "../../actions/admin/postCategorie"
 import { getCategories } from '../../actions/getCategories'
 import {deleteCategory} from '../../actions/admin/deleteCategory'
@@ -10,6 +10,7 @@ import { deleteNFT } from '../../actions/admin/deleteNFT'
 import { getNFTs } from '../../actions/getNFTs'
 import { getUsers } from '../../actions/admin/getUsers'
 import usersToAdmin from '../../actions/admin/usersToAdmin'
+import {verifyAdmin} from "../../actions/admin/verifyAdmin"
 
 
 
@@ -21,16 +22,22 @@ export default function AdminProfile() {
   const categoriesDB=useSelector(state=>state.categories)
   const nfts=useSelector(state=>state.allNFTs)
   const users=useSelector(state=>state.allUsers)
+  console.log(users)
   
-  
+//   useEffect(() => {
+//   //   return () => {
+//   //     dispatch(getCleanUser())
+//   // }
+// }, [dispatch])
   
   useEffect(() => {
+    // dispatch(verifyAdmin(token))
     dispatch(getCategories())
     dispatch(getNFTs())
     dispatch(getUsers())
     // dispatch(getProfileAdmin())
     // return () => {
-    //   dispatch(getClean())
+    //   dispatch(getCleanUser())
     // }
   }, [dispatch])
   
@@ -79,7 +86,7 @@ async function handleDeleteNFT(e) {
   dispatch(deleteNFT(inputs.deleteNFT))
   alert('NFT deleted')
   dispatch(getNFTs())
-  setInputs({deleteNFT:""})
+  setInputs({deleteNFT:['']})
   
 }
 
@@ -88,9 +95,10 @@ async function handleRole(e) {
   dispatch(usersToAdmin(inputs.users))
   alert('Role changed')
   dispatch(getUsers())
-  setInputs({users:""})
+  setInputs({users:['']})
   
 }
+
   
   return ( <div>
 
@@ -153,15 +161,15 @@ async function handleRole(e) {
             <label htmlFor="">Users To Admin</label>             
             <div>
               {users.map((u) => (
-                <div key={u}>
+                <div key={u._id}>
                   <input
                     type="checkbox"
                     name="users"
-                    value={u}
+                    value={u.username}
                     onChange={(e)=>onInputChange(e)}
                     ></input>
                     <div>
-                  <label name={u}> {u} </label>
+                  <label name={u.firstName}> {u.firstName} </label>
                   </div>
                 </div>
               ))}

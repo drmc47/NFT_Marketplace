@@ -17,6 +17,7 @@ import NftDetail from './components/NftDetail/NftDetail'
 import NavBarShoppingCart from "./components/NavBarShoppingCart/shoppingcart.jsx"
 import './App.css'
 import LoginSection from './components/LoginSection/LoginSection'
+import PrivateRoute from './components/PrivateRoute'
 import AdminProfile from './components/Admin/admin'
 
 function App() {
@@ -30,13 +31,14 @@ function App() {
         <Route exact path='/categories' component={Categories}></Route>
         <Route exact path='/categories/all' component={All}></Route>
         <Route path='/categories/:id' component={FilterCategory}></Route>
-        <Route exact path='/admin'component={AdminProfile}></Route>
+        {/* <Route exact path='/admin'component={AdminProfile}></Route> */}
         <Route exact path='/create' component={Create}></Route>
         <Route exact path='/profile' component={Profile}></Route>
         <Route exact path='/contact' component={Contact}></Route>
         <Route exact path='/about' component={About}></Route>
         <Route exact path='/shoppingcart' component={NavBarShoppingCart}></Route>
         <Route exact path='/login' component={LoginSection}></Route>
+        <PrivateRoute exact path='/admin' component={AdminProfile}></PrivateRoute>
         <Route path='/*' component={Error}></Route>
       </Switch>
     </ThemeProvider>

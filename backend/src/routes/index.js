@@ -1,4 +1,5 @@
 const { Router } = require("express");
+const Roles=require ('../../src/models/Role')
 const router = Router();
 const cors = require("cors");
 const passport = require("passport");
@@ -17,15 +18,18 @@ const corsOptions = {
   credentials: true,
   optionSuccessStatus: 200,
 };
+const verifyAdmin=require ('../controllers/middlewares/verifyAdmin')
 //ADMIN
 const {
   getUsers,
   updateAdminById,
   deleteUser,
   getUserById,
+  getUsersDb,
 } = require("../controllers/Admin/admin");
 //ROUTES ADMIN
-router.get("/admin/users", getUsers);
+router.get("/admin/verify",verifyAdmin)
+router.get("/admin/users", getUsersDb);
 router.get("/user/:id", getUserById);
 router.put("/admin/edit/:username", updateAdminById);
 router.delete("/deleteUser/:id", deleteUser);
@@ -52,7 +56,7 @@ const {
   deleteProductById,
   getNFTs,
 } = require("../controllers/products/products");
-const verifyAdmin = require("../controllers/middlewares/verifyAdmin");
+
 
 // ROUTES PRODUCTS
 router.get("/search", searchProduct);
@@ -84,6 +88,7 @@ router.post(
     passReqToCallback: true,
   }),
   async (req, res, next) => {
+    const found = user.roles.find(e => e == '613bd8b725b8702ce89f7474')
     res.json(req.user);
     //res.redirect(AL JOM DEL PROYECTO)
   }
@@ -127,9 +132,14 @@ router.post(
         const body = { _id: req.user.id, username: req.user.username };
         const token = jwt.sign({ user: body }, "superstringinhackeable");
         const filter = {username : req.body.username};
+        const userFound = await User.findOne({ username: req.body.username }).populate(
+          "roles"
+        );
         const update = {token : token}
-        await User.findOneAndUpdate(filter, update, {new : true});
-        return res.send(token);
+        const role=userFound.roles[0].name            
+        const resp=await User.findOneAndUpdate(filter, update, {new : true})
+        console.log([resp,role])
+        return res.send([resp,role]);
       });
     } catch (error) {
       return next(error);

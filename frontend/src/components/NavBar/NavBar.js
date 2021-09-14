@@ -15,6 +15,7 @@ import MenuItem from '@material-ui/core/MenuItem'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import {useTheme} from '@material-ui/core/styles'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import Badge from '@material-ui/core/Badge';
 import IconButton from "@material-ui/core/IconButton";
 import { getCategories } from '../../actions/getCategories'
 // import { createChainedFunction } from '@material-ui/core'
@@ -59,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
   },
   menu: {
     backgroundColor: theme.palette.common.green,
-    // color: 'white',
+    color: 'white',
   },
   menuItem: {
     ...theme.typography.tab,
@@ -69,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   shoppingcart: {
-    color: "black"
+    color: "white"
   }
 }))
 
@@ -77,6 +78,8 @@ export default function NavBar() {
   const dispatch = useDispatch();
   const userLogged = useSelector((state) => state.userLogged);
   const categories = useSelector((state) => state.categories);
+  const number = useSelector((state) => state.shoppingTrolley);
+  const numberOfItems = number.length
   const classes = useStyles();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down('sm'));
@@ -256,103 +259,18 @@ export default function NavBar() {
               >
                Show More...
               </MenuItem>}
-              {/* <MenuItem
-                onClick={handleClose}
-                component={Link}
-                to='/categories/all'
-                classes={{ root: classes.menuItem }}
-              >
-                All NFTS
-              </MenuItem> */}
             </Menu>
-            //   id='categoriesMenu'
-            //   anchorEl={anchorEl}
-            //   open={open}
-            //   onClose={handleClose}
-            //   MenuListProps={{ onMouseLeave: handleClose }}
-            //   classes={{ paper: classes.menu }}
-            //   elevation={3}
-            // >
-            //   <MenuItem
-            //     onClick={handleClose}
-            //     component={Link}
-            //     to='/categories'
-            //     classes={{ root: classes.menuItem }}
-            //   >
-            //     Categories
-            //   </MenuItem>
-            //   <MenuItem
-            //     onClick={handleClose}
-            //     component={Link}
-            //     to='/categories/all'
-            //     classes={{ root: classes.menuItem }}
-            //   >
-            //     All NFTS
-            //   </MenuItem>
-            //   <MenuItem
-            //     onClick={handleClose}
-            //     classes={{ root: classes.menuItem }}
-            //     component={Link}
-            //     to='/categories/funny'
-            //   >
-            //     Funny
-            //   </MenuItem>
-            //   <MenuItem
-            //     onClick={handleClose}
-            //     classes={{ root: classes.menuItem }}
-            //     component={Link}
-            //     to='/categories/animals'
-            //   >
-            //     Animals
-            //   </MenuItem>
-            //   <MenuItem
-            //     onClick={handleClose}
-            //     classes={{ root: classes.menuItem }}
-            //     component={Link}
-            //     to='/categories/sport'
-            //   >
-            //     Sport
-            //   </MenuItem>
-            //   <MenuItem
-            //     onClick={handleClose}
-            //     classes={{ root: classes.menuItem }}
-            //     component={Link}
-            //     to='/categories/music'
-            //   >
-            //     Music
-            //   </MenuItem>
-            //   <MenuItem
-            //     onClick={handleClose}
-            //     classes={{ root: classes.menuItem }}
-            //     component={Link}
-            //     to='/categories/cute'
-            //   >
-            //     Cute
-            //   </MenuItem>
-            //   <MenuItem
-            //     onClick={handleClose}
-            //     classes={{ root: classes.menuItem }}
-            //     component={Link}
-            //     to='/categories/abstractart'
-            //   >
-            //     Abstract art
-            //   </MenuItem>
-            //   <MenuItem
-            //     onClick={handleClose}
-            //     classes={{ root: classes.menuItem }}
-            //     component={Link}
-            //     to='/categories/utopy'
-            //   >
-            //     Utopy
-            //   </MenuItem>
-            //     
-            // </Menu>
+            
               }
+             
               <IconButton component={Link}
                 to='/shoppingcart'>
-                <ShoppingCartIcon  
-                />
+                  <Badge badgeContent={numberOfItems} color="error">
+                <ShoppingCartIcon className={classes.shoppingcart} 
+                /></Badge>
               </IconButton>
+              
+              
            
 
             {userLogged ? (
@@ -385,7 +303,7 @@ export default function NavBar() {
       <ElevationScroll>
         <AppBar position='fixed'>
           <ToolBar>
-            <Typography variant='h5'>NFT MARKET</Typography>
+            <Typography color="white" variant='h5'>NFT MARKET</Typography>
             {matches? null : tabs}
           </ToolBar>
         </AppBar>
