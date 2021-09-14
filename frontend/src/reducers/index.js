@@ -10,6 +10,8 @@ import {
   POST_NFT,
   IS_AUTHENTICATED,
   TRANSACTION_METAMASK,
+  TRANSACTION_MERCADO_PAGO,
+  TRANSACTION_STRIPE,
   LOGIN_SUCCESS,
   LOGOUT,
   SIGNUP_SUCCESS,
@@ -122,6 +124,10 @@ function rootReducer(state = initialState, action) {
         ...state,
         transactions: action.payload,
       };
+    case TRANSACTION_MERCADO_PAGO:
+      return state;
+    case TRANSACTION_STRIPE:
+      return state;
     case LOGIN_SUCCESS:
       return {
         ...state,
