@@ -6,6 +6,8 @@ import { getLS } from "../../actions/getLS";
 import ShoppingCart from '../shoppingCart/shoppingCart'
 import Payments from '../Payments/PaymentsButton/PaymentsButton'
 import getClean from "../../actions/getClean"
+import { Tooltip, IconButton } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
 import './shoppingcart.css'
 
 export default function NavBarShoppingCart() {
@@ -17,20 +19,16 @@ export default function NavBarShoppingCart() {
         dispatch(getLS())
     }, [dispatch])
 
-    const handleCartClick = function () {
+    const handleCartClick = function (e) {
         /*         dispatch(getOrderShoppingCart()) */
-        dispatch(removeLS())
-        dispatch(getLS())
-        window.location.reload()
+        dispatch(removeLS(e))
+       /*  window.location.reload() */
     }
 
     const allProductsCart = useSelector(state => state.shoppingTrolley)
 
     return (
         <div>
-            <button onClick={() => handleCartClick()}>
-                ¡ Delete your ShoppingCart !
-            </button>
             <ShoppingCart />
 
 
@@ -57,7 +55,13 @@ export default function NavBarShoppingCart() {
                             <h4>{e ? e.price : null}</h4>
                         </div>
                         <div className="divData">
-                            <h4>Quitar</h4>
+                            <Tooltip title="Delete">
+                                <IconButton aria-label="delete">
+                                <DeleteIcon
+                                onClick={() => handleCartClick(e)}
+                                />
+                                </IconButton>
+                            </Tooltip>
                         </div>
                     </div>
                 ))
