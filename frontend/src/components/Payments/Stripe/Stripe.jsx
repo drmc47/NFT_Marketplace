@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { TransactionStripe } from "../../../actions/StripeTransaction";
-import "bootswatch/dist/lux/bootstrap.min.css";
+// import "bootswatch/dist/lux/bootstrap.min.css";
 import "./Stripe.css";
 
 import { loadStripe } from "@stripe/stripe-js";
