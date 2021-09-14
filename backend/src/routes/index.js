@@ -1,7 +1,8 @@
-const { Router } = require('express')
-const router = Router()
-const cors = require('cors')
-const passport = require('passport')
+const { Router } = require("express");
+const Roles=require ('../../src/models/Role')
+const router = Router();
+const cors = require("cors");
+const passport = require("passport");
 const {
   transactionMetaMask,
 } = require("../controllers/payments/crypto/transactionMetaMask");
@@ -19,18 +20,23 @@ const corsOptions = {
 }
 // PRUEBA NODEMAILER
 const nodemailer = require('../libs/nodemailer')
+
+const verifyAdmin=require ('../controllers/middlewares/verifyAdmin')
+
 //ADMIN
 const {
   getUsers,
   updateAdminById,
   deleteUser,
   getUserById,
-} = require('../controllers/Admin/admin')
+  getUsersDb,
+} = require("../controllers/Admin/admin");
 //ROUTES ADMIN
-router.get('/admin/users', getUsers)
-router.get('/user/:id', getUserById)
-router.put('/admin/edit/:username', updateAdminById)
-router.delete('/deleteUser/:id', deleteUser)
+router.get("/admin/verify",verifyAdmin)
+router.get("/admin/users", getUsersDb);
+router.get("/user/:id", getUserById);
+router.put("/admin/edit/:username", updateAdminById);
+router.delete("/deleteUser/:id", deleteUser);
 
 //CATEGORIES
 const {
@@ -55,6 +61,7 @@ const {
   getNFTs,
 } = require('../controllers/products/products')
 const verifyAdmin = require('../controllers/middlewares/verifyAdmin')
+
 
 // ROUTES PRODUCTS
 router.get("/search", searchProduct);
@@ -86,7 +93,8 @@ router.post(
     passReqToCallback: true,
   }),
   async (req, res, next) => {
-    res.json(req.user)
+    const found = user.roles.find(e => e == '613bd8b725b8702ce89f7474');
+    res.json(req.user);
     //res.redirect(AL JOM DEL PROYECTO)
   }
 )
@@ -125,14 +133,20 @@ router.post(
         return next(error)
       }
       req.login(req.user, { session: false }, async (err) => {
-        if (err) return next(err)
-        const body = { _id: req.user.id, username: req.user.username }
-        const token = jwt.sign({ user: body }, 'superstringinhackeable')
-        const filter = { username: req.body.username }
-        const update = { token: token }
-        await User.findOneAndUpdate(filter, update, { new: true })
-        return res.send(token)
-      })
+
+        if (err) return next(err);
+        const body = { _id: req.user.id, username: req.user.username };
+        const token = jwt.sign({ user: body }, "superstringinhackeable");
+        const filter = {username : req.body.username};
+        const userFound = await User.findOne({ username: req.body.username }).populate(
+          "roles"
+        );
+        const update = {token : token}
+        const role=userFound.roles[0].name            
+        const resp=await User.findOneAndUpdate(filter, update, {new : true})
+        console.log([resp,role])
+        return res.send([resp,role]);
+      });
     } catch (error) {
       return next(error)
     }

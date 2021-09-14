@@ -38,8 +38,9 @@ const initialState = {
   shoppingTrolley: [],
   shoppingCart: [],
   profileUserData: [],
-  allUsers: [],
-}
+  allUsers:[],
+  role:""
+};
 
 function rootReducer(state = initialState, action) {
   switch (action.type) {
@@ -132,6 +133,7 @@ function rootReducer(state = initialState, action) {
       let islogged = JSON.parse(window.sessionStorage.getItem('userLogged'))
       return {
         ...state,
+        role: action.payload[1],
         userLogged: islogged,
       }
     case 'USER_SESSION':
@@ -147,6 +149,7 @@ function rootReducer(state = initialState, action) {
       window.sessionStorage.removeItem('userLogged')
       return {
         ...state,
+        role:null,
         userLogged: null,
       }
     case SIGNUP_SUCCESS:
