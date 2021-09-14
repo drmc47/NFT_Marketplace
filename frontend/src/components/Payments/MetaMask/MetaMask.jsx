@@ -13,7 +13,7 @@ function PaymentMetaMask() {
   const [myAddress, setMyAddress] = useState("");
   const [transactionTo, setTransactionTo] = useState("");
   const [moneyAmount, setMoneyAmount] = useState("");
-
+ 
   const handleClick = async function (e) {
     e.preventDefault();
     if (window.ethereum) {
