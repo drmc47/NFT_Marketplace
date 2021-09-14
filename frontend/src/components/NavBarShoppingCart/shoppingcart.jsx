@@ -22,6 +22,7 @@ export default function NavBarShoppingCart() {
 /*         dispatch(getOrderShoppingCart()) */
         dispatch(removeLS())
         dispatch(getLS())
+        window.location.reload()
     }
 
 
