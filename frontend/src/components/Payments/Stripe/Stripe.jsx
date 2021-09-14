@@ -39,13 +39,6 @@ const CheckoutForm = () => {
       const { id } = paymentMethod;
       
       try {
-/*         const { data } = await axios.post(
-          "http://localhost:3001/api/checkout",
-          {
-            id,
-            amount: 10000, //cents
-          }
-        ); */
 
         elements.getElement(CardElement).clear();
       } catch (error) {
