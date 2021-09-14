@@ -123,19 +123,28 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         transactions: action.payload,
-      };
+      }
     case TRANSACTION_MERCADO_PAGO:
-      return state;
+      return state
     case TRANSACTION_STRIPE:
-      return state;
+      return state
     case LOGIN_SUCCESS:
-      let islogged = JSON.parse(window.sessionStorage.getItem("userLogged")) 
+      let islogged = JSON.parse(window.sessionStorage.getItem('userLogged'))
       return {
         ...state,
-        userLogged: islogged
-      };
+        userLogged: islogged,
+      }
+    case 'USER_SESSION':
+      if (window.sessionStorage.getItem('userLogged')) {
+        return {
+          ...state,
+          userLogged: JSON.parse(window.sessionStorage.getItem('userLogged')),
+        }
+      } else {
+        return state
+      }
     case LOGOUT:
-      window.sessionStorage.sessionStorage.clear()
+      window.sessionStorage.removeItem('userLogged')
       return {
         ...state,
         userLogged: null,
@@ -158,11 +167,11 @@ function rootReducer(state = initialState, action) {
       let getmyStorage = myStorage.getItem('user')
       let parsLocal = JSON.parse(getmyStorage)
       swal({
-        title: "¡God Job!",
-        text: "¡ Your NFT was successfully added shopping cart !",
-        icon: "success",
-        button: "OK!",
-        timer: 1500
+        title: '¡God Job!',
+        text: '¡ Your NFT was successfully added shopping cart !',
+        icon: 'success',
+        button: 'OK!',
+        timer: 1500,
       })
       if (!parsLocal) {
         myStorage.setItem(
@@ -184,11 +193,11 @@ function rootReducer(state = initialState, action) {
 
         if (isrepeat) {
           swal({
-            title: "¡ Sorry =( !",
-            text: "¡ This NFT already exists in your shopping cart !",
-            icon: "warning",
-            button: "OK!",
-            timer: 1500
+            title: '¡ Sorry =( !',
+            text: '¡ This NFT already exists in your shopping cart !',
+            icon: 'warning',
+            button: 'OK!',
+            timer: 1500,
           })
           return {
             ...state,
