@@ -17,21 +17,19 @@ export default function NavBarShoppingCart() {
         dispatch(getLS())
     }, [dispatch])
 
-
     const handleCartClick = function () {
-/*         dispatch(getOrderShoppingCart()) */
+        /*         dispatch(getOrderShoppingCart()) */
         dispatch(removeLS())
         dispatch(getLS())
         window.location.reload()
     }
-
 
     const allProductsCart = useSelector(state => state.shoppingTrolley)
 
     return (
         <div>
             <button onClick={() => handleCartClick()}>
-               ¡ Delete your ShoppingCart !
+                ¡ Delete your ShoppingCart !
             </button>
             <ShoppingCart />
 
@@ -63,11 +61,8 @@ export default function NavBarShoppingCart() {
                         </div>
                     </div>
                 ))
-
-
             }
             <Payments />
-
         </div>
     )
 }
