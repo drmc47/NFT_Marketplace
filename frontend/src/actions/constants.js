@@ -24,4 +24,3 @@ export const DELETE_CATEGORIE="DELETE_CATEGORIE"
 export const GET_USERS="GET_USERS"
 export const USERS_TO_ADMIN="USERS_TO_ADMIN"
 export const GET_LS="GET_LS"
-
