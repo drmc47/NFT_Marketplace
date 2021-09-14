@@ -14,8 +14,6 @@ mercadopago.configure({
       var ResultName;
       var ResultPrice;
 
-      console.log('ENTRE ACA: MPAYMENT222');
-
       for (let i = 0; i < req.body.length; i++) {
         
          const {name, price} = req.body[i];
@@ -25,10 +23,6 @@ mercadopago.configure({
       }
       ResultName = arrName.reduce(reducerN);
       ResultPrice = arrPrice.reduce(reducerP);
-      console.log('arrName: ', arrName);
-      console.log('arrPrice: ', arrPrice);
-      console.log('ResultName: ', ResultName);
-      console.log('ResultPrice: ', ResultPrice);
 
         let preference = {
             items: [

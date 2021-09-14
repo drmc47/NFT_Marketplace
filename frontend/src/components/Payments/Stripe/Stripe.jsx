@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
+import { TransactionStripe } from "../../../actions/StripeTransaction";
 import "bootswatch/dist/lux/bootstrap.min.css";
 import "./Stripe.css";
 
@@ -37,10 +38,17 @@ const CheckoutForm = () => {
     if (!error) {
       // console.log(paymentMethod)
       const { id } = paymentMethod;
-      
+        //Tengo que calcular el monto total.
+        //purchaseOrder
       try {
 
-        elements.getElement(CardElement).clear();
+        let amount = {
+            id,
+            purchaseOrder
+          }
+          dispatch(TransactionStripe(amount));
+          elements.getElement(CardElement).clear();
+
       } catch (error) {
         console.log(error);
       }
@@ -61,9 +69,14 @@ const CheckoutForm = () => {
 
         </div>
       ) : (
+
+    <div className="paymentOption">
+
+        <header className="App-header">
+
         <form  onSubmit={handleSubmit}>
               <div>
-                <div className="form-group">
+                <div>
                   <CardElement />
                 </div>
 
@@ -73,10 +86,13 @@ const CheckoutForm = () => {
                     <span ></span>
                   </div>
                 ) : "Buy"}
+                
              </button>
 
           </div>
         </form>
+    </header>
+    </div>    
       )}
     </div>
   );
