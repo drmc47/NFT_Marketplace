@@ -29,9 +29,9 @@ const {
 } = require("../controllers/Admin/admin");
 //ROUTES ADMIN
 router.get("/admin/verify",verifyAdmin)
-router.get("/admin/users",verifyAdmin, getUsersDb);
+router.get("/admin/users", getUsersDb);
 router.get("/user/:id", getUserById);
-router.put("/admin/edit/:username",verifyAdmin, updateAdminById);
+router.put("/admin/edit/:username", updateAdminById);
 router.delete("/deleteUser/:id", deleteUser);
 
 //CATEGORIES

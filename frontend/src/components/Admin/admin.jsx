@@ -86,7 +86,7 @@ async function handleDeleteNFT(e) {
   dispatch(deleteNFT(inputs.deleteNFT))
   alert('NFT deleted')
   dispatch(getNFTs())
-  setInputs({deleteNFT:""})
+  setInputs({deleteNFT:['']})
   
 }
 
@@ -95,7 +95,7 @@ async function handleRole(e) {
   dispatch(usersToAdmin(inputs.users))
   alert('Role changed')
   dispatch(getUsers())
-  setInputs({users:[""]})
+  setInputs({users:['']})
   
 }
 
