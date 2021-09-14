@@ -10,6 +10,8 @@ import {
   POST_NFT,
   IS_AUTHENTICATED,
   TRANSACTION_METAMASK,
+  TRANSACTION_MERCADO_PAGO,
+  TRANSACTION_STRIPE,
   LOGIN_SUCCESS,
   LOGOUT,
   SIGNUP_SUCCESS,
@@ -121,13 +123,19 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         transactions: action.payload,
-      }
+      };
+    case TRANSACTION_MERCADO_PAGO:
+      return state;
+    case TRANSACTION_STRIPE:
+      return state;
     case LOGIN_SUCCESS:
+      let islogged = JSON.parse(window.sessionStorage.getItem("userLogged")) 
       return {
         ...state,
-        userLogged: action.payload,
-      }
+        userLogged: islogged
+      };
     case LOGOUT:
+      window.sessionStorage.sessionStorage.clear()
       return {
         ...state,
         userLogged: null,
@@ -150,11 +158,11 @@ function rootReducer(state = initialState, action) {
       let getmyStorage = myStorage.getItem('user')
       let parsLocal = JSON.parse(getmyStorage)
       swal({
-        title: '¡God Job!',
-        text: '¡ Your NFT was successfully added shopping cart !',
-        icon: 'success',
-        button: 'OK!',
-        timer: 2000,
+        title: "¡God Job!",
+        text: "¡ Your NFT was successfully added shopping cart !",
+        icon: "success",
+        button: "OK!",
+        timer: 1500
       })
       if (!parsLocal) {
         myStorage.setItem(
@@ -176,11 +184,11 @@ function rootReducer(state = initialState, action) {
 
         if (isrepeat) {
           swal({
-            title: '¡ Sorry =( !',
-            text: '¡ This NFT already exists in your shopping cart !',
-            icon: 'warning',
-            button: 'OK!',
-            timer: 2000,
+            title: "¡ Sorry =( !",
+            text: "¡ This NFT already exists in your shopping cart !",
+            icon: "warning",
+            button: "OK!",
+            timer: 1500
           })
           return {
             ...state,

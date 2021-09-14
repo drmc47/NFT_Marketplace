@@ -5,6 +5,7 @@ export default function localLogin(payload) {
     const response = await loginUser(payload);
     if (response) {
       const user = response;
+      window.sessionStorage.setItem("userLogged", JSON.stringify(user))
       dispatch({
         type: "LOGIN_SUCCESS",
         payload: user,

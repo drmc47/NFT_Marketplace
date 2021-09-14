@@ -5,6 +5,7 @@ import {useDispatch} from 'react-redux'
 import { useSelector } from "react-redux"
 import { Link } from 'react-router-dom'
 import { getCategories } from '../../actions/getCategories'
+import { getNFTs} from "../../actions/getNFTs";
 
 
 //categorias
@@ -73,6 +74,7 @@ function validateNft(nft){
         console.log("nft",newNft)
         dispatch(postNFT(newNft))
         alert('Nft created')
+        dispatch(getNFTs())
         setNft({
         name:"",
         image: "",

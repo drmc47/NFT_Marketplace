@@ -4,13 +4,14 @@ const cors = require('cors')
 const passport = require('passport')
 const {
   transactionMetaMask,
-} = require('../controllers/payments/crypto/transactionMetaMask')
-const { StripePayment } = require('../controllers/payments/fiat/Stripe')
-const { createOrder, getOrder } = require('../controllers/products/orders')
-const { createProfile, getProfile } = require('../controllers/users/user')
-const jwt = require('jsonwebtoken')
-const User = require('../models/User')
-const verifyToken = require('../controllers/middlewares/verifyToken')
+} = require("../controllers/payments/crypto/transactionMetaMask");
+const { StripePayment } = require("../controllers/payments/fiat/Stripe");
+const { MPayment } = require("../controllers/payments/fiat/MercadoPago");
+const { createOrder, getOrder } = require("../controllers/products/orders");
+const { createProfile, getProfile } = require("../controllers/users/user");
+const jwt = require("jsonwebtoken");
+const User = require("../models/User");
+const verifyToken = require("../controllers/middlewares/verifyToken");
 const corsOptions = {
   origin: 'http://localhost:3000',
   credentials: true,
@@ -56,18 +57,16 @@ const {
 const verifyAdmin = require('../controllers/middlewares/verifyAdmin')
 
 // ROUTES PRODUCTS
-router.get('/search', searchProduct)
-router.get('/nfts', getNFTs)
-router.get('/nft/:id', getProductById)
-router.get('/orderCart', getOrder)
-router.post('/nft', createProduct)
-router.post('/orderCart', createOrder)
-router.post('/transactionMetamask', transactionMetaMask)
-router.post('/transactionStripe', StripePayment)
-router.put('/edit/:id', updateProductById)
-
-//PRUEBA NODEMAILER
-router.post('/email', nodemailer)
+router.get("/search", searchProduct);
+router.get("/nfts", getNFTs);
+router.get("/nft/:id", getProductById);
+router.get("/orderCart", getOrder);
+router.post("/nft", createProduct);
+router.post("/orderCart", createOrder);
+router.post("/transactionMetamask", transactionMetaMask);
+router.post("/transactionStripe", StripePayment);
+router.post('/MercadoPagoTransaction', MPayment);
+router.put("/edit/:id", updateProductById);
 
 //ROUTES PROFILE
 router.get('/profile', getProfile)
