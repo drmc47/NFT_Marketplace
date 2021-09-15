@@ -93,6 +93,7 @@ export default function AdminProfile() {
     setInputs({ deleteUser: [""] });
   }
 
+
   async function handleRole(e) {
     e.preventDefault();
     dispatch(usersToAdmin(inputs.users));
@@ -159,6 +160,7 @@ export default function AdminProfile() {
               </div>
             </div>
           ))}
+
         </div>
         <button type="submit">Delete!</button>
       </form>

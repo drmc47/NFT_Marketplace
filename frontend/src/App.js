@@ -18,7 +18,10 @@ import NavBarShoppingCart from "./components/NavBarShoppingCart/shoppingcart.jsx
 import './App.css'
 import LoginSection from './components/LoginSection/LoginSection'
 import PrivateRoute from './components/PrivateRoute'
-import AdminProfile from './components/Admin/admin'
+import HomeAdmin from './components/Admin/HomeAdmin'
+import AdminUser from './components/Admin/AdminUser'
+import AdminNfts from './components/Admin/AdminNfts'
+import AdminCategories from './components/Admin/AdminCategories'
 
 function App() {
   return (
@@ -38,7 +41,12 @@ function App() {
         <Route exact path='/about' component={About}></Route>
         <Route exact path='/shoppingcart' component={NavBarShoppingCart}></Route>
         <Route exact path='/login' component={LoginSection}></Route>
-        <PrivateRoute exact path='/admin' component={AdminProfile}></PrivateRoute>
+        <PrivateRoute exact path='/admin' component={HomeAdmin}></PrivateRoute>
+        <PrivateRoute exact path='/admin/users' component={AdminUser}></PrivateRoute>
+        <PrivateRoute exact path='/admin/nfts' component={AdminNfts}></PrivateRoute>
+        <PrivateRoute exact path='/admin/categories' component={AdminCategories}></PrivateRoute>
+        
+        
         <Route path='/*' component={Error}></Route>
       </Switch>
     </ThemeProvider>
