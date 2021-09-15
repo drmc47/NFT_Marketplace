@@ -18,6 +18,8 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Badge from '@material-ui/core/Badge';
 import IconButton from "@material-ui/core/IconButton";
 import { getCategories } from '../../actions/getCategories'
+import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 // import { createChainedFunction } from '@material-ui/core'
 
 function ElevationScroll(props) {
@@ -71,6 +73,9 @@ const useStyles = makeStyles((theme) => ({
   },
   shoppingcart: {
     color: "white"
+  },
+  profileMenu: {
+    marginTop: "2.6rem"
   }
 }))
 
@@ -85,7 +90,9 @@ export default function NavBar() {
   const matches = useMediaQuery(theme.breakpoints.down('sm'));
   const [value, setValue] = useState(0);
   const [anchorEl, setanchorEl] = useState(null);
+  const [anchorElProfile, setanchorElProfile] = useState(null);
   const [open, setopen] = useState(false);
+  const [openProfile, setopenProfile] = useState(false);
 
   const handleChange = (e, value) => {
     setValue(value)
@@ -95,11 +102,20 @@ export default function NavBar() {
     setanchorEl(e.currentTarget)
     setopen(true)
   }
+  const handleclickprofile = (e) => {
+    setanchorElProfile(e.currentTarget)
+    setopenProfile(true)
+  }
 
   const handleClose = (e) => {
     setanchorEl(null)
     setopen(false)
     setValue(1)
+  }
+  const handleCloseProfile = (e) => {
+    setanchorElProfile(null)
+    setopenProfile(false)
+    setValue(6)
   }
 
   const handleLogout = () => {
@@ -166,14 +182,6 @@ export default function NavBar() {
                   component={Link}
                   to='/create'
                   label='Create'
-                />
-              )}
-              {userLogged && (
-                <Tab
-                  className={classes.tab}
-                  component={Link}
-                  to='/profile'
-                  label='My Profile'
                 />
               )}
             </Tabs>
@@ -262,6 +270,40 @@ export default function NavBar() {
             </Menu>
             
               }
+
+              <Menu
+              className={classes.profileMenu}
+              anchorEl={anchorElProfile}
+              open={openProfile}
+              onClose={handleClose}
+              MenuListProps={{ onMouseLeave: handleCloseProfile }}
+              classes={{ paper: classes.menu }}
+              elevation={3}
+            >
+               <MenuItem
+                onClick={handleCloseProfile}
+                component={Link}
+                  to='/profile'
+                classes={{ root: classes.menuItem }}
+              >
+                My Profile
+              </MenuItem>
+              <MenuItem
+                onClick={handleCloseProfile}
+                component={Link}
+                to='/favorites'
+                classes={{ root: classes.menuItem }}
+              >
+                Favorites
+              </MenuItem>
+              <MenuItem
+                onClick={handleCloseProfile}
+                onClick={handleLogout}
+                classes={{ root: classes.menuItem }}
+              >
+                Logout <ExitToAppIcon/>
+              </MenuItem>
+              </Menu>
              
               <IconButton component={Link}
                 to='/shoppingcart'>
@@ -274,16 +316,14 @@ export default function NavBar() {
            
 
             {userLogged ? (
-              <Button
-                component={Link}
-                to='/'
-                onClick={handleLogout}
-                variant='contained'
-                color='secondary'
-                className={classes.button}
+              <IconButton  component={Link}
+              to='/'
+              aria-owns={anchorEl ? 'profileMenu' : undefined}
+                aria-haspopup={anchorEl ? true : undefined}
+              onMouseOver={(e) => handleclickprofile(e)}
               >
-                Logout
-              </Button>
+              <AccountCircleOutlinedIcon fontSize="large" className={classes.shoppingcart}/>
+              </IconButton>
             ) : (
               <Button
                 component={Link}
