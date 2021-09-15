@@ -22,6 +22,7 @@ const corsOptions = {
 const nodemailer = require('../libs/nodemailer')
 
 const verifyAdmin = require('../controllers/middlewares/verifyAdmin')
+
 //ADMIN
 const {
   getUsers,

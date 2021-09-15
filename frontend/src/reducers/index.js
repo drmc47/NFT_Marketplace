@@ -38,9 +38,15 @@ const initialState = {
   shoppingTrolley: [],
   shoppingCart: [],
   profileUserData: [],
+<<<<<<< HEAD
   allUsers: [],
   role: '',
 }
+=======
+  allUsers:[],
+  role:""
+};
+>>>>>>> 98eb79e99684ffac069191b70bb3de127bb7ef2c
 
 function rootReducer(state = initialState, action) {
   switch (action.type) {
