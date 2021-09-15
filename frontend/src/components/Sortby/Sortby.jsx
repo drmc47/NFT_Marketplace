@@ -26,6 +26,9 @@ const useStyles = makeStyles((theme) => ({
       borderRadius: theme.shape.borderRadius,
       backgroundColor: theme.palette.primary.main,
     },
+    sortByButton:{
+      minHeight:"54px",
+    }
   }));
 
 export default function SortBy() {
@@ -73,7 +76,7 @@ export default function SortBy() {
     <Grid container direction="column" alignItems="center" className={classes.menulist}>
       <Grid item xs={12}>
         <ButtonGroup  variant="contained" color="primary" ref={anchorRef} aria-label="split button">
-          <Button onClick={handleClick}>"Sort By"</Button>
+          <Button className={classes.sortByButton} onClick={handleClick}>"Sort By"</Button>
           <Button
             color="primary"
             size="small"
