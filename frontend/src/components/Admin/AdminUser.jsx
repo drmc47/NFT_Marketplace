@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import usersToAdmin from '../../actions/admin/usersToAdmin'
 import { getUsers } from '../../actions/admin/getUsers';
 import { Link } from 'react-router-dom';
+import {deleteUser} from '../../actions/admin/deleteNFT'
 
 export default function AdminUser() {   
     const dispatch = useDispatch();
@@ -25,6 +26,14 @@ export default function AdminUser() {
           });
          
       }
+      async function handleDeleteUser(e) {
+        e.preventDefault();
+        dispatch(deleteUser(inputs.deleteUser));
+        alert("User deleted");
+        dispatch(getUsers());
+        setInputs({ deleteUser: [""] });
+      }
+    
       
     async function handleRole(e) {
         e.preventDefault()
@@ -33,7 +42,8 @@ export default function AdminUser() {
         dispatch(getUsers())
         setInputs({users:['']})
         
-      }    
+      }
+     
      
     
     return ( <div>
@@ -63,7 +73,28 @@ export default function AdminUser() {
               ))}
             </div>            
            <button type="submit">Change!</button>
-            </form>
+           </form>
+           
+      <form onSubmit={(e) => handleDeleteUser(e)}>
+        <h3>Delete User</h3>
+        <label htmlFor="">Users</label>
+        <select
+          name="deleteUser"
+          onChange={(e) => onInputChange(e)}
+          defaultValue=""
+        >
+          <option value="">Choose User</option>
+          {users.map((u) => (
+            <option key={u._id} name={u._id} value={u._id}>
+              {" "}
+              {u.username}{" "}
+            </option>
+          ))}
+        </select>
+        <button type="submit">Delete User!</button>
+      </form>
+           
+
        </div>
       )
     }
