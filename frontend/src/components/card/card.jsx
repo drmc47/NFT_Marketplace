@@ -4,7 +4,7 @@ import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
-import StarBorderIcon from "@material-ui/icons/StarBorder";
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import IconButton from "@material-ui/core/IconButton";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -29,6 +29,13 @@ const useStyles = makeStyles({
     height: 300,
     width: 310,
   },
+  favorite: {
+    opacity: 0.7,
+    color: "error",
+    '&:hover': {
+      color: "#FF0000",
+    },
+  }
 });
 
 export default function Cards({ ele }) {
@@ -53,7 +60,7 @@ export default function Cards({ ele }) {
         <CardHeader
           action={
             <IconButton>
-              {userLogged? <StarBorderIcon />
+              {userLogged? <FavoriteBorderIcon className={classes.favorite} />
               :null}
               
             </IconButton>
