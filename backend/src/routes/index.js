@@ -59,7 +59,7 @@ const {
   deleteProductById,
   getNFTs,
 } = require('../controllers/products/products')
-const verifyAdmin = require('../controllers/middlewares/verifyAdmin')
+// const verifyAdmin = require('../controllers/middlewares/verifyAdmin')
 
 // ROUTES PRODUCTS
 router.get('/search', searchProduct)
@@ -149,6 +149,12 @@ router.post(
     }
   }
 )
+
+router.post('/logout', async (req, res) => {
+  const filter = { token: req.body.token }
+  const update = { token: null }
+  await User.findOneAndUpdate(filter, update, { new: true })
+})
 
 //INICIO DE SESION CON GOOGLE
 router.get(
