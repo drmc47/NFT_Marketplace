@@ -18,10 +18,22 @@ const useStyles = makeStyles((theme) => ({
       marginTop: "30px"
     },
     button0: {
-      height: "80px",
+      display: "flex",
+      alignContent: "center",
+      justifyContent: "center",
+      height: "50px",
+      borderRadius: "8%",
       maxWidth: "200px",
-      backgroundColor: "#D7E9F7"
+      backgroundColor: "rgba(199, 248, 237, 0.5)",
+      "&:hover": {
+        backgroundColor: "rgba(199, 248, 237, 0.9)"
+      },
+     
+      
     },
+    insidetext: {
+      marginTop: "5%"
+    }
   }));
 
 export default function Categories() {
@@ -65,7 +77,7 @@ export default function Categories() {
             className={classes.button0}
             //  className={`color${Math.floor(Math.random() * 10)}` }
              >
-               <h4>{ele.name}</h4>
+               <h4 className={classes.insidetext}>{ele.name}</h4>
            
               </Button>
             ))

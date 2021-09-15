@@ -1,17 +1,18 @@
 const { Router } = require('express')
+const Roles = require('../../src/models/Role')
 const router = Router()
 const cors = require('cors')
 const passport = require('passport')
 const {
   transactionMetaMask,
-} = require("../controllers/payments/crypto/transactionMetaMask");
-const { StripePayment } = require("../controllers/payments/fiat/Stripe");
-const { MPayment } = require("../controllers/payments/fiat/MercadoPago");
-const { createOrder, getOrder } = require("../controllers/products/orders");
-const { createProfile, getProfile } = require("../controllers/users/user");
-const jwt = require("jsonwebtoken");
-const User = require("../models/User");
-const verifyToken = require("../controllers/middlewares/verifyToken");
+} = require('../controllers/payments/crypto/transactionMetaMask')
+const { StripePayment } = require('../controllers/payments/fiat/Stripe')
+const { MPayment } = require('../controllers/payments/fiat/MercadoPago')
+const { createOrder, getOrder } = require('../controllers/products/orders')
+const { createProfile, getProfile } = require('../controllers/users/user')
+const jwt = require('jsonwebtoken')
+const User = require('../models/User')
+const verifyToken = require('../controllers/middlewares/verifyToken')
 const corsOptions = {
   origin: 'http://localhost:3000',
   credentials: true,
@@ -19,15 +20,19 @@ const corsOptions = {
 }
 // PRUEBA NODEMAILER
 const nodemailer = require('../libs/nodemailer')
+
+const verifyAdmin = require('../controllers/middlewares/verifyAdmin')
 //ADMIN
 const {
   getUsers,
   updateAdminById,
   deleteUser,
   getUserById,
+  getUsersDb,
 } = require('../controllers/Admin/admin')
 //ROUTES ADMIN
-router.get('/admin/users', getUsers)
+router.get('/admin/verify', verifyAdmin)
+router.get('/admin/users', getUsersDb)
 router.get('/user/:id', getUserById)
 router.put('/admin/edit/:username', updateAdminById)
 router.delete('/deleteUser/:id', deleteUser)
@@ -57,16 +62,16 @@ const {
 const verifyAdmin = require('../controllers/middlewares/verifyAdmin')
 
 // ROUTES PRODUCTS
-router.get("/search", searchProduct);
-router.get("/nfts", getNFTs);
-router.get("/nft/:id", getProductById);
-router.get("/orderCart", getOrder);
-router.post("/nft", createProduct);
-router.post("/orderCart", createOrder);
-router.post("/transactionMetamask", transactionMetaMask);
-router.post("/transactionStripe", StripePayment);
-router.post('/MercadoPagoTransaction', MPayment);
-router.put("/edit/:id", updateProductById);
+router.get('/search', searchProduct)
+router.get('/nfts', getNFTs)
+router.get('/nft/:id', getProductById)
+router.get('/orderCart', getOrder)
+router.post('/nft', createProduct)
+router.post('/orderCart', createOrder)
+router.post('/transactionMetamask', transactionMetaMask)
+router.post('/transactionStripe', StripePayment)
+router.post('/MercadoPagoTransaction', MPayment)
+router.put('/edit/:id', updateProductById)
 
 //ROUTES PROFILE
 router.get('/profile', getProfile)
@@ -86,6 +91,7 @@ router.post(
     passReqToCallback: true,
   }),
   async (req, res, next) => {
+    const found = user.roles.find((e) => e == '613bd8b725b8702ce89f7474')
     res.json(req.user)
     //res.redirect(AL JOM DEL PROYECTO)
   }
@@ -129,9 +135,14 @@ router.post(
         const body = { _id: req.user.id, username: req.user.username }
         const token = jwt.sign({ user: body }, 'superstringinhackeable')
         const filter = { username: req.body.username }
+        const userFound = await User.findOne({
+          username: req.body.username,
+        }).populate('roles')
         const update = { token: token }
-        await User.findOneAndUpdate(filter, update, { new: true })
-        return res.send(token)
+        const role = userFound.roles[0].name
+        const resp = await User.findOneAndUpdate(filter, update, { new: true })
+        console.log([resp, role])
+        return res.send([resp, role])
       })
     } catch (error) {
       return next(error)

@@ -15,9 +15,13 @@ import MenuItem from '@material-ui/core/MenuItem'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { useTheme } from '@material-ui/core/styles'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
+import Badge from '@material-ui/core/Badge'
 import IconButton from '@material-ui/core/IconButton'
 import { getCategories } from '../../actions/getCategories'
 import { userSession } from '../../actions/userSession'
+import { logout } from '../../actions/logout'
+import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined'
+import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 // import { createChainedFunction } from '@material-ui/core'
 
 function ElevationScroll(props) {
@@ -60,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
   },
   menu: {
     backgroundColor: theme.palette.common.green,
-    // color: 'white',
+    color: 'white',
   },
   menuItem: {
     ...theme.typography.tab,
@@ -70,7 +74,10 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   shoppingcart: {
-    color: 'black',
+    color: 'white',
+  },
+  profileMenu: {
+    marginTop: '2.6rem',
   },
 }))
 
@@ -78,12 +85,16 @@ export default function NavBar() {
   const dispatch = useDispatch()
   const userLogged = useSelector((state) => state.userLogged)
   const categories = useSelector((state) => state.categories)
+  const number = useSelector((state) => state.shoppingTrolley)
+  const numberOfItems = number.length
   const classes = useStyles()
   const theme = useTheme()
   const matches = useMediaQuery(theme.breakpoints.down('sm'))
   const [value, setValue] = useState(0)
   const [anchorEl, setanchorEl] = useState(null)
+  const [anchorElProfile, setanchorElProfile] = useState(null)
   const [open, setopen] = useState(false)
+  const [openProfile, setopenProfile] = useState(false)
 
   const handleChange = (e, value) => {
     setValue(value)
@@ -93,15 +104,24 @@ export default function NavBar() {
     setanchorEl(e.currentTarget)
     setopen(true)
   }
+  const handleclickprofile = (e) => {
+    setanchorElProfile(e.currentTarget)
+    setopenProfile(true)
+  }
 
   const handleClose = (e) => {
     setanchorEl(null)
     setopen(false)
     setValue(1)
   }
+  const handleCloseProfile = (e) => {
+    setanchorElProfile(null)
+    setopenProfile(false)
+    setValue(6)
+  }
 
   const handleLogout = () => {
-    dispatch(logout())
+    dispatch(logout(userLogged))
     setValue(0)
   }
 
@@ -165,14 +185,6 @@ export default function NavBar() {
             component={Link}
             to='/create'
             label='Create'
-          />
-        )}
-        {userLogged && (
-          <Tab
-            className={classes.tab}
-            component={Link}
-            to='/profile'
-            label='My Profile'
           />
         )}
       </Tabs>
@@ -272,113 +284,62 @@ export default function NavBar() {
               Show More...
             </MenuItem>
           )}
-          {/* <MenuItem
-                onClick={handleClose}
-                component={Link}
-                to='/categories/all'
-                classes={{ root: classes.menuItem }}
-              >
-                All NFTS
-              </MenuItem> */}
         </Menu>
-        //   id='categoriesMenu'
-        //   anchorEl={anchorEl}
-        //   open={open}
-        //   onClose={handleClose}
-        //   MenuListProps={{ onMouseLeave: handleClose }}
-        //   classes={{ paper: classes.menu }}
-        //   elevation={3}
-        // >
-        //   <MenuItem
-        //     onClick={handleClose}
-        //     component={Link}
-        //     to='/categories'
-        //     classes={{ root: classes.menuItem }}
-        //   >
-        //     Categories
-        //   </MenuItem>
-        //   <MenuItem
-        //     onClick={handleClose}
-        //     component={Link}
-        //     to='/categories/all'
-        //     classes={{ root: classes.menuItem }}
-        //   >
-        //     All NFTS
-        //   </MenuItem>
-        //   <MenuItem
-        //     onClick={handleClose}
-        //     classes={{ root: classes.menuItem }}
-        //     component={Link}
-        //     to='/categories/funny'
-        //   >
-        //     Funny
-        //   </MenuItem>
-        //   <MenuItem
-        //     onClick={handleClose}
-        //     classes={{ root: classes.menuItem }}
-        //     component={Link}
-        //     to='/categories/animals'
-        //   >
-        //     Animals
-        //   </MenuItem>
-        //   <MenuItem
-        //     onClick={handleClose}
-        //     classes={{ root: classes.menuItem }}
-        //     component={Link}
-        //     to='/categories/sport'
-        //   >
-        //     Sport
-        //   </MenuItem>
-        //   <MenuItem
-        //     onClick={handleClose}
-        //     classes={{ root: classes.menuItem }}
-        //     component={Link}
-        //     to='/categories/music'
-        //   >
-        //     Music
-        //   </MenuItem>
-        //   <MenuItem
-        //     onClick={handleClose}
-        //     classes={{ root: classes.menuItem }}
-        //     component={Link}
-        //     to='/categories/cute'
-        //   >
-        //     Cute
-        //   </MenuItem>
-        //   <MenuItem
-        //     onClick={handleClose}
-        //     classes={{ root: classes.menuItem }}
-        //     component={Link}
-        //     to='/categories/abstractart'
-        //   >
-        //     Abstract art
-        //   </MenuItem>
-        //   <MenuItem
-        //     onClick={handleClose}
-        //     classes={{ root: classes.menuItem }}
-        //     component={Link}
-        //     to='/categories/utopy'
-        //   >
-        //     Utopy
-        //   </MenuItem>
-        //
-        // </Menu>
       }
+
+      <Menu
+        className={classes.profileMenu}
+        anchorEl={anchorElProfile}
+        open={openProfile}
+        onClose={handleClose}
+        MenuListProps={{ onMouseLeave: handleCloseProfile }}
+        classes={{ paper: classes.menu }}
+        elevation={3}
+      >
+        <MenuItem
+          onClick={handleCloseProfile}
+          component={Link}
+          to='/profile'
+          classes={{ root: classes.menuItem }}
+        >
+          My Profile
+        </MenuItem>
+        <MenuItem
+          onClick={handleCloseProfile}
+          component={Link}
+          to='/favorites'
+          classes={{ root: classes.menuItem }}
+        >
+          Favorites
+        </MenuItem>
+        <MenuItem
+          onClick={handleCloseProfile}
+          onClick={handleLogout}
+          classes={{ root: classes.menuItem }}
+        >
+          Logout <ExitToAppIcon />
+        </MenuItem>
+      </Menu>
+
       <IconButton component={Link} to='/shoppingcart'>
-        <ShoppingCartIcon />
+        <Badge badgeContent={numberOfItems} color='error'>
+          <ShoppingCartIcon className={classes.shoppingcart} />
+        </Badge>
       </IconButton>
 
       {userLogged ? (
-        <Button
+        <IconButton
           component={Link}
           to='/'
-          onClick={handleLogout}
-          variant='contained'
-          color='secondary'
-          className={classes.button}
+          aria-owns={anchorEl ? 'profileMenu' : undefined}
+          aria-haspopup={anchorEl ? true : undefined}
+          onMouseOver={(e) => handleclickprofile(e)}
         >
-          Logout
-        </Button>
+          <AccountCircleOutlinedIcon
+            fontSize='large'
+            className={classes.shoppingcart}
+          />
+        </IconButton>
       ) : (
         <Button
           component={Link}
@@ -398,7 +359,9 @@ export default function NavBar() {
       <ElevationScroll>
         <AppBar position='fixed'>
           <ToolBar>
-            <Typography variant='h5'>NFT MARKET</Typography>
+            <Typography color='white' variant='h5'>
+              NFT MARKET
+            </Typography>
             {matches ? null : tabs}
           </ToolBar>
         </AppBar>
