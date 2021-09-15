@@ -1,18 +1,21 @@
-import loginUser from "../services/auth/loginUser";
+import loginUser from '../services/auth/loginUser'
 
 export default function localLogin(payload) {
-    return async function (dispatch) {
-    const response = await loginUser(payload);
+  return async function (dispatch) {
+    const response = await loginUser(payload)
     if (response) {
-      window.sessionStorage.setItem("userLogged", JSON.stringify(response[0].token))
+      window.sessionStorage.setItem(
+        'userLogged',
+        JSON.stringify(response[0].token)
+      )
       dispatch({
-        type: "LOGIN_SUCCESS",
+        type: 'LOGIN_SUCCESS',
         payload: response,
-      });
+      })
     } else {
       dispatch({
-        type: "LOGIN_ERROR",
-      });
+        type: 'LOGIN_ERROR',
+      })
     }
-  };
+  }
 }

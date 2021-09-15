@@ -149,7 +149,9 @@ function rootReducer(state = initialState, action) {
       window.sessionStorage.removeItem('userLogged')
       return {
         ...state,
-        role:null,
+        // role: action.payload[1],
+        // userLogged: action.payload[0],
+        role: null,
         userLogged: null,
       }
     case SIGNUP_SUCCESS:
