@@ -90,14 +90,14 @@ async function handleDeleteNFT(e) {
   
 }
 
-async function handleRole(e) {
-  e.preventDefault()
-  dispatch(usersToAdmin(inputs.users))
-  alert('Role changed')
-  dispatch(getUsers())
-  setInputs({users:['']})
+// async function handleRole(e) {
+//   e.preventDefault()
+//   dispatch(usersToAdmin(inputs.users))
+//   alert('Role changed')
+//   dispatch(getUsers())
+//   setInputs({users:['']})
   
-}
+// }
 
   
   return ( <div>
@@ -154,7 +154,7 @@ async function handleRole(e) {
            <button type="submit">Delete!</button>
             </form>
 
-            <form name="users" 
+            {/* <form name="users" 
             onSubmit={(e)=>handleRole(e)}
             >
             <h3>Change role</h3>
@@ -175,7 +175,7 @@ async function handleRole(e) {
               ))}
             </div>            
            <button type="submit">Change!</button>
-            </form>
+            </form> */}
 
             
 

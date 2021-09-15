@@ -130,27 +130,28 @@ function rootReducer(state = initialState, action) {
     case TRANSACTION_STRIPE:
       return state
     case LOGIN_SUCCESS:
+      let role= JSON.parse(window.sessionStorage.getItem('role'))
       let islogged = JSON.parse(window.sessionStorage.getItem('userLogged'))
       return {
         ...state,
-        role: action.payload[1],
+        role: role,
         userLogged: islogged,
       }
     case 'USER_SESSION':
-      if (window.sessionStorage.getItem('userLogged')) {
-        return {
+      if (window.sessionStorage.getItem('userLogged') && window.sessionStorage.getItem('role')) {
+          return {
           ...state,
           userLogged: JSON.parse(window.sessionStorage.getItem('userLogged')),
+          role: JSON.parse(window.sessionStorage.getItem('role'))
         }
       } else {
         return state
       }
     case LOGOUT:
       window.sessionStorage.removeItem('userLogged')
+      window.sessionStorage.removeItem('role')
       return {
         ...state,
-        // role: action.payload[1],
-        // userLogged: action.payload[0],
         role: null,
         userLogged: null,
       }

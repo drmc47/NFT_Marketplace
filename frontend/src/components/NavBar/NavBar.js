@@ -94,6 +94,7 @@ export default function NavBar() {
   const [anchorElProfile, setanchorElProfile] = useState(null)
   const [open, setopen] = useState(false)
   const [openProfile, setopenProfile] = useState(false)
+  const role=useSelector((state) => state.role)
 
   const handleChange = (e, value) => {
     setValue(value)
@@ -177,6 +178,14 @@ export default function NavBar() {
           to='/about'
           label='About Us'
         />
+        {role ==="admin" && (
+        <Tab
+        className={classes.tab}
+        component={Link}
+        to='/admin'
+        label='Admin'
+        />
+      )}
         {/* ADD */}
         {userLogged && (
           <Tab

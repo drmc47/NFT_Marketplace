@@ -5,6 +5,10 @@ export default function localLogin(payload) {
     const response = await loginUser(payload)
     if (response) {
       window.sessionStorage.setItem(
+        'role',
+        JSON.stringify(response[1])
+      )
+      window.sessionStorage.setItem(
         'userLogged',
         JSON.stringify(response[0].token)
       )
