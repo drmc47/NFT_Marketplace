@@ -13,14 +13,14 @@ import Button from '@material-ui/core/Button'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
-import {useTheme} from '@material-ui/core/styles'
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import Badge from '@material-ui/core/Badge';
-import IconButton from "@material-ui/core/IconButton";
+import { useTheme } from '@material-ui/core/styles'
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
+import Badge from '@material-ui/core/Badge'
+import IconButton from '@material-ui/core/IconButton'
 import { getCategories } from '../../actions/getCategories'
 import { userSession } from '../../actions/userSession'
-import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined'
+import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 // import { createChainedFunction } from '@material-ui/core'
 
 function ElevationScroll(props) {
@@ -73,27 +73,27 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   shoppingcart: {
-    color: "white"
+    color: 'white',
   },
   profileMenu: {
-    marginTop: "2.6rem"
-  }
+    marginTop: '2.6rem',
+  },
 }))
 
 export default function NavBar() {
-  const dispatch = useDispatch();
-  const userLogged = useSelector((state) => state.userLogged);
-  const categories = useSelector((state) => state.categories);
-  const number = useSelector((state) => state.shoppingTrolley);
+  const dispatch = useDispatch()
+  const userLogged = useSelector((state) => state.userLogged)
+  const categories = useSelector((state) => state.categories)
+  const number = useSelector((state) => state.shoppingTrolley)
   const numberOfItems = number.length
-  const classes = useStyles();
-  const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down('sm'));
-  const [value, setValue] = useState(0);
-  const [anchorEl, setanchorEl] = useState(null);
-  const [anchorElProfile, setanchorElProfile] = useState(null);
-  const [open, setopen] = useState(false);
-  const [openProfile, setopenProfile] = useState(false);
+  const classes = useStyles()
+  const theme = useTheme()
+  const matches = useMediaQuery(theme.breakpoints.down('sm'))
+  const [value, setValue] = useState(0)
+  const [anchorEl, setanchorEl] = useState(null)
+  const [anchorElProfile, setanchorElProfile] = useState(null)
+  const [open, setopen] = useState(false)
+  const [openProfile, setopenProfile] = useState(false)
 
   const handleChange = (e, value) => {
     setValue(value)
@@ -120,7 +120,7 @@ export default function NavBar() {
   }
 
   const handleLogout = () => {
-    dispatch(logout())
+    dispatch(logout(userLogged))
     setValue(0)
   }
 
@@ -142,202 +142,214 @@ export default function NavBar() {
     } else if (window.location.pathname === '/profile' && value !== 5) {
       setValue(5)
     }
-    
+
     dispatch(userSession())
   }, [value])
 
- const tabs = (
+  const tabs = (
     <React.Fragment>
       <Tabs
-              value={value}
-              className={classes.tabContainer}
-              onChange={handleChange}
-              indicatorColor='secondary'
-            >
-              <Tab
-                className={classes.tab}
-                component={Link}
-                to='/'
-                label='Home'
-              />
-              <Tab
-                aria-owns={anchorEl ? 'categoriesMenu' : undefined}
-                aria-haspopup={anchorEl ? true : undefined}
-                className={classes.tab}
-                onMouseOver={(e) => handleclick(e)}
-                component={Link}
-                to='/categories'
-                label='Categories'
-              />
+        value={value}
+        className={classes.tabContainer}
+        onChange={handleChange}
+        indicatorColor='secondary'
+      >
+        <Tab className={classes.tab} component={Link} to='/' label='Home' />
+        <Tab
+          aria-owns={anchorEl ? 'categoriesMenu' : undefined}
+          aria-haspopup={anchorEl ? true : undefined}
+          className={classes.tab}
+          onMouseOver={(e) => handleclick(e)}
+          component={Link}
+          to='/categories'
+          label='Categories'
+        />
 
-              <Tab
-                className={classes.tab}
-                component={Link} to='/contact'
-                label='Contact'
-              />
-              <Tab
-                className={classes.tab}
-                component={Link}
-                to='/about'
-                label='About Us'
-              />
-              {/* ADD */}
-              {userLogged && (
-                <Tab
-                  className={classes.tab}
-                  component={Link}
-                  to='/create'
-                  label='Create'
-                />
-              )}
-            </Tabs>
-              { 
-               <Menu
-              id='categoriesMenu'
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleClose}
-              MenuListProps={{ onMouseLeave: handleClose }}
-              classes={{ paper: classes.menu }}
-              elevation={3}
+        <Tab
+          className={classes.tab}
+          component={Link}
+          to='/contact'
+          label='Contact'
+        />
+        <Tab
+          className={classes.tab}
+          component={Link}
+          to='/about'
+          label='About Us'
+        />
+        {/* ADD */}
+        {userLogged && (
+          <Tab
+            className={classes.tab}
+            component={Link}
+            to='/create'
+            label='Create'
+          />
+        )}
+      </Tabs>
+      {
+        <Menu
+          id='categoriesMenu'
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          MenuListProps={{ onMouseLeave: handleClose }}
+          classes={{ paper: classes.menu }}
+          elevation={3}
+        >
+          <MenuItem
+            onClick={handleClose}
+            component={Link}
+            to='/categories'
+            classes={{ root: classes.menuItem }}
+          >
+            Categories
+          </MenuItem>
+          <MenuItem
+            onClick={handleClose}
+            component={Link}
+            to='/categories/all'
+            classes={{ root: classes.menuItem }}
+          >
+            All NFTS
+          </MenuItem>
+          {categories.length > 0 && (
+            <MenuItem
+              onClick={handleClose}
+              component={Link}
+              to={`/categories/${categories[0]._id}`}
+              classes={{ root: classes.menuItem }}
             >
-               <MenuItem
-                onClick={handleClose}
-                component={Link}
-                to='/categories'
-                classes={{ root: classes.menuItem }}
-              >
-                Categories
-              </MenuItem>
-              <MenuItem
-                onClick={handleClose}
-                component={Link}
-                to='/categories/all'
-                classes={{ root: classes.menuItem }}
-              >
-                All NFTS
-              </MenuItem>
-              {categories.length >0 && <MenuItem
-                onClick={handleClose}
-                component={Link}
-                to={`/categories/${categories[0]._id}`}
-                classes={{ root: classes.menuItem }}
-              >
-               {categories[0].name}
-              </MenuItem>}
-              {categories.length >1 && <MenuItem
-                onClick={handleClose}
-                component={Link}
-                to={`/categories/${categories[1]._id}`}
-                classes={{ root: classes.menuItem }}
-              >
-               {categories[1].name}
-              </MenuItem>}
-              {categories.length >2 && <MenuItem
-                onClick={handleClose}
-                component={Link}
-                to={`/categories/${categories[2]._id}`}
-                classes={{ root: classes.menuItem }}
-              >
-               {categories[2].name}
-              </MenuItem>}
-              {categories.length >3 && <MenuItem
-                onClick={handleClose}
-                component={Link}
-                to={`/categories/${categories[3]._id}`}
-                classes={{ root: classes.menuItem }}
-              >
-               {categories[3].name}
-              </MenuItem>}
-              {categories.length >4 && <MenuItem
-                onClick={handleClose}
-                component={Link}
-                to={`/categories/${categories[4]._id}`}
-                classes={{ root: classes.menuItem }}
-              >
-               {categories[4].name}
-              </MenuItem>}
-              {categories.length >5 && <MenuItem
-                onClick={handleClose}
-                component={Link}
-                to={`/categories/${categories[5]._id}`}
-                classes={{ root: classes.menuItem }}
-              >
-               {categories[5].name}
-              </MenuItem>}
-              {categories.length >0 && <MenuItem
-                onClick={handleClose}
-                component={Link}
-                to='/categories'
-                classes={{ root: classes.menuItem }}
-              >
-               Show More...
-              </MenuItem>}
-            </Menu>
-            
-              }
-
-              <Menu
-              className={classes.profileMenu}
-              anchorEl={anchorElProfile}
-              open={openProfile}
-              onClose={handleClose}
-              MenuListProps={{ onMouseLeave: handleCloseProfile }}
-              classes={{ paper: classes.menu }}
-              elevation={3}
+              {categories[0].name}
+            </MenuItem>
+          )}
+          {categories.length > 1 && (
+            <MenuItem
+              onClick={handleClose}
+              component={Link}
+              to={`/categories/${categories[1]._id}`}
+              classes={{ root: classes.menuItem }}
             >
-               <MenuItem
-                onClick={handleCloseProfile}
-                component={Link}
-                  to='/profile'
-                classes={{ root: classes.menuItem }}
-              >
-                My Profile
-              </MenuItem>
-              <MenuItem
-                onClick={handleCloseProfile}
-                component={Link}
-                to='/favorites'
-                classes={{ root: classes.menuItem }}
-              >
-                Favorites
-              </MenuItem>
-              <MenuItem
-                onClick={handleCloseProfile}
-                onClick={handleLogout}
-                classes={{ root: classes.menuItem }}
-              >
-                Logout <ExitToAppIcon/>
-              </MenuItem>
-              </Menu>
-             
-              <IconButton component={Link}
-                to='/shoppingcart'>
-                  <Badge badgeContent={numberOfItems} color="error">
-                <ShoppingCartIcon className={classes.shoppingcart} 
-                /></Badge>
-              </IconButton>
+              {categories[1].name}
+            </MenuItem>
+          )}
+          {categories.length > 2 && (
+            <MenuItem
+              onClick={handleClose}
+              component={Link}
+              to={`/categories/${categories[2]._id}`}
+              classes={{ root: classes.menuItem }}
+            >
+              {categories[2].name}
+            </MenuItem>
+          )}
+          {categories.length > 3 && (
+            <MenuItem
+              onClick={handleClose}
+              component={Link}
+              to={`/categories/${categories[3]._id}`}
+              classes={{ root: classes.menuItem }}
+            >
+              {categories[3].name}
+            </MenuItem>
+          )}
+          {categories.length > 4 && (
+            <MenuItem
+              onClick={handleClose}
+              component={Link}
+              to={`/categories/${categories[4]._id}`}
+              classes={{ root: classes.menuItem }}
+            >
+              {categories[4].name}
+            </MenuItem>
+          )}
+          {categories.length > 5 && (
+            <MenuItem
+              onClick={handleClose}
+              component={Link}
+              to={`/categories/${categories[5]._id}`}
+              classes={{ root: classes.menuItem }}
+            >
+              {categories[5].name}
+            </MenuItem>
+          )}
+          {categories.length > 0 && (
+            <MenuItem
+              onClick={handleClose}
+              component={Link}
+              to='/categories'
+              classes={{ root: classes.menuItem }}
+            >
+              Show More...
+            </MenuItem>
+          )}
+        </Menu>
+      }
 
-            {userLogged ? (
-              <IconButton  component={Link}
-              to='/'
-              aria-owns={anchorEl ? 'profileMenu' : undefined}
-                aria-haspopup={anchorEl ? true : undefined}
-              onMouseOver={(e) => handleclickprofile(e)}
-              >
-              <AccountCircleOutlinedIcon fontSize="large" className={classes.shoppingcart}/>
-              </IconButton>
-            ) : (
-              <Button
-                component={Link}
-                to='/login'
-                variant='contained'
-                color='secondary'
-                className={classes.button}
-              >
-                Login
-              </Button>
-            )}
+      <Menu
+        className={classes.profileMenu}
+        anchorEl={anchorElProfile}
+        open={openProfile}
+        onClose={handleClose}
+        MenuListProps={{ onMouseLeave: handleCloseProfile }}
+        classes={{ paper: classes.menu }}
+        elevation={3}
+      >
+        <MenuItem
+          onClick={handleCloseProfile}
+          component={Link}
+          to='/profile'
+          classes={{ root: classes.menuItem }}
+        >
+          My Profile
+        </MenuItem>
+        <MenuItem
+          onClick={handleCloseProfile}
+          component={Link}
+          to='/favorites'
+          classes={{ root: classes.menuItem }}
+        >
+          Favorites
+        </MenuItem>
+        <MenuItem
+          onClick={handleCloseProfile}
+          onClick={handleLogout}
+          classes={{ root: classes.menuItem }}
+        >
+          Logout <ExitToAppIcon />
+        </MenuItem>
+      </Menu>
+
+      <IconButton component={Link} to='/shoppingcart'>
+        <Badge badgeContent={numberOfItems} color='error'>
+          <ShoppingCartIcon className={classes.shoppingcart} />
+        </Badge>
+      </IconButton>
+
+      {userLogged ? (
+        <IconButton
+          component={Link}
+          to='/'
+          aria-owns={anchorEl ? 'profileMenu' : undefined}
+          aria-haspopup={anchorEl ? true : undefined}
+          onMouseOver={(e) => handleclickprofile(e)}
+        >
+          <AccountCircleOutlinedIcon
+            fontSize='large'
+            className={classes.shoppingcart}
+          />
+        </IconButton>
+      ) : (
+        <Button
+          component={Link}
+          to='/login'
+          variant='contained'
+          color='secondary'
+          className={classes.button}
+        >
+          Login
+        </Button>
+      )}
     </React.Fragment>
   )
 
@@ -346,8 +358,10 @@ export default function NavBar() {
       <ElevationScroll>
         <AppBar position='fixed'>
           <ToolBar>
-            <Typography color="white" variant='h5'>NFT MARKET</Typography>
-            {matches? null : tabs}
+            <Typography color='white' variant='h5'>
+              NFT MARKET
+            </Typography>
+            {matches ? null : tabs}
           </ToolBar>
         </AppBar>
       </ElevationScroll>
