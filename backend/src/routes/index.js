@@ -155,6 +155,8 @@ router.post('/logout', async (req, res) => {
   const filter = { token: req.body.token }
   const update = { token: null }
   await User.findOneAndUpdate(filter, update, { new: true })
+  console.log('LOGGED OUT')
+  res.send('LOGGED OUT')
 })
 
 //INICIO DE SESION CON GOOGLE
