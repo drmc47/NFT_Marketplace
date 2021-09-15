@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import logout from '../../actions/logout'
@@ -18,6 +18,7 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Badge from '@material-ui/core/Badge';
 import IconButton from "@material-ui/core/IconButton";
 import { getCategories } from '../../actions/getCategories'
+import { userSession } from '../../actions/userSession'
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 // import { createChainedFunction } from '@material-ui/core'
@@ -124,10 +125,13 @@ export default function NavBar() {
   }
 
   useEffect(() => {
-    dispatch(getCategories());
+    dispatch(getCategories())
     if (window.location.pathname === '/' && value !== 0) {
       setValue(0)
-    } else if (window.location.pathname.includes('/categories') && value !== 1) {
+    } else if (
+      window.location.pathname.includes('/categories') &&
+      value !== 1
+    ) {
       setValue(1)
     } else if (window.location.pathname === '/contact' && value !== 2) {
       setValue(2)
@@ -138,9 +142,11 @@ export default function NavBar() {
     } else if (window.location.pathname === '/profile' && value !== 5) {
       setValue(5)
     }
+    
+    dispatch(userSession())
   }, [value])
 
-  const tabs = (
+ const tabs = (
     <React.Fragment>
       <Tabs
               value={value}
@@ -311,9 +317,6 @@ export default function NavBar() {
                 <ShoppingCartIcon className={classes.shoppingcart} 
                 /></Badge>
               </IconButton>
-              
-              
-           
 
             {userLogged ? (
               <IconButton  component={Link}
