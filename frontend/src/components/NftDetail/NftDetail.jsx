@@ -114,23 +114,4 @@ export default function NftDetail() {
     </Container>
     )
 
-
-    // return <div>
-    //     {
-    //         nftDetail !== undefined ?
-    //             <div className="detail">
-    //                 <h2>{nftDetail.name}</h2>
-    //                 <img src={nftDetail.image} alt="img" />
-    //                 <p>{nftDetail.description}</p>
-    //                 <p>{nftDetail.price}</p>
-    //                 <br />
-    //                 <div>
-    //                     <Payments />
-    //                 </div>
-    //             </div>
-    //             :
-    //             <span>Loading...</span>
-    //     }
-    // </div>
-
 }
