@@ -64,6 +64,11 @@ const useStyles = makeStyles({
           color: "#FF0000",
         },
       },
+      favoriteIconButton: {
+        "&:hover":  {
+          backgroundColor: "transparent"
+        }
+      }
   });
 export default function NftDetail() {
     const { id } = useParams();
@@ -93,7 +98,7 @@ export default function NftDetail() {
          <InfoContainer>
              <TitleContainer>
                  <Title>{nftDetail.name}</Title>
-                 <IconButton>
+                 <IconButton className={classes.favoriteIconButton}>
               {userLogged? <FavoriteBorderIcon  className={classes.favorite} />
               :null}
               
