@@ -2,10 +2,11 @@ const mercadopago = require ('mercadopago');
 
 // Agrega credenciales
 mercadopago.configure({
-    access_token: 'APP_USR-b82323c3-636f-4e7a-9902-39d441eeaaef'
+    access_token: 'TEST-6367884903910990-091520-67b0488048e05fa4fefe823b7ca6d894-822690440'
   });
 
   async function MPayment (req, res){
+
     try {
       const reducerN = (previousValue, currentValue) => previousValue +' / '+ currentValue;
       const reducerP = (previousValue, currentValue) => previousValue + currentValue;
@@ -28,15 +29,23 @@ mercadopago.configure({
             items: [
               {
                 title: ResultName,
-                unit_price: ResultPrice*323199.72,
+                unit_price: ResultPrice*338405,
                 quantity: 1,
               }
-            ]
+            ],
+            back_urls: {
+              success: "https://http://localhost:3000//success",
+              failure: "http://http://localhost:3000//failure",
+              pending: "http://http://localhost:3000//pending"
+          },
+          auto_return: 'approved',
           };
     
-          const response = await mercadopago.preferences.create(preference);
+       mercadopago.preferences.create(preference)
+       .then((response) => {
+        res.send(response.body.init_point)
+       } )
 
-          res.redirect(response.body.init_point);
 
     } catch (error){
         console.log(error);
