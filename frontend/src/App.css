@@ -1,13 +1,13 @@
-/* .App {
-  text-align: center;
+body {
+  background-color: rgb(217,217,217,0.45)
 }
 
-.App-header {
+/* .App-header {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   font-size: calc(10px + 2vmin);
   color: rgb(10, 10, 10);
-}
- */
+} */
+
