@@ -3,7 +3,6 @@ import { useParams, Link } from 'react-router-dom'
 import getNftDetail from "../../actions/getNftDetail"
 import { useSelector, useDispatch } from "react-redux"
 import getClean from "../../actions/getClean"
-import Payments from "../Payments/PaymentsButton/PaymentsButton"
 
 export default function NftDetail() {
     const { id } = useParams();
@@ -33,9 +32,6 @@ export default function NftDetail() {
                     <p>{nftDetail.description}</p>
                     <p>{nftDetail.price}</p>
                     <br />
-                    <div>
-                        <Payments />
-                    </div>
                 </div>
                 :
                 <span>Loading...</span>

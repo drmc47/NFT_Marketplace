@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { TransactionStripe } from "../../../actions/StripeTransaction";
-// import "bootswatch/dist/lux/bootstrap.min.css";
-import "./Stripe.css";
-
+import { Button } from '@material-ui/core'
 import { loadStripe } from "@stripe/stripe-js";
 import {
   Elements,
@@ -60,9 +58,9 @@ const CheckoutForm = () => {
   const [StripeOption, setStripeOption] = useState(true);
   return (
     <div className="App">
-      <button className="button" type="button" onClick={() => setStripeOption(!StripeOption)} >
-        {StripeOption ? 'Stripe' : 'Stripe'}
-      </button>
+      <Button className="button" type="button" onClick={() => setStripeOption(!StripeOption)} 
+                    color='primary' variant='contained'> {StripeOption ? 'Stripe' : 'Stripe'}
+      </Button>
 
       {StripeOption ? (
         <div >

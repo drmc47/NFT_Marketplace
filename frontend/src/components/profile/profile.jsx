@@ -41,23 +41,29 @@ export default function Profile() {
     <main className="container">
 
       <aside className="aside">
+            <h1>{getProfile[0]?.name}</h1>
+            <h3>{getProfile[0]?.description}</h3>
 
         <div className="infoProfile">
           <img src={getProfile[0]? getProfile[0].image : "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Imagen_no_disponible.svg/1024px-Imagen_no_disponible.svg.png"} alt="Image Not Found" />
         </div>
         <div className="accesos">
 
-          <a href="">Historial de compras</a>
-          <a href="">Carrito</a>
-          <a href="">Configuración</a>
+          <a href="">Shopping History</a>
+          <a href="">Reviews</a>
+          <Link to='/create'>
+            <button>Publish a new NFT</button>
+          </Link>
+
+          <a href="">Configuration</a>
         </div>
 
         <div>
             {<button id='connect' onClick={connect}>
-            Conectá tu cuenta Metamask
+            Connect your MetaMask account
             </button>}
-            <h4>¿No tienes una? <br/>
-            Haz click <button>Aquí</button> para crear tu wallet.</h4> 
+            <h4>Don't have one? <br/>
+            Click <button>Here</button> to create one.</h4> 
           </div>
       </aside>
 
@@ -65,8 +71,6 @@ export default function Profile() {
       
         
         <div>
-            <h1>{getProfile[0]?.name}</h1>
-            <h3>{getProfile[0]?.description}</h3>
           
           <h4>Tus publicaciones</h4>
 
