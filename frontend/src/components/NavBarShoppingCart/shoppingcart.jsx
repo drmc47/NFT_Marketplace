@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography'
 import cartDB  from '../../actions/shoppingCart/cartDB.js';
 import { getNFTs } from '../../actions/getNFTs';
 import removeItem from '../../actions/shoppingCart/removeItem'
+import { alertDeleted } from '../../actions/sweetAlert/alerts';
 
 const useStyle = makeStyles({
     div: {
@@ -72,6 +73,7 @@ export default function NavBarShoppingCart() {
         const handleCartClick = function (e) {
             if(!userLogged){
                 dispatch(removeLS(e))
+                alertDeleted()
             }else{            
                 dispatch(removeItem({user:userLogged,item:e}))
             }
@@ -80,8 +82,7 @@ export default function NavBarShoppingCart() {
     
 
     return (
-        <div className={classes.div}>
-            
+        <div className={classes.div}>           
             
         <Grid container>
             <Grid className={classes.titles} item xs={12} sm={12} md={8} lg={8} xl={8}>
@@ -110,7 +111,7 @@ export default function NavBarShoppingCart() {
 
                 </Grid>
             {
-                allProductsCart?.map(e => (
+                nftsData?.map(e => (
 
                     <Grid className={classes.data} item xs={12} sm={12} md={12} lg={12} xl={12}>
 
@@ -132,7 +133,7 @@ export default function NavBarShoppingCart() {
 
                         <Grid  item xs={3} sm={2} md={3} lg={3} xl={3} className="content">
                                 <IconButton aria-label="delete"> 
-                                    <DeleteIcon onClick={() => handleCartClick(e)} /> 
+                                    <DeleteIcon onClick={() => handleCartClick(e._id)} /> 
                                 </IconButton>
                         </Grid>
 
