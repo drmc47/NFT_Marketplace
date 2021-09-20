@@ -1,4 +1,3 @@
-import swal from 'sweetalert'
 import {
   GET_NFTs,
   GET_NFT_BY_NAME,
@@ -24,6 +23,8 @@ import {
   GET_PROFILE_USER,
   GET_USERS,
 } from '../actions/constants'
+
+import {alertOk , alertError} from '../actions/sweetAlert/alerts'
 
 const initialState = {
   allNFTs: [], // all NFTS from API openSea
@@ -136,13 +137,16 @@ function rootReducer(state = initialState, action) {
         ...state,
         role: role,
         userLogged: islogged,
+        shoppingTrolley:action.payload[2]
+        
       }
     case 'USER_SESSION':
       if (window.sessionStorage.getItem('userLogged') && window.sessionStorage.getItem('role')) {
           return {
           ...state,
           userLogged: JSON.parse(window.sessionStorage.getItem('userLogged')),
-          role: JSON.parse(window.sessionStorage.getItem('role'))
+          role: JSON.parse(window.sessionStorage.getItem('role')),
+         
         }
       } else {
         return state
@@ -154,6 +158,7 @@ function rootReducer(state = initialState, action) {
         ...state,
         role: null,
         userLogged: null,
+        shoppingTrolley:[]
       }
     case SIGNUP_SUCCESS:
       return {
@@ -161,7 +166,7 @@ function rootReducer(state = initialState, action) {
         userLogged: {
           email: action.payload.email,
           firstName: action.payload.firstName,
-        },
+        }
       }
     case SIGNUP_ERROR:
       return {
@@ -172,13 +177,7 @@ function rootReducer(state = initialState, action) {
       const myStorage = window.localStorage
       let getmyStorage = myStorage.getItem('user')
       let parsLocal = JSON.parse(getmyStorage)
-      swal({
-        title: '¡God Job!',
-        text: '¡ Your NFT was successfully added shopping cart !',
-        icon: 'success',
-        button: 'OK!',
-        timer: 1500,
-      })
+      alertOk()
       if (!parsLocal) {
         myStorage.setItem(
           'user',
@@ -192,19 +191,13 @@ function rootReducer(state = initialState, action) {
         }
       }
       if (parsLocal) {
-        let productAction = action.payload._id
+        let productAction = action.payload
         let isrepeat = parsLocal
-          ? parsLocal.map((e) => e._id).includes(productAction)
+          ? parsLocal.includes(productAction)
           : null
 
         if (isrepeat) {
-          swal({
-            title: '¡ Sorry =( !',
-            text: '¡ This NFT already exists in your shopping cart !',
-            icon: 'warning',
-            button: 'OK!',
-            timer: 1500,
-          })
+          alertError()
           return {
             ...state,
           }
@@ -264,9 +257,25 @@ function rootReducer(state = initialState, action) {
         ...state,
         allUsers: action.payload,
       }
+      case "DB_SHOPPING_CART":
+        return {
+          ...state,
+         shoppingTrolley: action.payload,
+        }
+           
+      case "CLICK_USER_LOGGED":
+        action.payload.forEach(e => {
+          state.shoppingTrolley.includes(e)? alertError() : alertOk()
+        })
+      return {
+        ...state,
+       shoppingTrolley: action.payload,
+      }
+      
     default:
       return state
   }
 }
 
 export default rootReducer
+

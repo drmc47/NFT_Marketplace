@@ -22,14 +22,14 @@ const userSchema = new Schema({
     },
     { timestamps: true, versionKey: false },
   ],
+  shoppingCart:[
+    {
+      type: Schema.Types.ObjectId,
+      ref: "ShoppingCart",
+    },
+    { timestamps: true, versionKey: false },
+  ]
 
-  // roles: {
-  //     type: String,
-  //     enum: {
-  //         values: ['admin', 'user']
-  //     },
-  //     default: 'user'
-  // }
 });
 
 userSchema.pre("save", async function save(next) {
