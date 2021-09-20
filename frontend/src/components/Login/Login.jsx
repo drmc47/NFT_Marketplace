@@ -5,10 +5,6 @@ import localLogin from '../../actions/login'
 import { makeStyles } from "@material-ui/core/styles";
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
-
-
-
-
 const useStyles = makeStyles((theme) => ({
   root: {
     height: "100vh",
@@ -40,11 +36,14 @@ const useStyles = makeStyles((theme) => ({
   
 }));
 
+
 export default function Login({ invalidEmail, handleChange, handleSubmit, buttonchange }) {
   const [inputs, setInputs] = useState({ username: '', password: '' })
   const classes = useStyles();
-
-
+  const myStorage = window.localStorage
+  let cart= JSON.parse(myStorage.getItem('user'))
+  
+  const [inputs, setInputs] = useState({ username: '', password: '', cart:cart })
   return (
      <Grid component="main" className={classes.root}> 
       <Container component={Paper} elevation={5} maxWidth='xs' className={classes.container}>

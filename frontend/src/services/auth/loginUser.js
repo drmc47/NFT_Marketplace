@@ -4,6 +4,7 @@ const loginUser = async (user) => {
     const data = await axios().post("http://localhost:8001/login", {
       username: user.username,
       password: user.password,
+      cart:user.cart
     });
     return data.data;
   } catch (error) {

@@ -36,6 +36,7 @@ import Collapse from '@material-ui/core/Collapse';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 
+
 function ElevationScroll(props) {
   const { children } = props
   const trigger = useScrollTrigger({
@@ -125,7 +126,7 @@ export default function NavBar() {
   const userLogged = useSelector((state) => state.userLogged)
   const categories = useSelector((state) => state.categories)
   const number = useSelector((state) => state.shoppingTrolley)
-  const numberOfItems = number.length
+  const numberOfItems = number?.length
   const classes = useStyles()
   const theme = useTheme()
   const iOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
@@ -162,6 +163,7 @@ export default function NavBar() {
     setopenProfile(false)
     setValue(6)
   }
+ 
 
   const handleLogout = () => {
     dispatch(logout(userLogged))

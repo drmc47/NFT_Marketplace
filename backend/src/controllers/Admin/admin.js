@@ -25,7 +25,6 @@ async function getUsersDb(_req, res, next) {
 // };
 
 async function updateAdminById(req, res, next) {
-  console.log("uopt")
   try {
     const username = req.params.username;
     const update = await Users.findOneAndUpdate({ 'username':username}, {'roles':"613bd8b725b8702ce89f7474"},{new:true});

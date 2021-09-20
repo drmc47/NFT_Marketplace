@@ -6,6 +6,9 @@ import CreditCardIcon from '@material-ui/icons/CreditCard';
 import { makeStyles } from '@material-ui/core/styles';
 
 import "./Stripe.css";
+import {getLS} from '../../../actions/getLS'
+import cartDB from '../../../actions/shoppingCart/cartDB.js'
+import  { useEffect } from 'react'
 
 import { loadStripe } from "@stripe/stripe-js";
 import {
@@ -14,13 +17,22 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
-
-
 function Stripe() {
+  
+  const userLogged= useSelector((state) => state.userLogged);
+  const stripePromise = loadStripe("pk_test_51JW0tcIjGDmG2UQfAkI8szNjoLv5Ub72nxET50aEEsFKFgGGAZECrupO2Uxgp13JtpxGxSD2mtunzeSYWvK3WrJy00al1P3DwN");
+  const dispatch = useDispatch();
+  const purchaseOrder = useSelector((state) => state.shoppingTrolley);
+  useEffect(() => {
+    if(!userLogged){
+        dispatch(getLS())
+    }else{
+        
+        dispatch (cartDB(userLogged))
+    }
 
-const stripePromise = loadStripe("pk_test_51JW0tcIjGDmG2UQfAkI8szNjoLv5Ub72nxET50aEEsFKFgGGAZECrupO2Uxgp13JtpxGxSD2mtunzeSYWvK3WrJy00al1P3DwN");
-const dispatch = useDispatch();
-const purchaseOrder = useSelector((state) => state.shoppingTrolley);
+}, [dispatch])
+
 const [loading, setLoading] = useState(false);
 
 const useStyles = makeStyles((theme) => ({
@@ -33,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const classes = useStyles();
+
 
 const CheckoutForm = () => {
   const stripe = useStripe();
