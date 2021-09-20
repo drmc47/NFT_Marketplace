@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { TransactionStripe } from "../../../actions/StripeTransaction";
 // import "bootswatch/dist/lux/bootstrap.min.css";
 import "./Stripe.css";
+import {getLS} from '../../../actions/getLS'
+import cartDB from '../../../actions/shoppingCart/cartDB.js'
+import  { useEffect } from 'react'
 
 import { loadStripe } from "@stripe/stripe-js";
 import {
@@ -11,13 +14,24 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
-
-
 function Stripe() {
+  
+  const userLogged= useSelector((state) => state.userLogged);
+  console.log('redirecciono en stripe')
+  const stripePromise = loadStripe("pk_test_51JW0tcIjGDmG2UQfAkI8szNjoLv5Ub72nxET50aEEsFKFgGGAZECrupO2Uxgp13JtpxGxSD2mtunzeSYWvK3WrJy00al1P3DwN");
+  const dispatch = useDispatch();
+  const purchaseOrder = useSelector((state) => state.shoppingTrolley);
+  useEffect(() => {
+    if(!userLogged){
+        dispatch(getLS())
+    }else{
+        
+        dispatch (cartDB(userLogged))
+    }
 
-const stripePromise = loadStripe("pk_test_51JW0tcIjGDmG2UQfAkI8szNjoLv5Ub72nxET50aEEsFKFgGGAZECrupO2Uxgp13JtpxGxSD2mtunzeSYWvK3WrJy00al1P3DwN");
-const dispatch = useDispatch();
-const purchaseOrder = useSelector((state) => state.shoppingTrolley);
+}, [dispatch])
+
+
 
 const CheckoutForm = () => {
   const stripe = useStripe();

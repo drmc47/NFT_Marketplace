@@ -7,9 +7,11 @@ import localLogin from '../../actions/login'
 
 
 export default function Login({ invalidEmail, handleChange, handleSubmit }) {
-  const [inputs, setInputs] = useState({ username: '', password: '' })
+  const myStorage = window.localStorage
+  let cart= JSON.parse(myStorage.getItem('user'))
+ 
 
-
+  const [inputs, setInputs] = useState({ username: '', password: '', cart:cart })
   return (
     <div className='App'>
       <NavBar />

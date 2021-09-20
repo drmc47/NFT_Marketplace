@@ -12,6 +12,8 @@ import { addShoppingTrolley } from "../../actions/addShoppingTrolley";
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { conectLS } from "../../actions/conectLS.js";
 import React, { useEffect } from "react";
+import addToDB from '../../actions/shoppingCart/addToDB';
+import cartDB from '../../actions/shoppingCart/cartDB.js'
 
 
 const useStyles = makeStyles({
@@ -42,12 +44,24 @@ export default function Cards({ ele }) {
   const classes = useStyles();
   const userLogged = useSelector((state) => state.userLogged);
   const dispatch = useDispatch();
+
   const handleClick = (ele)=>{
-    dispatch(addShoppingTrolley(ele));
+    if(!userLogged){
+      dispatch(addShoppingTrolley(ele._id));
+    }else{
+      console.log(ele._id)
+      dispatch(addToDB({id:ele._id,user:userLogged}))
+    }
   }
+  const carrito = useSelector((state) => state.shoppingTrolley);
+ 
   useEffect(() => {
-    // dispatch(getNFTs());
-    dispatch(conectLS())
+    if(!userLogged){
+      dispatch(conectLS())
+    }else{
+      dispatch(cartDB({user:userLogged}))
+     
+    }
     // return () => {
     //   dispatch(getNFTs());
     // };

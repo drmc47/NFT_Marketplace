@@ -21,6 +21,7 @@ import { getCategories } from '../../actions/getCategories'
 import { userSession } from '../../actions/userSession'
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
+
 // import { createChainedFunction } from '@material-ui/core'
 
 function ElevationScroll(props) {
@@ -85,7 +86,7 @@ export default function NavBar() {
   const userLogged = useSelector((state) => state.userLogged)
   const categories = useSelector((state) => state.categories)
   const number = useSelector((state) => state.shoppingTrolley)
-  const numberOfItems = number.length
+  const numberOfItems = number?.length
   const classes = useStyles()
   const theme = useTheme()
   const matches = useMediaQuery(theme.breakpoints.down('sm'))
@@ -119,6 +120,7 @@ export default function NavBar() {
     setopenProfile(false)
     setValue(6)
   }
+ 
 
   const handleLogout = () => {
     dispatch(logout(userLogged))
