@@ -1,8 +1,8 @@
 body {
-  background-color: rgb(217,217,217,0.45)
+  background-color: rgba(217, 217, 217, 0.45);
 }
-
-/* .App-header {
+/*
+.App-header {
   min-height: 100vh;
   display: flex;
   flex-direction: column;

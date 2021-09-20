@@ -38,7 +38,6 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function Login({ invalidEmail, handleChange, handleSubmit, buttonchange }) {
-  const [inputs, setInputs] = useState({ username: '', password: '' })
   const classes = useStyles();
   const myStorage = window.localStorage
   let cart= JSON.parse(myStorage.getItem('user'))

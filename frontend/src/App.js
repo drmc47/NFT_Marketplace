@@ -25,7 +25,7 @@ import AdminCategories from "./components/Admin/AdminCategories";
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider className="App" theme={theme}>
       <NavBar />
       <Switch>
         <Route exact path="/" component={Home}></Route>
@@ -35,8 +35,11 @@ function App() {
         <Route exact path="/categories/all" component={All}></Route>
         <Route path="/categories/:id" component={FilterCategory}></Route>
         {/* <Route exact path='/admin'component={AdminProfile}></Route> */}
-        <Route exact path="/create" component={Create}></Route>
         <Route exact path="/profile" component={Profile}></Route>
+        <Route path="/profile/history" component={Profile}></Route>
+        <Route path="/profile/reviews" component={Profile}></Route>
+        <Route path="/profile/createNFT" component={Create}></Route>
+        <Route path="/profile/configuration" component={Profile}></Route>
         <Route exact path="/contact" component={Contact}></Route>
         <Route exact path="/about" component={About}></Route>
         <Route
