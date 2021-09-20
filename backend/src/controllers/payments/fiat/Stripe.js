@@ -4,22 +4,41 @@ const stripe = new Stripe("sk_test_51JW0tcIjGDmG2UQfViGd7rcWR8FxrqAZLlj4BOh6MPka
 async function StripePayment (req, res){
 
    try {
-    const { id, amount, currency, description } = req.body
+      const reducerN = (previousValue, currentValue) => previousValue +' / '+ currentValue;
+      const reducerP = (previousValue, currentValue) => previousValue + currentValue;
+      var arrName = [];
+      var arrPrice = [];
+      var ResultName;
+      var ResultPriceETH;
+      var ResultPriceUS;
+
+      for (let i = 0; i < req.body.purchaseOrder.length; i++) {
+        
+         const {name, price} = req.body.purchaseOrder[i];
+         arrName.push(name);
+         arrPrice.push(price);
+
+      }
+      ResultName = arrName.reduce(reducerN);
+      ResultPriceETH = arrPrice.reduce(reducerP);   
+      ResultPriceUS = ResultPriceETH*3629,53
+      ResultPrice = (ResultPriceUS*10000)/100;
+      console.log('ResultPrice: ', ResultPrice);
+
+    const { id } = req.body
     const payment =  await stripe.paymentIntents.create({
          payment_method: id,
-         amount: 10000,
+         amount: Math.round(ResultPrice),
          currency: "USD",
-         description: "soy una compra de NFT",
+         description: ResultName,
          confirm: true,
     });
 
-      console.log(req.body)
-      console.log(payment);
     res.json(payment);
 
  } catch (error){
     console.log(error);
-    res.json({message: err.raw.message});
+    res.json({message: error});
  }
 
 }
