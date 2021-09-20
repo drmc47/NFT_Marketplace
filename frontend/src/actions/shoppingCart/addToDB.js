@@ -5,7 +5,7 @@ export default function addToDB(payload) {
       try {
         let response = await axios.post("http://localhost:8001/userShoppingCart",payload);
          return dispatch({
-            type: "DB_SHOPPING_CART",
+            type: "CLICK_USER_LOGGED",
             payload: response.data,
           });
         } catch (error) {
