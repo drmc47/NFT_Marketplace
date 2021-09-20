@@ -20,8 +20,10 @@ const corsOptions = {
   optionSuccessStatus: 200,
 };
 // PRUEBA NODEMAILER
-const nodemailer = require('../libs/nodemailer');
+const transporter = require('../libs/nodemailer')
+const signupMail = require('../libs/signupMail')
 const verifyAdmin = require('../controllers/middlewares/verifyAdmin');
+
 
 
 //ADMIN
@@ -110,7 +112,15 @@ router.post(
   }),
 
   async (req, res, _next) => {
-    return res.send(req.user);
+    transporter.sendMail(signupMail(req), function (error, info) {
+      if (error) {
+        console.log(error)
+      } else {
+        console.log('Email sent: ' + info.response)
+        res.send('Todo ok en el envío de mails de nodemailer')
+      }
+    })
+    return res.send(req.user)
 
     //res.redirect(AL JOM DEL PROYECTO)
   }
@@ -166,12 +176,12 @@ router.post(
   }
 );
 
+
 router.post('/logout', async (req, res,next) => {
   try{
     const filter = {token:req.body.token}
     const update = {token:null}
     await User.findOneAndUpdate(filter, update, { new: true })
-    console.log('LOGGED OUT')
     res.send('LOGGED OUT')
   }catch(error){
     next(error)
