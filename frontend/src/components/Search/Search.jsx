@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     height: "55px",
     zIndex: 999,
     minWidth: "230px",
-    position: 'fixed',
+    position: 'absolute',
     right: "15px",
     marginBottom: "15px",
     borderRadius: theme.shape.borderRadius,
@@ -38,27 +38,9 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
   inputRoot: {
-    position: "relative",
-    top: "1.5px",
-    color: 'white',
-    padding: theme.spacing(1, 1, 1, 0),
-    height: "20px",
-    marginTop: "0px",
-    minWidth: "10rem",
+    marginLeft: "17.5px"
   },
-  inputInput: {
-
-    marginTop: 0,
-    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: '12ch',
-      '&:focus': {
-        width: '20ch',
-      },
-    },
-  },
+ 
   textInput: {
     maxHeight: "10rem",
 
@@ -89,7 +71,7 @@ export default function Search() {
   return (
     <div className={classes.search} >
       <div className={classes.searchIcon} >
-        <SearchIcon />
+        <SearchIcon fontSize="small" />
       </div>
       <div className={classes.inputInput} >
         <Autocomplete

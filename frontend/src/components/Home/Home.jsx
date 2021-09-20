@@ -13,7 +13,7 @@ export default function Home() {
       <h1>Keep Track of The New NFTs Releases</h1>
       </div>
       <ImageSlider />
-      <Grid container spacing={6}>
+      <Grid container xs={12} spacing={6}>
         <div className={style.title}>
           <h1>Explore The NFTs Universe</h1>
         </div>
