@@ -1,24 +1,29 @@
-const { Router } = require("express");
-const Roles=require ('../../src/models/Role')
-const router = Router();
-const cors = require("cors");
-const passport = require("passport");
+const { Router } = require('express')
+const Roles = require('../../src/models/Role')
+const router = Router()
+const cors = require('cors')
+const passport = require('passport')
+
 const {
   transactionMetaMask,
-} = require("../controllers/payments/crypto/transactionMetaMask");
-const { StripePayment } = require("../controllers/payments/fiat/Stripe");
-const { MPayment } = require("../controllers/payments/fiat/MercadoPago");
-const { createOrder, getOrder } = require("../controllers/products/orders");
-const { createProfile, getProfile } = require("../controllers/users/user");
-const jwt = require("jsonwebtoken");
-const User = require("../models/User");
-const verifyToken = require("../controllers/middlewares/verifyToken");
+} = require('../controllers/payments/crypto/transactionMetaMask')
+const { StripePayment } = require('../controllers/payments/fiat/Stripe')
+const { MPayment } = require('../controllers/payments/fiat/MercadoPago')
+const { createOrder, getOrder } = require('../controllers/products/orders')
+const { createProfile, getProfile } = require('../controllers/users/user')
+const jwt = require('jsonwebtoken')
+const User = require('../models/User')
+const verifyToken = require('../controllers/middlewares/verifyToken')
 const corsOptions = {
   origin: "http://localhost:3000",
   credentials: true,
   optionSuccessStatus: 200,
 };
-const verifyAdmin=require ('../controllers/middlewares/verifyAdmin')
+// PRUEBA NODEMAILER
+const nodemailer = require('../libs/nodemailer');
+const verifyAdmin = require('../controllers/middlewares/verifyAdmin');
+
+
 //ADMIN
 const {
   getUsers,
@@ -26,13 +31,15 @@ const {
   deleteUser,
   getUserById,
   getUsersDb,
-} = require("../controllers/Admin/admin");
+} = require('../controllers/Admin/admin')
 //ROUTES ADMIN
-router.get("/admin/verify",verifyAdmin)
-router.get("/admin/users", getUsersDb);
-router.get("/user/:id", getUserById);
-router.put("/admin/edit/:username", updateAdminById);
-router.delete("/deleteUser/:id", deleteUser);
+
+router.get('/admin/verify', verifyAdmin)
+router.get('/admin/users', getUsersDb)
+router.get('/user/:id', getUserById)
+router.put('/admin/edit/:username', updateAdminById)
+router.delete('/deleteUser/:id', deleteUser)
+
 
 //CATEGORIES
 const {
@@ -55,20 +62,20 @@ const {
   updateProductById,
   deleteProductById,
   getNFTs,
-} = require("../controllers/products/products");
-
+} = require('../controllers/products/products')
+// const verifyAdmin = require('../controllers/middlewares/verifyAdmin')
 
 // ROUTES PRODUCTS
-router.get("/search", searchProduct);
-router.get("/nfts", getNFTs);
-router.get("/nft/:id", getProductById);
-router.get("/orderCart", getOrder);
-router.post("/nft", createProduct);
-router.post("/orderCart", createOrder);
-router.post("/transactionMetamask", transactionMetaMask);
-router.post("/transactionStripe", StripePayment);
-router.post('/MercadoPagoTransaction', MPayment);
-router.put("/edit/:id", updateProductById);
+router.get('/search', searchProduct)
+router.get('/nfts', getNFTs)
+router.get('/nft/:id', getProductById)
+router.get('/orderCart', getOrder)
+router.post('/nft', createProduct)
+router.post('/orderCart', createOrder)
+router.post('/transactionMetamask', transactionMetaMask)
+router.post('/transactionStripe', StripePayment)
+router.post('/MercadoPagoTransaction', MPayment)
+router.put('/edit/:id', updateProductById)
 
 //ROUTES PROFILE
 router.get("/profile", getProfile);
@@ -88,8 +95,9 @@ router.post(
     passReqToCallback: true,
   }),
   async (req, res, next) => {
-    const found = user.roles.find(e => e == '613bd8b725b8702ce89f7474')
-    res.json(req.user);
+
+    const found = user.roles.find((e) => e == '613bd8b725b8702ce89f7474')
+    res.json(req.user)
     //res.redirect(AL JOM DEL PROYECTO)
   }
 );
@@ -106,8 +114,8 @@ router.post(
   }),
 
   async (req, res, _next) => {
-      return res.send(req.user);
-    
+    return res.send(req.user);
+
     //res.redirect(AL JOM DEL PROYECTO)
   }
 );
@@ -128,24 +136,34 @@ router.post(
         return next(error);
       }
       req.login(req.user, { session: false }, async (err) => {
-        if (err) return next(err);
-        const body = { _id: req.user.id, username: req.user.username };
-        const token = jwt.sign({ user: body }, "superstringinhackeable");
-        const filter = {username : req.body.username};
-        const userFound = await User.findOne({ username: req.body.username }).populate(
-          "roles"
-        );
-        const update = {token : token}
-        const role=userFound.roles[0].name            
-        const resp=await User.findOneAndUpdate(filter, update, {new : true})
-        console.log([resp,role])
-        return res.send([resp,role]);
-      });
+
+        if (err) return next(err)
+        const body = { _id: req.user.id, username: req.user.username }
+        const token = jwt.sign({ user: body }, 'superstringinhackeable')
+        const filter = { username: req.body.username }
+        const userFound = await User.findOne({
+          username: req.body.username,
+        }).populate('roles')
+        const update = { token: token }
+        const role = userFound.roles[0].name
+        const resp = await User.findOneAndUpdate(filter, update, { new: true })
+        console.log([resp, role])
+        return res.send([resp, role])
+      })
+
     } catch (error) {
       return next(error);
     }
   }
 );
+
+router.post('/logout', async (req, res) => {
+  const filter = { token: req.body.token }
+  const update = { token: null }
+  await User.findOneAndUpdate(filter, update, { new: true })
+  console.log('LOGGED OUT')
+  res.send('LOGGED OUT')
+})
 
 //INICIO DE SESION CON GOOGLE
 router.get(
@@ -166,7 +184,7 @@ router.get(
 );
 
 //PRUEBAS
-router.get('/prueba', verifyAdmin)
+router.get("/prueba", verifyAdmin);
 
 router.use(cors(corsOptions));
 

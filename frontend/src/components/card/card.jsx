@@ -1,13 +1,16 @@
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
-import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
-import CardMedia from "@material-ui/core/CardMedia";
+import { Card,
+   CardHeader, 
+   CardMedia, 
+   Container, 
+   Paper,
+   Avatar, 
+   Typography } from '@material-ui/core'
 import CardContent from "@material-ui/core/CardContent";
-import StarBorderIcon from "@material-ui/icons/StarBorder";
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import IconButton from "@material-ui/core/IconButton";
 import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
 import { addShoppingTrolley } from "../../actions/addShoppingTrolley";
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { conectLS } from "../../actions/conectLS.js";
@@ -18,17 +21,40 @@ const useStyles = makeStyles({
   card: {
     margin: "10px",
     minHeight: "30rem",
+    Width: "310px",
+    maxWidth: "310px",
+    '&:hover': {
+      elevation: 5,
+    }
+  },
+  head: {
+    maxHeight: "12px"
   },
   cardContent: {
-    direction: "row",
+    display: "flex",
+    flexDirection: "column",
   },
   root: {
     maxWidth: 345,
   },
   media: {
     height: 300,
-    width: 310,
+    borderRadius: "2%",
+    width: "300px",
+    margin: "5px"
   },
+  favorite: {
+    opacity: 0.7,
+    color: "error",
+    '&:hover': {
+      color: "#FF0000",
+    },
+  },
+  favoriteIconButton: {
+    "&:hover":  {
+      backgroundColor: "transparent"
+    }
+  }
 });
 
 export default function Cards({ ele }) {
@@ -48,12 +74,12 @@ export default function Cards({ ele }) {
 
   return (
     <div>
-      <Card className={classes.card}
+      <Card component={Paper} elevation={1} className={classes.card}
       >
-        <CardHeader
+        <CardHeader className={classes.head}
           action={
-            <IconButton>
-              {userLogged? <StarBorderIcon />
+            <IconButton className={classes.favoriteIconButton}>
+              {userLogged? <FavoriteBorderIcon className={classes.favorite} />
               :null}
               
             </IconButton>

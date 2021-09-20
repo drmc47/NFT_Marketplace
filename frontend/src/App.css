@@ -1,7 +1,7 @@
-/* .App {
-  text-align: center;
+body {
+  background-color: rgba(217, 217, 217, 0.45);
 }
-
+/*
 .App-header {
   min-height: 100vh;
   display: flex;

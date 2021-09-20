@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { removeLS } from "../../actions/removeLS";
 import { getLS } from "../../actions/getLS";
 import Payments from '../Payments/PaymentsButton/PaymentsButton'
-import { Tooltip, IconButton, Grid } from '@material-ui/core';
+import { IconButton, Grid } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
@@ -19,18 +19,24 @@ const useStyle = makeStyles({
         flexDirection: 'column',
         margin: 10,
         boxShadow: '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)',
+        background: 'white',
+        borderRadius: '10px',
     },
     cart: {
         display: 'flex',
         flexDirection: 'column',
         margin: 10,
         boxShadow: '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)',
+        background: 'white',
+        borderRadius: '10px',
     },
     data: {
         display: 'flex',
         flexDirection: 'row',
         margin: '5px',
         padding: 5,
+        background: 'white',
+        borderRadius: '10px',
     }
 
    })
