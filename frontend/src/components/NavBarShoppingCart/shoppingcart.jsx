@@ -7,7 +7,9 @@ import { IconButton, Grid } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
-import './shoppingcart.css'
+import cartDB  from '../../actions/shoppingCart/cartDB.js';
+import { getNFTs } from '../../actions/getNFTs';
+import removeItem from '../../actions/shoppingCart/removeItem'
 
 const useStyle = makeStyles({
     div: {
@@ -41,22 +43,41 @@ const useStyle = makeStyles({
 
    })
 
-
-
-
 export default function NavBarShoppingCart() {
     const classes = useStyle()
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getLS())
-    }, [dispatch])
-
-    const handleCartClick = function (e) {
-        dispatch(removeLS(e))
-    }
-
+        if(!userLogged){
+            dispatch(getLS())
+            dispatch(getNFTs())
+        }else{           
+            dispatch(cartDB({user:userLogged}))
+            dispatch(getNFTs())
+        }
+    }, [dispatch]);
+    const userLogged=JSON.parse(window.sessionStorage.getItem('userLogged'))
+    const allNfts= useSelector(state => state.allNFTs)
     const allProductsCart = useSelector(state => state.shoppingTrolley)
+
+    function userCartNfts(allNfts,ids){
+        var cartNfts=[]       
+        for (let i=0; i <=ids.length; i++){
+          allNfts.filter((e)=>{if(e._id === ids[i])return cartNfts.push(e)})
+          
+        }
+        return cartNfts
+    }
+    
+        const handleCartClick = function (e) {
+            if(!userLogged){
+                dispatch(removeLS(e))
+            }else{            
+                dispatch(removeItem({user:userLogged,item:e}))
+            }
+        }
+    const nftsData= userCartNfts(allNfts, allProductsCart)
+    
 
     return (
         <div className={classes.div}>

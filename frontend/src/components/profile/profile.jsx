@@ -6,7 +6,6 @@ import { Grid, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography } from '@material-ui/core'
 import Sidebar from '../Sidebar/sidebar.jsx'
-import Create from '../create/create'
 
 const useStyle = makeStyles({
   contentSection: {

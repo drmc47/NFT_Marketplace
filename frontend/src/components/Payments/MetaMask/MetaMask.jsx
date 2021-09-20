@@ -1,14 +1,22 @@
 import React,{ useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
 const Web3 = require('web3');
 const web3 = new Web3(window.ethereum);
 
+const useStyle = makeStyles({
+  button: {
+    margin: '5px',
+  }
+})
+
+
 function PaymentMetaMask() {
+  const classes = useStyle()
   const allProductsCart = useSelector(state => state.shoppingTrolley)
   console.log("Productos para metaMask: ", allProductsCart)
   const dispatch = useDispatch()
-
 
     const dataMetaMask = []
     const pay = async function () {
@@ -41,9 +49,9 @@ function PaymentMetaMask() {
   const [metaMaskOption, setMetaMaskOption] = useState(true);
 
   return (
-    <div className="App">
-            <Button className="button" type="button" onClick={() => setMetaMaskOption(!metaMaskOption)} 
-                    color='primary' variant='contained'> {metaMaskOption ? 'Metamask' : 'Metamask'}
+    <div>
+            <Button className={classes.button} type="button" onClick={() => setMetaMaskOption(!metaMaskOption)} 
+             color='primary' variant='contained'> {metaMaskOption ? 'Metamask' : 'Metamask'}
             </Button>
 
       {metaMaskOption ? (
@@ -51,25 +59,13 @@ function PaymentMetaMask() {
 
         </div>
       ) : (
-
-        <div className="paymentOption">
-
-          <header className="App-header">
-
-            <div id="content">
-
             <Button onClick={() => dispatch(pay)}
                     color='primary'
                     variant='contained'>
                 Enviar
             </Button>
-
-            </div>
-
-          </header>
-        </div>
       )}
-    </div>
+  </div>
   );
 }
 

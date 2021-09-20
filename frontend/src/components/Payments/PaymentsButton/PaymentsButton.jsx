@@ -4,15 +4,17 @@ import MetaMask from '../MetaMask/MetaMask';
 import Stripe from '../Stripe/Stripe';
 import { makeStyles } from '@material-ui/core/styles'
 
-
   const useStyle = makeStyles({
   pay: {
     display: 'flex',
     flexDirection: 'row',
+    alignContent: 'center',
+    alignItems: 'center',
     margin: 10,
   },
   button: {
     margin: '10px',
+    width: '50px',
   }
  })
 
@@ -21,17 +23,10 @@ function Payments() {
 
   return (
         <div className={classes.pay}>
-          <div className={classes.button}>
-          <Stripe />
-          </div>
-          <div className={classes.button}>
-          <MercadoPago />
-          </div>
-          <div className={classes.button}>
-          <MetaMask />
-          </div>
+            <Stripe />
+            <MercadoPago />
+            <MetaMask />
         </div>
-
   );
 }
 
