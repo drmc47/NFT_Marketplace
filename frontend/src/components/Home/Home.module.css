@@ -1,9 +1,11 @@
+.maincontainer {
+
+}
 .container {
     margin-top: 3rem;
     margin-bottom: 3rem;
     display: grid;
     justify-content:center;
-    justify-items: center;
     align-items: center;
     gap: 50px;
 }
@@ -18,6 +20,27 @@
 .title2 {
     margin-top: 3rem;
     margin-left: 12rem;
+}
+
+@media (min-width: 700px) and (max-width: 850px) {
+    .title2 {
+        margin-left: 3rem;
+    }
+}
+
+@media (max-width: 699px) {
+    .title2 {
+        margin-left: 10px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 640px) {
+    .title {
+        width:  100%;
+        font-size: 12px;
+        margin-left: 2rem;
+    }
 }
 
 

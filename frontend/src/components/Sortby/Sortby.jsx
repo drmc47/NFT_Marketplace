@@ -17,17 +17,25 @@ import { makeStyles } from '@material-ui/core/styles';
 const options = ['Alphabetical order: A-Z', 'Alphabetical order: Z-A', 'Price: Max to Min', 'Price: Min to Max'];
 
 const useStyles = makeStyles((theme) => ({
-    menulist: {
-      zIndex: 999,
-      position: 'fixed',
-      right: "16rem",
-      maxWidth: "9.2rem",
-      marginBottom: "15px",
-      borderRadius: theme.shape.borderRadius,
-      backgroundColor: theme.palette.primary.main,
-    },
+  menulist: {
+    zIndex: 999,
+    position: 'absolute',
+    right: "18rem",
+    top: "5rem",
+    maxWidth: "9.2rem",
+    marginBottom: "15px",
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: theme.palette.primary.main,
+    [theme.breakpoints.down(600)]:
+      {
+          top: "8rem",
+          right: "4rem",
+          marginBottom: "25px"
+      }
+  },
     sortByButton:{
-      minHeight:"54px",
+      minHeight:"38px",
+      minWidth: "150px"
     }
   }));
 
