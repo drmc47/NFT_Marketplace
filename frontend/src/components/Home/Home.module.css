@@ -1,20 +1,22 @@
 .maincontainer {
 
 }
-.container {
-    margin-top: 3rem;
-    margin-bottom: 3rem;
-    display: grid;
-    justify-content:center;
-    align-items: center;
-    gap: 50px;
-}
+/* .container {
+    position: fixed;
+    flex-direction: row;
+    align-items: flex-start;
+    z-index: 130;
+    width: 100%;
+    bottom: 0px;
+    padding: 12px;
+
+} */
 
 .title {
     width: 40px;
     margin-top: 10rem;
-    margin-right: 10rem;
-    margin-left: 8rem;
+    margin-right: 9rem;
+    margin-left: 6.2rem;
 }
 
 .title2 {
@@ -40,6 +42,7 @@
         width:  100%;
         font-size: 12px;
         margin-left: 2rem;
+        margin-top: 3rem;
     }
 }
 

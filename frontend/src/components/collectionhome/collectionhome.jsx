@@ -4,14 +4,7 @@ import { getNFTs } from "../../actions/getNFTs.js";
 import style from "../collectionhome/collectionhome.module.css";
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { Link } from 'react-router-dom'
-import { makeStyles } from '@material-ui/styles'
 import { useTheme } from '@material-ui/core/styles';
-
-// const useStyles = makeStyles((theme) => ({
-//     text: {
-//       text-decoration:"none",
-//     },
-// }))
 
 
 export default function ColectionHome() {
@@ -99,9 +92,9 @@ useEffect(() => {
     ): null}
     {stateAllNFTs. length > 0 && size450? (
         <Link to={`nft/${stateAllNFTs[15]._id}`} style={{textDecoration: "none"}}>
-        <div>
+        <div className={style.imagecontainer}>
              
-            <img src={stateAllNFTs[15].image} className={style.image}/>
+            <img src={stateAllNFTs[15].image} className={style.imagesmall}/>
             
             <div className={style.name}> {stateAllNFTs[15].name.slice(0,17)}</div>
            
@@ -110,24 +103,4 @@ useEffect(() => {
     ): null}
 </div>
 )
-
-    // return(
-    //     <div className={style.houselists}>
-    //         {selected. length > 0 ?(
-    //             stateAllNFTs.slice(14,20).map((ele) => (
-    //                 <Link to={`nft/${ele._id}`} style={{textDecoration: "none"}}>
-    //                 <div className={style.house} >
-                         
-    //                     <img src={ele.image} className={style.image}/>
-                        
-    //                     <div class={style.house_name}>{ele.name.slice(0,17)}</div>
-                       
-    //                 </div>
-    //                 </Link>
-                    
-                   
-    //             ))
-    //         ): null}
-    //     </div>
-    // )
 }
