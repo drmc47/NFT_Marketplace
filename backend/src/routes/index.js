@@ -167,7 +167,12 @@ router.post(
         const role = userFound.roles[0].name
         const resp = await User.findOneAndUpdate(filter, update, { new: true })
 
-        return res.send([resp, role,cart])
+        res.cookie('token', resp.token);
+        // return res.send([resp,role,cart])
+        res.cookie('role', role);
+        // res.cookie('cart', cart);
+        // console.log('CART => ', cart)
+        return res.sendStatus(200)
       })
 
     } catch (error) {
@@ -179,7 +184,8 @@ router.post(
 
 router.post('/logout', async (req, res,next) => {
   try{
-    const filter = {token:req.body.token}
+    const token = Object.keys(req.body)[0];
+    const filter = {token}
     const update = {token:null}
     await User.findOneAndUpdate(filter, update, { new: true })
     res.send('LOGGED OUT')
@@ -201,8 +207,16 @@ router.get(
     passReqToCallback: true,
   }),
   async (req, res) => {
-    res.send(req.user);
-    // res.redirect('http://localhost:3000/profile')
+   // res.send(req.user);
+  //  console.log(req.user)
+   const userFound = await User.findOne({
+     username: req.user.username,
+   }).populate('roles')
+   const role = userFound.roles[0].name
+   res.cookie('token' ,req.user.token);
+   res.cookie('role', role)
+  //  return res.send(req.user.role)
+   return res.redirect('http://localhost:3000/')
   }
 );
 

@@ -11,6 +11,7 @@ import cartDB  from '../../actions/shoppingCart/cartDB.js';
 import { getNFTs } from '../../actions/getNFTs';
 import removeItem from '../../actions/shoppingCart/removeItem'
 import { alertDeleted } from '../../actions/sweetAlert/alerts';
+import Cookies from 'js-cookie'
 
 const useStyle = makeStyles({
     div: {
@@ -57,7 +58,8 @@ export default function NavBarShoppingCart() {
             dispatch(getNFTs())
         }
     }, [dispatch]);
-    const userLogged=JSON.parse(window.sessionStorage.getItem('userLogged'))
+    // const userLogged=JSON.parse(window.sessionStorage.getItem('userLogged'))
+    const userLogged = Cookies.get('token');
     const allNfts= useSelector(state => state.allNFTs)
     const allProductsCart = useSelector(state => state.shoppingTrolley)
 
