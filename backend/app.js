@@ -46,7 +46,7 @@ server.use(cookieParser());
 server.use(morgan("dev"));
 server.use(passport.initialize());
 server.use(passport.session());
-server.use('/profile', verifyToken)
+// server.use('/profile', verifyToken)
 
 server.use("/", routes);
 
