@@ -233,15 +233,6 @@ export default function NavBar() {
         label='Admin'
         />
       )}
-        {/* ADD */}
-        {userLogged && (
-          <Tab
-            className={classes.tab}
-            component={Link}
-            to='/create'
-            label='Create'
-          />
-        )}
       </Tabs>
       {
         <Menu

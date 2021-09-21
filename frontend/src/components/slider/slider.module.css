@@ -1,3 +1,6 @@
-/* .house {
-    align-self: center;
-} */
+
+@media (max-width: 600px) {
+    .house {
+       padding-left: 3rem;
+    }
+}

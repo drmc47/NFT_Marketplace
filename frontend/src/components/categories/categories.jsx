@@ -62,7 +62,43 @@ export default function Categories() {
     slidesToShow: 6,
     slidesToScroll: 2,
     arrows: true,
+    responsive: [
+      {
+        breakpoint: 1200,
+        settings: {
+          slidesToShow: 5,
+          slidesToScroll: 2,
+          infinite: true,
+          dots: true
+        }
+      },
+      {
+        breakpoint: 1000,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 2,
+          initialSlide: 2
+        }
+      },
+      {
+        breakpoint: 800,
+        settings: {
+
+          slidesToShow: 3,
+          slidesToScroll: 1
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+
+          slidesToShow: 2,
+          slidesToScroll: 1
+        }
+      }
+    ]
   }
+
 
  
   
@@ -83,7 +119,7 @@ export default function Categories() {
             ))
           : null}
       </Slider>
-          <Grid container spacing={6}  className={classes.gridContainer}>
+          <Grid container spacing={6} justify="center" className={classes.gridContainer}>
               {
                   stateAllNFTs  ? stateAllNFTs.map(ele => {
                     return (

@@ -10,7 +10,10 @@ import SortBy from "../Sortby/Sortby.jsx"
 const useStyles = makeStyles((theme) => ({
     
     gridContainer: {
-      marginTop: "70px"
+      marginTop: "100px",
+      [theme.breakpoints.up('sm')]: {
+        marginTop: "70px",
+      },
     }
   }));
 
@@ -31,7 +34,7 @@ export default function All() {
         <React.Fragment>
           <Search></Search>
           <SortBy></SortBy>
-          <Grid container spacing={6}  className={classes.gridContainer}>
+          <Grid container spacing={6} justify="center"  className={classes.gridContainer}>
               {
                   stateAllNFTs  ? stateAllNFTs.map(ele => {
                     return (

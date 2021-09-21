@@ -9,12 +9,11 @@ import { TextField } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
   search: {
     height: "55px",
-    zIndex: 999,
     minWidth: "230px",
     position: 'absolute',
-    right: "15px",
-    marginBottom: "15px",
-    borderRadius: theme.shape.borderRadius,
+    right: "25px",
+    // marginBottom: "15px",
+    // borderRadius: theme.shape.borderRadius,
     // backgroundColor: theme.palette.primary.main,
     // '&:hover': {
     //   backgroundColor: theme.palette.secondary.main,
