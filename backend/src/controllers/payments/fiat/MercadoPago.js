@@ -15,6 +15,7 @@ mercadopago.configure({
       var ResultName;
       var ResultPrice;
 
+
       for (let i = 0; i < req.body.length; i++) {
         
          const {name, price} = req.body[i];
@@ -24,6 +25,9 @@ mercadopago.configure({
       }
       ResultName = arrName.reduce(reducerN);
       ResultPrice = arrPrice.reduce(reducerP);
+      console.log('ResultName back MercadoPago: ', ResultName);
+      console.log('ResultPrice back MercadoPago: ', ResultPrice);
+      //console.log('Req BODY Mercado Pago: ', req.body);
 
         let preference = {
             items: [
@@ -34,9 +38,9 @@ mercadopago.configure({
               }
             ],
             back_urls: {
-              success: "https://http://localhost:3000//success",
-              failure: "http://http://localhost:3000//failure",
-              pending: "http://http://localhost:3000//pending"
+              success: "http://localhost:3000",
+              failure: "http://localhost:3000",
+              pending: "http://localhost:3000"
           },
           auto_return: 'approved',
           };

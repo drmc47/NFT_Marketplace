@@ -12,6 +12,8 @@ async function StripePayment (req, res){
       var ResultPriceETH;
       var ResultPriceUS;
 
+      console.log('req.body: ', req.body);
+
       for (let i = 0; i < req.body.purchaseOrder.length; i++) {
         
          const {name, price} = req.body.purchaseOrder[i];

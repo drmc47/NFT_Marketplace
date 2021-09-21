@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography'
 import cartDB  from '../../actions/shoppingCart/cartDB.js';
 import { getNFTs } from '../../actions/getNFTs';
 import removeItem from '../../actions/shoppingCart/removeItem'
+import ShoppingCartPayment from '../../actions/ShoppingCartPayment'; 
 import { alertDeleted } from '../../actions/sweetAlert/alerts';
 import Cookies from 'js-cookie'
 
@@ -46,6 +47,7 @@ const useStyle = makeStyles({
    })
 
 export default function NavBarShoppingCart() {
+    var NftShoppingCart = [];
     const classes = useStyle()
     const dispatch = useDispatch();
 
@@ -58,6 +60,11 @@ export default function NavBarShoppingCart() {
             dispatch(getNFTs())
         }
     }, [dispatch]);
+
+    useEffect(() => {
+        dispatch(ShoppingCartPayment(NftShoppingCart))
+    }, [dispatch ,NftShoppingCart]);
+
     // const userLogged=JSON.parse(window.sessionStorage.getItem('userLogged'))
     const userLogged = Cookies.get('token');
     const allNfts= useSelector(state => state.allNFTs)
@@ -80,7 +87,9 @@ export default function NavBarShoppingCart() {
                 dispatch(removeItem({user:userLogged,item:e}))
             }
         }
+               
     const nftsData= userCartNfts(allNfts, allProductsCart)
+          NftShoppingCart = nftsData;
     
 
     return (

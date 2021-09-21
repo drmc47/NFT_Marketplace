@@ -19,6 +19,7 @@ import {
   CONECT_LS,
   POST_ORDER_SHOPPING_CART,
   GET_ORDER_SHOPPING_CART,
+  SHOPPING_CART_PAYMENT,
   POST_PROFILE_USER,
   GET_PROFILE_USER,
   GET_USERS,
@@ -40,6 +41,7 @@ const initialState = {
   categories: [],
   shoppingTrolley: [],
   shoppingCart: [],
+  shoppingCartPayment: [],
   profileUserData: [],
   allUsers:[],
   role:""
@@ -251,6 +253,11 @@ function rootReducer(state = initialState, action) {
         ...state,
         shoppingCart: action.payload,
       }
+    case SHOPPING_CART_PAYMENT:
+      return {
+        ...state,
+        shoppingCartPayment: action.payload,
+      }  
     case POST_PROFILE_USER:
       return {
         ...state,
